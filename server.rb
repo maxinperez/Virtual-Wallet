@@ -19,8 +19,12 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
-  get '/' do
-    erb :index
+  get '/register' do
+    erb :register
+   end
+  post '/register' do
+    nombre = params[:nombre]
+     "#{nombre}"
    end
  
 end
