@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
@@ -16,42 +15,6 @@
         <button type="submit" id="submitBtn">Enviar</button>
       </form>
     </div>
-
-    <script>
-      const form = document.getElementById('dniForm');
-      const mensaje = document.getElementById('mensaje');
-      
-      // Prevenir el envío si el DNI ya está registrado
-      form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Detenemos el envío del formulario para verificar el DNI
-
-        const dni = document.getElementById('dni').value;
-
-        // Solo verificamos si el DNI tiene al menos 7 caracteres
-        if (dni.length < 8) {
-          mensaje.textContent = "El DNI tiene menos de 8 caracteres.";
-          mensaje.style.color = "red";
-        } else {
-        // Verificamos si el DNI ya está registrado
-        fetch(`/verificar_dni?dni=${dni}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.existe) {
-              mensaje.textContent = "El DNI ya está registrado.";
-              mensaje.style.color = "red";
-            } else {
-              // Si el DNI no está registrado, enviamos el formulario
-              mensaje.textContent = "";
-              form.submit(); // Enviar el formulario
-            }
-          })
-          .catch(error => {
-            mensaje.textContent = "Hubo un error al verificar el DNI.";
-            mensaje.style.color = "red";
-          })};
-
-      });
-    </script>
-
+    <script src="js/main.js"></script>
   </body>
 </html>
