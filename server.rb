@@ -7,6 +7,7 @@ require 'logger'
 require_relative 'models/user'
 
 class App < Sinatra::Application
+  set :views, File.dirname(__FILE__) + '/views'
   configure :development do
     enable :logging
     logger = Logger.new(STDOUT)
@@ -18,8 +19,8 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
-
   get '/' do
-   'Welcome'
-  end
+    erb :index
+   end
+ 
 end
