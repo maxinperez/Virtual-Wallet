@@ -1,0 +1,2 @@
+bundle exec irb -I. -r server.rb
+db = SQLite3::Database.new 'db/wallet_development.sqlite3'

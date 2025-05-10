@@ -1,10 +1,12 @@
 require 'bundler/setup'
 require 'sinatra/base'
+require 'sqlite3'
 require 'sinatra/reloader' if Sinatra::Base.environment == :development
+require 'sinatra/activerecord'
 require 'logger'
+require_relative 'models/user'
 
 class App < Sinatra::Application
-
   configure :development do
     enable :logging
     logger = Logger.new(STDOUT)
@@ -18,6 +20,6 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    'Welcome'
+   'Welcome'
   end
 end
