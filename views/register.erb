@@ -1,16 +1,57 @@
-<html>
-  <head><title>login</title></head>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+  </head>
   <body>
 
-    <h1>login</h1>
+    <h1>Login</h1>
     <div class="form">
-    <form action="/register" method="post">
-    Usuario: <input type="text" name="nombre" placeholder="">
-    Password: <input type="password" name="pass" placeholder="">
-    <button type="submit">Enviar</button>
-    </form>
+      <form action="/register" method="post" id="dniForm">
+        DNI: <input type="number" name="dni" id="dni" placeholder="Introduce tu DNI">
+        <div id="mensaje"></div> <!-- Aquí se mostrará el mensaje del estado del DNI -->
+        Password: <input type="password" name="pass" placeholder="Introduce tu contraseña">
+        <button type="submit" id="submitBtn">Enviar</button>
+      </form>
+    </div>
 
+    <script>
+      const form = document.getElementById('dniForm');
+      const mensaje = document.getElementById('mensaje');
+      
+      // Prevenir el envío si el DNI ya está registrado
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Detenemos el envío del formulario para verificar el DNI
 
+        const dni = document.getElementById('dni').value;
+
+        // Solo verificamos si el DNI tiene al menos 7 caracteres
+        if (dni.length < 8) {
+          mensaje.textContent = "El DNI tiene menos de 8 caracteres.";
+          mensaje.style.color = "red";
+        } else {
+        // Verificamos si el DNI ya está registrado
+        fetch(`/verificar_dni?dni=${dni}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.existe) {
+              mensaje.textContent = "El DNI ya está registrado.";
+              mensaje.style.color = "red";
+            } else {
+              // Si el DNI no está registrado, enviamos el formulario
+              mensaje.textContent = "";
+              form.submit(); // Enviar el formulario
+            }
+          })
+          .catch(error => {
+            mensaje.textContent = "Hubo un error al verificar el DNI.";
+            mensaje.style.color = "red";
+          })};
+
+      });
+    </script>
 
   </body>
 </html>
