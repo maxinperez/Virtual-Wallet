@@ -22,9 +22,27 @@ class App < Sinatra::Application
   get '/register' do
     erb :register
    end
+
+   get '/add_person' do
+    u = User.new(dni: 12345678)
+    if u.save
+      'Insercion correcta'
+    else
+      'Error'
+   end 
+  end 
+
+
   post '/register' do
-    nombre = params[:nombre]
-     "#{nombre}"
+    dni = params[:dni]
+     "#{dni}"
    end
+
+   get '/verificar_dni' do
+    content_type :json
+    dni = params[:dni]
+    existe = User.exists?(dni: dni)
+    { existe: existe }.to_json
+  end
  
 end
