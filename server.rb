@@ -8,6 +8,7 @@ require_relative 'models/user'
 
 class App < Sinatra::Application
   set :views, File.dirname(__FILE__) + '/views'
+  set :public_folder, File.dirname(__FILE__) + '/public'
   configure :development do
     enable :logging
     logger = Logger.new(STDOUT)
