@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_05_10_153452) do
   create_table "logins", force: :cascade do |t|
-    t.string "dni"
-    t.string "password_digest"
+    t.string "dni", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -21,8 +21,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_10_153452) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "last_name"
-    t.integer "dni"
-    t.string "email"
+    t.integer "dni", null: false
+    t.string "email", null: false, unique: true
     t.string "situacion"
     t.string "localidad"
     t.integer "cp"
