@@ -5,6 +5,7 @@ require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
 require_relative 'models/user'
+require_relative 'models/login'
 
 class App < Sinatra::Application
   set :views, File.dirname(__FILE__) + '/views'
@@ -35,8 +36,18 @@ class App < Sinatra::Application
 
 
   post '/register' do
-    dni = params[:dni]
-     "#{dni}"
+  dni = params[:dni]
+  email = params[:email]
+  password = params[:password] 
+  confirmPassword = params[:confirmPassword]
+  nombre = params[:nombre]
+  apellidos = params[:apellidos]
+  telefono = params[:telefono]
+  localidad = params[:localidad]
+  cp = params[:cp]
+  direccion = params[:direccion]
+
+registro = "DNI: #{dni}\nEmail: #{email}\nContraseña: #{password}\nConfirmar Contraseña: #{confirmPassword}\nNombre: #{nombre}\nApellidos: #{apellidos}\nTeléfono: #{telefono}\nLocalidad: #{localidad}\nCódigo Postal: #{cp}\nDirección: #{direccion}"
    end
 
    get '/verificar_dni' do
