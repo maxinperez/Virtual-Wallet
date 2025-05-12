@@ -14,6 +14,7 @@
       <div class="step-dot active" id="dot-1"></div>
       <div class="step-dot" id="dot-2"></div>
       <div class="step-dot" id="dot-3"></div>
+      <div class="step-dot" id="dot-4"></div>
     </div>
     
     <form action="/register" method="post" id="dniForm">
@@ -60,14 +61,30 @@
         
         <label for="telefono">Teléfono:</label>
         <input type="number" name="telefono" id="telefono" placeholder="Tu número de teléfono" required>
-        
-        <div class="form-buttons">
-          <button type="button" class="btn-back" id="backToStep2">Atrás</button>
-          <button type="submit" id="submitBtn">Completar registro</button>
-        </div>
+
+        <button type="button" class="btn-back" id="backToStep2">Atrás</button>
+        <button type="button" id="goToStep4">Siguiente</button>
       </div>
+      
+      <!-- Paso 4: Confirmación final -->
+      <div class="step" id="step-4">
+        <p class="intro-text">Por último, completa tus datos de localidad y completa el registro:</p>
+        <label for="nombre">Localidad:</label>
+        <input type="text" name="localidad" id="localidad" placeholder="Localidad donde vivis" required>
+        
+        <label for="apellidos">Codigo Postal:</label>
+        <input type="number" name="cp" id="cp" placeholder="Codigo postal de donde vivis" required>
+        
+        <label for="telefono">Direccion:</label>
+        <input type="text" name="direccion" id="direccion" placeholder="Direccion de residencia" required>
+
+        <button type="button" class="btn-back" id="backToStep3">Atrás</button>
+        <button type="submit" id="submitBtn">Completar registro</button>
+      </div>
+
     </form>
   </div>
+
   <script src="js/steps.js"></script>
   <script src="js/dni.js"></script>
 </body>
