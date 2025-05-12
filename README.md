@@ -2,14 +2,14 @@
 
 A final project for the **Systems Analysis and Design** course.
 
-## 👨‍💻 Team Members
+## Team Members
 
 - **Tomás Rosselot**
 - **Máximo Pérez**
 - **Agustín Cesari**
 - **Francisco Natale**
 
-## 📘 Project Description
+## Project Description
 
 **Virtual Wallet** is a digital wallet application designed to manage personal finances in a simple and user-friendly way. it includes core functionalities typically found in modern e-wallets:
 
@@ -19,7 +19,7 @@ A final project for the **Systems Analysis and Design** course.
 - Transaction history
 
 
-##  technologies used
+## Technologies used
 - Ruby + Sinatra
 - ActiveRecord ORM
 - SQLite 
