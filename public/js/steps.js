@@ -14,19 +14,20 @@ document.addEventListener('DOMContentLoaded', function () {
     steps[n].element.classList.add('active');
     steps[n].dot.classList.add('active');
   };
-  
+
   // Validar contraseñas antes de pasar a paso 3
   function validarContraseñas() {
+    const msg_pass = document.getElementById('mensaje-password');
     const password = document.getElementById('password').value;
     const confirm = document.getElementById('confirmPassword').value;
-
-    if (password !== confirm) {
-      alert('Las contraseñas no coinciden');
+    
+    if (password.length < 8) {
+      msg_pass.textContent = "La contraseña debe tener al menos 8 caracteres";
       return false;
     }
 
-    if (password.length < 8) {
-      alert('La contraseña debe tener al menos 8 caracteres');
+    if (password !== confirm) {
+      msg_pass.textContent = "Las contraseñas no coinciden";
       return false;
     }
 
