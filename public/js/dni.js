@@ -1,17 +1,21 @@
-// Tu código original con pequeñas modificaciones
 const form = document.getElementById('dniForm');
+const dniInput = document.getElementById('dni');
 const mensaje = document.getElementById('mensaje');
+const validateDniBtn = document.getElementById('validateDni');
+
+// Variable para controlar si el DNI es válido
+let dniValido = false;
 
 function verificarDNI(dni) {
   return new Promise((resolve, reject) => {
-    if (dni.length < 8) {
+    if (!dni || dni.length < 8) {
       reject("El DNI debe tener al menos 8 caracteres");
       return;
     }
     
     fetch(`/verificar_dni?dni=${dni}`)
       .then(response => {
-        if (!response.ok) throw new Error("Error en la respuesta");
+        if (!response.ok) throw new Error("Error en la respuesta del servidor");
         return response.json();
       })
       .then(data => {
@@ -22,35 +26,28 @@ function verificarDNI(dni) {
         }
       })
       .catch(error => {
-        reject("Error al conectar con el servidor");
+        console.error("Error:", error);
+        reject("Error al conectar con el servidor. Por favor, intenta nuevamente.");
       });
   });
 }
 
-form.addEventListener('submit', function(event) {
-  // Solo procesamos el evento si estamos en el primer paso
-  if (document.getElementById('step-1').classList.contains('active')) {
-    event.preventDefault();
-    const dni = document.getElementById('dni').value;
-
-    
-    verificarDNI(dni)
-      .then(() => {
-        // Si la validación es exitosa, mostramos mensaje y avanzamos al paso 2
-        dniValido = true;
-        mensaje.textContent = "DNI válido. Puedes continuar con el registro";
-        mensaje.style.backgroundColor = "#dcfce7";
-        mensaje.style.color = "#15803d";
-        mensaje.style.borderColor = "#bbf7d0";
-        window.checkAndGoToStep2();
-      })
-      .catch(error => {
-        // Mostrar error
-        dniValido = false;
-        mensaje.textContent = error;
-        mensaje.style.backgroundColor = "#fee2e2";
-        mensaje.style.color = "#b91c1c";
-        mensaje.style.borderColor = "#fecaca";
-      });
-  }
+validateDniBtn.addEventListener('click', function() {
+  const dni = dniInput.value.trim();
+  
+  verificarDNI(dni)
+    .then(() => {
+      // Si la validación es exitosa
+      dniValido = true;
+      mensaje.textContent = "DNI válido. Puedes continuar con el registro";
+      mensaje.className = ''; // Elimina todas las clases
+      mensaje.classList.add("mensaje-exito");
+      goToStep(2);
+    })
+    .catch(error => {
+      // Si la validación falla
+      dniValido = false;
+      mensaje.textContent = error;
+      mensaje.className = "mensaje";
+    });
 });

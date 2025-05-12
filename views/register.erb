@@ -17,19 +17,17 @@
       <div class="step-dot" id="dot-4"></div>
     </div>
     
-    <form action="/register" method="post" id="dniForm">
+    <form id="dniForm">
       <!-- Paso 1: Validación del DNI -->
       <div class="step active" id="step-1">
         <p class="intro-text">Para comenzar, validemos que no estés registrado. Por favor, rellena este requerimiento:</p>
         <label for="dni">DNI:</label>
         <input type="number" name="dni" id="dni" placeholder="Introduce tu DNI" required>
-        
-        <!-- Mensaje de error/éxito - Aseguramos que sea visible -->
+        <!-- Mensaje de error/éxito -->
         <div id="mensaje" class="mensaje-error"></div>
-        
         <button type="button" id="validateDni">Validar</button>
       </div>
-      
+
       <!-- Paso 2: Datos de la cuenta -->
       <div class="step" id="step-2">
         <p class="intro-text">Ahora, configura los datos de tu cuenta:</p>
@@ -55,7 +53,6 @@
         
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required>
-        
         <label for="apellidos">Apellidos:</label>
         <input type="text" name="apellidos" id="apellidos" placeholder="Tus apellidos" required>
         
@@ -71,7 +68,6 @@
         <p class="intro-text">Por último, completa tus datos de localidad y completa el registro:</p>
         <label for="nombre">Localidad:</label>
         <input type="text" name="localidad" id="localidad" placeholder="Localidad donde vivis" required>
-        
         <label for="apellidos">Codigo Postal:</label>
         <input type="number" name="cp" id="cp" placeholder="Codigo postal de donde vivis" required>
         
