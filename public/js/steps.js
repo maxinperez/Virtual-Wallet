@@ -48,12 +48,4 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('backToStep3')?.addEventListener('click', () => goToStep(3));
 
 
-  // Prevenir envío si no es el último paso
-  const originalForm = document.getElementById('dniForm');
-  originalForm.addEventListener('submit', function (e) {
-    const step4 = document.getElementById('step-4');
-    if (!step4.classList.contains('active')) {
-      e.preventDefault();
-    }
-  }, true);
 });
