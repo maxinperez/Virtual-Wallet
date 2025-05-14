@@ -36,19 +36,12 @@ class App < Sinatra::Application
 
 
   post '/register' do
-  dni = params[:dni]
-  email = params[:email]
-  password = params[:password] 
-  confirmPassword = params[:confirmPassword]
-  nombre = params[:nombre]
-  apellidos = params[:apellidos]
-  telefono = params[:telefono]
-  localidad = params[:localidad]
-  cp = params[:cp]
-  direccion = params[:direccion]
-
-registro = "DNI: #{dni}\nEmail: #{email}\nContraseña: #{password}\nConfirmar Contraseña: #{confirmPassword}\nNombre: #{nombre}\nApellidos: #{apellidos}\nTeléfono: #{telefono}\nLocalidad: #{localidad}\nCódigo Postal: #{cp}\nDirección: #{direccion}"
-   end
+ 
+    params.each do |key, value|
+      instance_variable_set("@#{key}", value) # crea instancias locales del siguiente formato -> dni = params[:dni]
+    end
+  "Registro procesado para DNI: #{@dni} y Email: #{@email}"
+  end
 
    get '/verificar_dni' do
     content_type :json
