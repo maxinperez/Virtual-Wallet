@@ -17,7 +17,37 @@
     <button type="button" id="login">Iniciar sesión</button>
     <p> ¿Es tu primera vez? <a href="/register">Regístrate</a> ahora</p>
 </form>
-</body>
 
+<script>
+  document.getElementById('login').addEventListener('click', function(event) {
+    const dni = document.getElementById('dni').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!dni || !password){ //Si no ingresa dni o contraseña
+      event.preventDefault();
+      if (!document.querySelector('.error-message')){ //Si el mensaje existe, no lo duplica
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'error-message';
+        errorMsg.style.backgroundColor = '#ffe6e6';
+        errorMsg.style.color = '#000000';
+        errorMsg.style.fontFamily = 'Arial, sans-serif';
+        errorMsg.style.fontSize = '14px';
+        errorMsg.style.fontWeight = 'normal';
+        errorMsg.style.padding = '10px 15px';
+        errorMsg.style.border = '1px solid #cc0000';
+        errorMsg.style.borderRadius = '8px';
+        errorMsg.style.marginBottom = '15px';
+        errorMsg.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+        errorMsg.textContent = 'Por favor completa los campos: DNI y contraseña.';
+        const form = document.querySelector('.form');
+        form.insertBefore(errorMsg, form.firstChild);
+      }
+    }else {
+      document.querySelector('.form').submit(); //Si ingresa el dni y contraseña
+    }
+  });
+</script>
+
+</body>
 
 </html>
