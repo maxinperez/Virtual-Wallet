@@ -14,6 +14,8 @@
     <input type="text" id="dni" name="dni" placeholder="Introduce tu DNI"  pattern="\d{8}" title="8 dígitos sin letras" required><br><br>
     <label for="password">Contraseña:</label>
     <input type="password" id="password" name="password" placeholder="Introduce tu contraseña" minlength="8" required><br><br>
+    <input type="checkbox" id="show-password" onclick="password.type = this.checked ? 'text' : 'password'">
+    <label for="show-password">Mostrar contraseña</label><br>
     <button type="button" id="login">Iniciar sesión</button>
     <p> ¿Es tu primera vez? <a href="/register">Regístrate</a> ahora</p>
 </form>
