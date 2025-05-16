@@ -36,7 +36,6 @@ class App < Sinatra::Application
 
 
   post '/register' do
- 
     params.each do |key, value|
       instance_variable_set("@#{key}", value) # crea instancias locales del siguiente formato -> dni = params[:dni]
     end
