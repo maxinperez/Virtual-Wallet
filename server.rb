@@ -21,6 +21,11 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
+
+  get '/login' do 
+    erb :login
+  end 
+
   get '/register' do
     erb :register
    end
