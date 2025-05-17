@@ -1,6 +1,7 @@
 class CreateAccounts < ActiveRecord::Migration[8.0]
   def change 
     create_table :accounts do |t|
+      #agregar balance????
        t.string :account_number, null: false
        t.string :alias, null: false
        t.string :dni, null: false  # fk hacia users.

@@ -1,6 +1,7 @@
 class Account < ActiveRecord::Base
-  #la correspondencias, en un principio con user solamente.
+  
   belongs_to :user, foreign_key: 'dni', primary_key: 'dni'
+  #has_many : transactions
 
   
   validates :account_number, presence: true, uniqueness: { message: "ya está en uso por otra cuenta" }
