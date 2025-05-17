@@ -1,0 +1,97 @@
+/* form-specific styles*/
+
+.intro-text {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #4b5563;
+    line-height: 1.5;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #374151;
+  }
+  
+  .password-field {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .password-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  
+  .password-input:focus {
+    border-color: #9ca3af;
+    box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+  }
+  
+  /* Mostrar contraseña con switch */
+  #show-password {
+    width: 20px;
+    height: 20px;
+    accent-color: #000000;
+    cursor: pointer;
+  }
+  
+  /* Toggle custom */
+  .password-toggle {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    margin-bottom: 25px;
+  }
+  
+  .password-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-checkbox {
+    display: inline-block;
+    width: 38px;
+    height: 20px;
+    background-color: #d1d5db;
+    border-radius: 10px;
+    margin-right: 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-checkbox:after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+  }
+  
+  .password-toggle input:checked + .toggle-checkbox {
+    background-color: #18181b;
+  }
+  
+  .password-toggle input:checked + .toggle-checkbox:after {
+    transform: translateX(18px);
+  }
+  
+  .toggle-text {
+    font-size: 14px;
+    color: #4b5563;
+  }
+  

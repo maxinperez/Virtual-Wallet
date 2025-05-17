@@ -1,0 +1,84 @@
+/* inputs, buttons, messages, in short, reusable components */
+
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #9ca3af;
+  box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #18181b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #27272a;
+}
+
+button:active {
+  background-color: #3f3f46;
+}
+
+.btn-back {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.btn-back:hover {
+  background-color: #e5e7eb;
+}
+
+.mensaje-exito {
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+  min-height: 44px;
+}
+
+.mensaje {
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  min-height: 44px;
+}
+
+.mensaje:empty {
+  display: none;
+}
