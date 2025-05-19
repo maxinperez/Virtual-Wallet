@@ -26,6 +26,12 @@ class App < Sinatra::Application
     erb :login
   end 
 
+  get '/index' do 
+   erb :index, layout: :'partial/layout'
+  end 
+  get '/pay' do 
+   erb :pay, layout: :'partial/layout'
+  end 
   get '/register' do
     erb :register
    end
