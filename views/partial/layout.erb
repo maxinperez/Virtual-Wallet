@@ -16,15 +16,15 @@
         <div class="wallet-title">Mi Billetera</div>
       </div>
       <nav class="nav-menu">
-        <a href="#" class="nav-item active">
+        <a href="/index" class="nav-item <%= 'active' if @active_page == 'dashboard'%>">
           <span class="nav-icon">◆</span>
           <span>Dashboard</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="/transfer" class="nav-item <%= 'active' if @active_page == 'transfer'%>">
           <span class="nav-icon">↑</span>
           <span>Transferencias</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="/pay" class="nav-item <%= 'active' if @active_page == 'pay'%> ">
           <span class="nav-icon">$</span>
           <span>Pagos</span>
         </a>

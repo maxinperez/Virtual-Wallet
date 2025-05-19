@@ -21,16 +21,29 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
-
+  helpers do 
+  def partial(template, locals = {})
+    erb(:"partial/#{template}", locals: locals)
+    end
+  end
   get '/login' do 
     erb :login
   end 
 
   get '/index' do 
+    @active_page = 'dashboard'
+    @transactions = [
+  { icon: "A", name: "Amazon", type: "Compra Online", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
+  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" }]
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 
+    @active_page = 'pay'
    erb :pay, layout: :'partial/layout'
+  end 
+  get '/transfer' do 
+    @active_page = 'transfer'
+   erb :transfer, layout: :'partial/layout'
   end 
   get '/register' do
     erb :register
@@ -44,7 +57,6 @@ class App < Sinatra::Application
       'Error'
    end 
   end 
-
 
   post '/register' do
     params.each do |key, value|

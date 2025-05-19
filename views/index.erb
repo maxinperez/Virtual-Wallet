@@ -48,77 +48,16 @@
         </div>
 
         <!-- Transactions -->
+
         <div class="transactions-container">
           <div class="transactions-header">
             <div class="section-title">Transacciones Recientes</div>
             <a href="#" class="view-all">Ver todas</a>
           </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <div class="transaction-icon">P</div>
-              <div class="transaction-details">
-                <div class="transaction-name">Carlos Rodríguez</div>
-                <div class="transaction-type">Transferencia</div>
-              </div>
-            </div>
-            <div class="transaction-amount">
-              <div class="amount-negative">-$250.00</div>
-              <div class="transaction-date">Hoy, 14:30</div>
-            </div>
-          </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <div class="transaction-icon">D</div>
-              <div class="transaction-details">
-                <div class="transaction-name">Depósito Sueldo</div>
-                <div class="transaction-type">Ingreso</div>
-              </div>
-            </div>
-            <div class="transaction-amount">
-              <div class="amount-positive">+$1,500.00</div>
-              <div class="transaction-date">Ayer, 09:15</div>
-            </div>
-          </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <div class="transaction-icon">S</div>
-              <div class="transaction-details">
-                <div class="transaction-name">Supermercado El Ahorro</div>
-                <div class="transaction-type">Compra</div>
-              </div>
-            </div>
-            <div class="transaction-amount">
-              <div class="amount-negative">-$85.75</div>
-              <div class="transaction-date">15 May, 18:20</div>
-            </div>
-          </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <div class="transaction-icon">I</div>
-              <div class="transaction-details">
-                <div class="transaction-name">Intereses</div>
-                <div class="transaction-type">Ingreso</div>
-              </div>
-            </div>
-            <div class="transaction-amount">
-              <div class="amount-positive">+$12.50</div>
-              <div class="transaction-date">14 May, 00:01</div>
-            </div>
-          </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <div class="transaction-icon">A</div>
-              <div class="transaction-details">
-                <div class="transaction-name">Amazon</div>
-                <div class="transaction-type">Compra Online</div>
-              </div>
-            </div>
-            <div class="transaction-amount">
-              <div class="amount-negative">-$129.99</div>
-              <div class="transaction-date">12 May, 13:45</div>
-            </div>
-          </div>
-        </div>
+        <% @transactions.each do |t| %>
+          <%= partial :transaction,t %>
+          <% end %>
+      </div>
       </div>
 
       <!-- Right Sidebar -->
