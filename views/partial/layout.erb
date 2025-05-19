@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Wallet</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <div class="wallet-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">W</div>
+        <div class="wallet-title">Mi Billetera</div>
+      </div>
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active">
+          <span class="nav-icon">◆</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">↑</span>
+          <span>Transferencias</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">$</span>
+          <span>Pagos</span>
+        </a>
+        <a href="#" class="nav-item" id="transacciones-btn">
+          <span class="nav-icon">≡</span>
+          <span>Transacciones</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">◇</span>
+          <span>Tarjetas</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">⚙</span>
+          <span>Configuración</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="help-link">
+          <span class="help-icon">?</span>
+          <span>Centro de Ayuda</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="wallet-header">
+      <div class=""></div> <!-- for relocate the icons -->
+      <div class="header-actions">
+        <div class="notification-icon">✉</div>
+        <div class="user-avatar">JD</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <%= yield %>
+    </main>
+  </div>
+</body>
+</html>
