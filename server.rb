@@ -34,7 +34,8 @@ class App < Sinatra::Application
     @active_page = 'dashboard'
     @transactions = [
   { icon: "A", name: "Amazon", type: "Compra Online", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
-  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" }]
+  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" },
+    icon: "H", name: "Pago EMOS", type: "Pago Servicio", amount: "-$120.00", amount_class: "amount-negative", date: "19 Feb, 9:23"]
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 

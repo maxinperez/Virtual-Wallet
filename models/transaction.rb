@@ -3,14 +3,14 @@ class Transaction < ActiveRecord::Base
   belongs_to :target_account, class_name :'Account'
 
   self.primary_key = 'id_transaction'
-  enum estado: {
+  enum state: {
     pendiente: 0,
     completada: 1,
     rechazada: 2
   }
 
-  validates :monto, presence: true, numericality  { greater_than: 0 }
-  validates :estado, presence: true, 
+  validates :amount, presence: true, numericality  { greater_than: 0 }
+  validates :state, presence: true, 
 
 
 end
