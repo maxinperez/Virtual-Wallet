@@ -6,8 +6,12 @@ require 'sinatra/activerecord'
 require 'logger'
 require_relative 'models/user'
 require_relative 'models/login'
+require_relative 'models/account'
 
 class App < Sinatra::Application
+  enable :sessions
+  set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
+  ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
   configure :development do
@@ -26,9 +30,82 @@ class App < Sinatra::Application
     erb(:"partial/#{template}", locals: locals)
     end
   end
+
+  get '/register' do 
+    erb :register
+  end 
+
+  post '/register' do 
+    dni = params[:dni]
+    email = params[:email]
+    password = params[:password]
+    confirm = params[:confirmPassword]
+    name = params[:name]
+    last_name = params[:last_name]
+    phone = params[:phone]
+    locality = params[:locality]
+    cp = params[:cp]
+    address = params[:address]
+
+    if password != confirm 
+      return "Las contraseñas no coinciden"
+    end
+
+    if User.exists?(dni: dni)
+      return "El DNI ya está registrado"
+    end 
+
+    if User.exists?(email: email)
+      return "El correo ya está registrado"
+    end
+
+    user = User.new(
+    dni: dni,
+    email: email,
+    name: name,
+    last_name: last_name,
+    phone: phone,
+    locality: locality,
+    cp: cp,
+    address: address
+    )
+
+    if user.save
+      Login.create(dni: dni, password: password)
+      Account.create(dni: dni)
+      "Usuario creado correctamente. Por favor, iniciá sesión."
+      redirect '/login'
+    else 
+      "Error al registrar el usuario"
+      redirect '/register'
+    end 
+  end
+
+  get '/verificar_dni' do
+    content_type :json
+    dni = params[:dni]
+    existe = User.exists?(dni: dni)
+    { existe: existe }.to_json
+  end
+ 
+
   get '/login' do 
     erb :login
   end 
+
+  post '/login' do 
+    dni = params[:dni]
+    password = params[:password]
+
+    existing_user = Login.find_by(dni: dni)
+    if existing_user && existing_user.authenticate(password)
+      session[:dni] = params[:dni]
+      redirect '/index'
+    else 
+      session[:error] = 'Datos invalidos'
+      redirect '/login'
+    end
+  end
 
   get '/index' do 
     @active_page = 'dashboard'
@@ -45,31 +122,5 @@ class App < Sinatra::Application
     @active_page = 'transfer'
    erb :transfer, layout: :'partial/layout'
   end 
-  get '/register' do
-    erb :register
-   end
 
-   get '/add_person' do
-    u = User.new(dni: 12345678)
-    if u.save
-      'Insercion correcta'
-    else
-      'Error'
-   end 
-  end 
-
-  post '/register' do
-    params.each do |key, value|
-      instance_variable_set("@#{key}", value) # crea instancias locales del siguiente formato -> dni = params[:dni]
-    end
-  "Registro procesado para DNI: #{@dni} y Email: #{@email}"
-  end
-
-   get '/verificar_dni' do
-    content_type :json
-    dni = params[:dni]
-    existe = User.exists?(dni: dni)
-    { existe: existe }.to_json
-  end
- 
 end
