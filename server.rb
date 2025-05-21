@@ -5,9 +5,8 @@ require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
 require_relative 'models/user'
-require_relative 'models/login'
+require_relative 'models/bankaccount'
 require_relative 'models/account'
-
 class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
