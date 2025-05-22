@@ -24,6 +24,7 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
+
   helpers do 
   def partial(template, locals = {})
     erb(:"partial/#{template}", locals: locals)
@@ -90,10 +91,16 @@ class App < Sinatra::Application
     { existe: existe }.to_json
   end
 
-
-
+ get '/' do
+   erb :main, layout: :'partial/header'
+ end 
   get '/login' do 
     erb :login, layout: :'partial/header'
+  end 
+
+  get '/config' do 
+     @active_page = 'config'
+    erb :config, layout: :'partial/layout'
   end 
 
   post '/login' do 
@@ -113,8 +120,14 @@ class App < Sinatra::Application
   get '/index' do 
     @active_page = 'dashboard'
     @transactions = [
-  { icon: "A", name: "Amazon", type: "Compra Online", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
-  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" }]
+  { icon: "+", name: "Tomas", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
+  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" },
+    { icon: "+", name: "Lucía", type: "Transferencia", amount: "-$75.50", amount_class: "amount-negative", date: "18 May, 09:30" },
+    { icon: "+", name: "Carlos", type: "Transferencia", amount: "-$200.00", amount_class: "amount-negative", date: "17 May, 16:15" },
+    { icon: "+", name: "Sofía", type: "Transferencia", amount: "-$48.25", amount_class: "amount-negative", date: "16 May, 11:00" },
+    { icon: "+", name: "Andrés", type: "Transferencia", amount: "-$310.75", amount_class: "amount-negative", date: "15 May, 19:45" },
+    { icon: "+", name: "Valentina", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "14 May, 08:20" }
+  ]
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 

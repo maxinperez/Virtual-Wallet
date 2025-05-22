@@ -13,7 +13,6 @@ class Bankaccount < ActiveRecord::Base
   belongs_to :user, foreign_key: 'dni', primary_key: 'dni'
   #contiene varias transacciones y sus origenes. 
   has_many :source_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
-  
   validates :account_number, presence: true, uniqueness: { message: "ya está en uso por otra cuenta" }
   validates :alias, presence: true, uniqueness: { message: "ya está en uso por otra cuenta" }
   validates :dni, presence: true
@@ -24,7 +23,8 @@ class Bankaccount < ActiveRecord::Base
   end
 
   def generate_random_account_number
-    # pending implements validation unique cvu 
+    # pending implements validation unique cvu ->  00310 + 17 randoms digits
+    # loop que verifique que este cvu no esta registrado Account.exist?(cvu: cvu)
     Array.new(22) { rand(0..9) }.join  # simule cvu
   end
  
