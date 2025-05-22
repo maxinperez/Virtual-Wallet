@@ -1,0 +1,97 @@
+/* Body padding para que no se tape el contenido */
+body {
+    margin: 0;
+    padding-top: 80px; /* Altura del header + margen */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+}
+
+/* Header Styles */
+.header {
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: fixed; /* 🔁 Cambiado de sticky a fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Contenedor interno */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111827;
+    text-decoration: none;
+}
+
+/* Navegación */
+.nav {
+    display: flex;
+    gap: 12px;
+}
+
+/* Botones */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-outline {
+    color: #374151;
+    border: 1px solid #d1d5db;
+    background-color: transparent;
+}
+
+.btn-outline:hover {
+    background-color: #f3f4f6;
+}
+
+.btn-primary {
+    background-color: #18181b;
+    color: white;
+    border: 1px solid #18181b;
+}
+
+.btn-primary:hover {
+    background-color: #27272a;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .header {
+        padding: 12px 16px;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 10px;
+    }
+}
