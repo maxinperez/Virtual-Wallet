@@ -17,3 +17,4 @@ class Account < ActiveRecord::Base
     Password.new(password_digest) == password
   end
 end
+

@@ -1,4 +1,8 @@
+
 body {
+    margin: 0;
+    padding-top: 80px; 
+
     margin: 0;
     padding-top: 80px; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -10,7 +14,7 @@ body {
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    position: fixed; /* 🔁 Cambiado de sticky a fixed */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;

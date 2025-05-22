@@ -10,24 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_21_033133) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_21_233918) do
   create_table "accounts", force: :cascade do |t|
-    t.string "account_number", null: false
-    t.string "alias", null: false
-    t.string "dni", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_number"], name: "unique_global_account_number", unique: true
-    t.index ["alias"], name: "unique_global_alias", unique: true
-    t.index ["dni"], name: "index_accounts_on_dni"
-  end
-
-  create_table "logins", force: :cascade do |t|
     t.string "dni"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+  end
+
+  create_table "bankaccounts", force: :cascade do |t|
+    t.string "account_number", null: false
+    t.string "alias", null: false
+    t.string "dni", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "balance"
+    t.index ["account_number"], name: "unique_global_account_number", unique: true
+    t.index ["alias"], name: "unique_global_alias", unique: true
+    t.index ["dni"], name: "index_bankaccounts_on_dni"
   end
 
   create_table "transactions", primary_key: "id_transaction", id: :string, force: :cascade do |t|
@@ -54,5 +55,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_21_033133) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "logins", "users", column: "dni", primary_key: "dni"
+  add_foreign_key "accounts", "users", column: "dni", primary_key: "dni"
+  add_foreign_key "accounts", "users", column: "dni", primary_key: "dni", on_delete: :cascade
 end

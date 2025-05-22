@@ -1,0 +1,131 @@
+HTML
+---------------
+
+para titulo : <h1></h1>
+para parrafos: <p></p> 
+
+tenemos que definir para que funcion definimos el formulario, 
+cuando la persona hace el submit, el servidor recibe los datos
+es decir, se va a la funcion post del codigo, y queda en 
+params[:x] los datos que ingresamos en el formulario
+
+example : 
+
+  <form action="/register" method="post">
+    Usuario: <input type="text" name="nombre" placeholder="">
+    Password: <input type="password" name="pass" placeholder="">
+    <button type="submit">Enviar</button>
+    </form>
+
+-------
+BASE DE DATOS -- MIGRACIONES
+Genera el archivo de migración (desde la terminal):
+
+bundle exec rake db:create_migration NAME=create_templateS
+bundle exec rake db:migrate
+
+--
+para abrir la db con sql
+
+sqlite db/wallet_development.sqlite3
+despues podes usar .schema
+
+para ver un .schema en particular hacer lo siguiente 
+example : 
+ .schema users --indent
+
+
+
+🏗️ Definición de columnas y tablas
+Método	Descripción
+create_table	Crea una nueva tabla
+drop_table	Elimina una tabla
+rename_table	Cambia el nombre de una tabla
+
+Columnas
+Método	Descripción
+add_column	Añade una nueva columna a una tabla
+remove_column	Elimina una columna
+rename_column	Cambia el nombre de una columna
+change_column	Cambia el tipo u opciones de una columna
+change_column_default	Cambia el valor por defecto de una columna
+change_column_null	Cambia si una columna acepta NULL
+
+Índices
+Método	Descripción
+add_index	Añade un índice a una o más columnas
+remove_index	Elimina un índice
+
+Ejemplo:
+
+ruby
+Copiar
+Editar
+add_index :users, :email, unique: true
+remove_index :users, :email
+
+Llaves foráneas
+
+Método	Descripción
+add_foreign_key	Añade una llave foránea
+remove_foreign_key	Elimina una llave foránea
+
+Ejemplo:
+
+ruby
+Copiar
+Editar
+add_foreign_key :orders, :users
+Tipos de columnas comunes
+Puedes usar estos tipos al definir columnas:
+
+:string
+
+:text
+
+:integer
+
+:float
+
+:decimal
+
+:boolean
+
+:date
+
+:datetime
+
+:time
+
+:binary
+
+Ejemplo:
+
+ruby
+Copiar
+Editar
+add_column :users, :admin, :boolean, default: false
+
+Ejemplo de migración completa
+ruby
+Copiar
+Editar
+class ModifyUsers < ActiveRecord::Migration[8.0]
+  def change
+    add_column :users, :age, :integer
+    rename_column :users, :username, :login
+    change_column :users, :email, :string, null: false
+    add_index :users, :email, unique: true
+  end
+end
+
+
+
+
+en el irb para recuperar los datos de toda la tabla usamos
+User.all
+User.find(id)
+User.new(dni :12345)
+por ejemplo
+u = User.find(id)
+u.destroy
