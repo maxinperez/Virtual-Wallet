@@ -1,6 +1,6 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :source_account, class_name: 'Account'
-  belongs_to :target_account, class_name: 'Account'
+  belongs_to :source_account, class_name: 'Bankccount'
+  belongs_to :target_account, class_name: 'Bankaccount'
 
   self.primary_key = 'id_transaction'
   enum state: {
@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
     rejected: 2
   }
 
-  validates :amount, presence: true, numericality  { greater_than: 0 }
+  validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :state, presence: true, 
 
   # Callback para generar ID de transacción si es necesario

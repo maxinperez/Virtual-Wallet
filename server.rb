@@ -46,16 +46,16 @@ class App < Sinatra::Application
     cp = params[:cp]
     address = params[:address]
 
-    if password != confirm 
-      return "Las contraseñas no coinciden"
+    if password != confirm
+      puts "Las contraseñas no coinciden"
     end
 
     if User.exists?(dni: dni)
-      return "El DNI ya está registrado"
+      puts "El DNI ya está registrado"
     end 
 
     if User.exists?(email: email)
-      return "El correo ya está registrado"
+      puts "El correo ya está registrado"
     end
 
     user = User.new(
@@ -70,12 +70,12 @@ class App < Sinatra::Application
     )
 
     if user.save
-      Login.create(dni: dni, password: password)
-      Account.create(dni: dni)
+      Account.create(dni: dni, password: password)
+      Bankaccount.create(dni: dni)
       "Usuario creado correctamente. Por favor, iniciá sesión."
       redirect '/login'
     else 
-      "Error al registrar el usuario"
+      puts "Error al registrar el usuario"
       redirect '/register'
     end 
   end
@@ -86,7 +86,8 @@ class App < Sinatra::Application
     existe = User.exists?(dni: dni)
     { existe: existe }.to_json
   end
- 
+
+
 
   get '/login' do 
     erb :login
@@ -95,13 +96,13 @@ class App < Sinatra::Application
   post '/login' do 
     dni = params[:dni]
     password = params[:password]
-
-    existing_user = Login.find_by(dni: dni)
+    existing_user = Account.find_by(dni: dni)
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'
     else 
       session[:error] = 'Datos invalidos'
+      puts 'invalid data'
       redirect '/login'
     end
   end
