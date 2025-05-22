@@ -31,7 +31,10 @@ class App < Sinatra::Application
   end
 
   get '/register' do 
-    erb :register
+    erb :register, layout: :'partial/header'
+  end 
+  get '/h' do 
+    erb :header
   end 
 
   post '/register' do 
@@ -90,7 +93,7 @@ class App < Sinatra::Application
 
 
   get '/login' do 
-    erb :login
+    erb :login, layout: :'partial/header'
   end 
 
   post '/login' do 
