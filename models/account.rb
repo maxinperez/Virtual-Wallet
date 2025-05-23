@@ -3,7 +3,7 @@ require 'bcrypt'
 
 class Account < ActiveRecord::Base
   include BCrypt
-#has_secure 
+  has_secure_password
   belongs_to :user
 
   validates :username, presence: true, uniqueness: true
