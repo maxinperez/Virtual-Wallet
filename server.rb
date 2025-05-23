@@ -7,6 +7,7 @@ require 'logger'
 require_relative 'models/user'
 require_relative 'models/bankaccount'
 require_relative 'models/account'
+require_relative 'models/transaction'
 class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
@@ -74,8 +75,8 @@ class App < Sinatra::Application
     )
 
     if user.save
-      Account.create(dni: dni, password: password)
-      Bankaccount.create(dni: dni)
+      Account.create(user: user, username: dni, password: password)
+      BankAccount.create(user: user)
       "Usuario creado correctamente. Por favor, iniciá sesión."
       redirect '/login'
     else 
@@ -106,7 +107,7 @@ class App < Sinatra::Application
   post '/login' do 
     dni = params[:dni]
     password = params[:password]
-    existing_user = Account.find_by(dni: dni)
+    existing_user = Account.find_by(username: dni)
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'

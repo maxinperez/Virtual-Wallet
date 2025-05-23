@@ -10,51 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_21_233918) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_044228) do
   create_table "accounts", force: :cascade do |t|
-    t.string "dni"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "email"
+    t.string "password_digest", null: false
+    t.integer "user_id", null: false
+    t.string "username"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "bankaccounts", force: :cascade do |t|
-    t.string "account_number", null: false
-    t.string "alias", null: false
-    t.string "dni", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "balance"
-    t.index ["account_number"], name: "unique_global_account_number", unique: true
-    t.index ["alias"], name: "unique_global_alias", unique: true
-    t.index ["dni"], name: "index_bankaccounts_on_dni"
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string "alias"
+    t.string "cvu"
+    t.decimal "balance"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_bank_accounts_on_user_id"
   end
 
-  create_table "transactions", primary_key: "id_transaction", id: :string, force: :cascade do |t|
-    t.datetime "date_transaction", null: false
-    t.integer "state", null: false
-    t.integer "amount", null: false
+  create_table "transactions", force: :cascade do |t|
+    t.integer "sender_bank_account_id"
+    t.integer "receiver_bank_account_id"
+    t.decimal "amount", precision: 15, scale: 2
+    t.datetime "transaction_date"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["receiver_bank_account_id"], name: "index_transactions_on_receiver_bank_account_id"
+    t.index ["sender_bank_account_id"], name: "index_transactions_on_sender_bank_account_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "last_name"
-    t.integer "dni"
-    t.string "email"
-    t.string "situation"
-    t.string "locality"
-    t.string "address"
-    t.integer "cp"
+    t.string "dni", null: false
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "last_name", null: false
+    t.string "phone", null: false
+    t.string "locality", null: false
+    t.string "cp", null: false
+    t.string "address", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "phone"
-    t.index ["dni"], name: "index_users_on_dni", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "accounts", "users", column: "dni", primary_key: "dni"
-  add_foreign_key "accounts", "users", column: "dni", primary_key: "dni", on_delete: :cascade
+  add_foreign_key "accounts", "users"
+  add_foreign_key "bank_accounts", "users"
+  add_foreign_key "transactions", "bank_accounts", column: "receiver_bank_account_id"
+  add_foreign_key "transactions", "bank_accounts", column: "sender_bank_account_id"
 end
