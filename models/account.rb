@@ -3,9 +3,10 @@ require 'bcrypt'
 
 class Account < ActiveRecord::Base
   include BCrypt
-
-  belongs_to :user, foreign_key: 'dni', primary_key: 'dni'
-
+  # relations
+  belongs_to :user
+  
+  # validations in model
   validates :dni, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
