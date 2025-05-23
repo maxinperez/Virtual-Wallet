@@ -9,3 +9,4 @@ gem 'sinatra-contrib' # Para recarga en vivo
 gem 'sinatra-activerecord' # Para ActiveRecord
 gem 'sqlite3' # Para SQLite
 gem 'rake' # Para tareas de base de datos
+gem 'bcrypt'

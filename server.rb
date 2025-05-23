@@ -5,9 +5,12 @@ require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
 require_relative 'models/user'
-require_relative 'models/login'
-
+require_relative 'models/bankaccount'
+require_relative 'models/account'
 class App < Sinatra::Application
+  enable :sessions
+  set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
+  ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
   configure :development do
@@ -21,21 +24,111 @@ class App < Sinatra::Application
       logger.info 'Reloaded!!!'
     end
   end
+
   helpers do 
   def partial(template, locals = {})
     erb(:"partial/#{template}", locals: locals)
     end
   end
-  get '/login' do 
-    erb :login
+
+  get '/register' do 
+    erb :register, layout: :'partial/header'
   end 
+  get '/h' do 
+    erb :header
+  end 
+
+  post '/register' do 
+    dni = params[:dni]
+    email = params[:email]
+    password = params[:password]
+    confirm = params[:confirmPassword]
+    name = params[:name]
+    last_name = params[:last_name]
+    phone = params[:phone]
+    locality = params[:locality]
+    cp = params[:cp]
+    address = params[:address]
+
+    if password != confirm
+      puts "Las contraseñas no coinciden"
+    end
+
+    if User.exists?(dni: dni)
+      puts "El DNI ya está registrado"
+    end 
+
+    if User.exists?(email: email)
+      puts "El correo ya está registrado"
+    end
+
+    user = User.new(
+    dni: dni,
+    email: email,
+    name: name,
+    last_name: last_name,
+    phone: phone,
+    locality: locality,
+    cp: cp,
+    address: address
+    )
+
+    if user.save
+      Account.create(dni: dni, password: password)
+      Bankaccount.create(dni: dni)
+      "Usuario creado correctamente. Por favor, iniciá sesión."
+      redirect '/login'
+    else 
+      puts "Error al registrar el usuario"
+      redirect '/register'
+    end 
+  end
+
+  get '/verificar_dni' do
+    content_type :json
+    dni = params[:dni]
+    existe = User.exists?(dni: dni)
+    { existe: existe }.to_json
+  end
+
+ get '/' do
+   erb :main, layout: :'partial/header'
+ end 
+  get '/login' do 
+    erb :login, layout: :'partial/header'
+  end 
+
+  get '/config' do 
+     @active_page = 'config'
+    erb :config, layout: :'partial/layout'
+  end 
+
+  post '/login' do 
+    dni = params[:dni]
+    password = params[:password]
+    existing_user = Account.find_by(dni: dni)
+    if existing_user && existing_user.authenticate(password)
+      session[:dni] = params[:dni]
+      redirect '/index'
+    else 
+      session[:error] = 'Datos invalidos'
+      puts 'invalid data'
+      redirect '/login'
+    end
+  end
 
   get '/index' do 
     @active_page = 'dashboard'
     @transactions = [
-  { icon: "A", name: "Amazon", type: "Compra Online", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
+  { icon: "+", name: "Tomas", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
   { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" },
-    icon: "H", name: "Pago EMOS", type: "Pago Servicio", amount: "-$120.00", amount_class: "amount-negative", date: "19 Feb, 9:23"]
+    { icon: "+", name: "Lucía", type: "Transferencia", amount: "-$75.50", amount_class: "amount-negative", date: "18 May, 09:30" },
+    { icon: "+", name: "Carlos", type: "Transferencia", amount: "-$200.00", amount_class: "amount-negative", date: "17 May, 16:15" },
+    { icon: "+", name: "Sofía", type: "Transferencia", amount: "-$48.25", amount_class: "amount-negative", date: "16 May, 11:00" },
+    { icon: "+", name: "Andrés", type: "Transferencia", amount: "-$310.75", amount_class: "amount-negative", date: "15 May, 19:45" },
+    { icon: "+", name: "Valentina", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "14 May, 08:20" }
+  ]
+>>>>>>> 93df53686eb0242561a0ed33ba6227c285e1723f
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 
@@ -46,31 +139,5 @@ class App < Sinatra::Application
     @active_page = 'transfer'
    erb :transfer, layout: :'partial/layout'
   end 
-  get '/register' do
-    erb :register
-   end
 
-   get '/add_person' do
-    u = User.new(dni: 12345678)
-    if u.save
-      'Insercion correcta'
-    else
-      'Error'
-   end 
-  end 
-
-  post '/register' do
-    params.each do |key, value|
-      instance_variable_set("@#{key}", value) # crea instancias locales del siguiente formato -> dni = params[:dni]
-    end
-  "Registro procesado para DNI: #{@dni} y Email: #{@email}"
-  end
-
-   get '/verificar_dni' do
-    content_type :json
-    dni = params[:dni]
-    existe = User.exists?(dni: dni)
-    { existe: existe }.to_json
-  end
- 
 end

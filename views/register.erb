@@ -1,87 +1,78 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>         
+    <link rel="stylesheet" href="/css/main.css"> 
+</head>     
 <body>
-  <h1>Registro</h1>
-  <form action="/register" method="post" id="dniForm" class="form">
-    <!-- Indicador de pasos -->
-    <div class="steps-indicator">
-      <div class="step-dot active" id="dot-1"></div>
-      <div class="step-dot" id="dot-2"></div>
-      <div class="step-dot" id="dot-3"></div>
-      <div class="step-dot" id="dot-4"></div>
-    </div>
-    
-    <form id="dniForm">
-      <!-- Paso 1: Validación del DNI -->
-      <div class="step active" id="step-1">
-        <p class="intro-text">Para comenzar, validemos que no estés registrado. Por favor, rellena este requerimiento:</p>
-        <label for="dni">DNI:</label>
-        <input type="number" name="dni" id="dni" placeholder="Introduce tu DNI" required>
-        <!-- Mensaje de error/éxito -->
-        <div id="mensaje" class="mensaje-error"></div>
-        <button type="button" id="validateDni">Validar</button>
-      </div>
-
-      <!-- Paso 2: Datos de la cuenta -->
-      <div class="step" id="step-2">
-        <p class="intro-text">Ahora, configura los datos de tu cuenta:</p>
-        
-        <label for="email">Correo electrónico:</label>
-        <input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required>
-        
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" required minlength="8">
-        
-        <label for="confirmPassword">Confirmar contraseña:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repite tu contraseña" required>
-        <div id="mensaje-password" class="mensaje"></div>
-        <div class="form-buttons">
-          <button type="button" class="btn-back" id="backToStep1">Atrás</button>
-          <button type="button" id="goToStep3">Continuar</button>
+        <div class="form-container">
+            <h1>Registro</h1> 
+            <form action="/register" method="post" id="dniForm" class="form"> 
+                <!-- Indicador de pasos -->                 
+                <div class="steps-indicator"> 
+                    <div class="step-dot active" id="dot-1"></div>                     
+                    <div class="step-dot" id="dot-2"></div>                     
+                    <div class="step-dot" id="dot-3"></div>                     
+                    <div class="step-dot" id="dot-4"></div>                     
+                </div>                 
+                
+                <!-- Paso 1: Validación del DNI -->                 
+                <div class="step active" id="step-1"> 
+                    <p class="intro-text">Para comenzar, validemos que no estés registrado. Por favor, rellena este requerimiento:</p> 
+                    <label for="dni">DNI:</label>                     
+                    <input type="number" name="dni" id="dni" placeholder="Introduce tu DNI" required> 
+                    <!-- Mensaje de error/éxito -->                     
+                    <div id="mensaje" class="mensaje-error"></div>                     
+                    <button type="button" id="validateDni">Validar</button>                     
+                </div>                 
+                <!-- Paso 2: Datos de la cuenta -->                 
+                <div class="step" id="step-2"> 
+                    <p class="intro-text">Ahora, configura los datos de tu cuenta:</p> 
+                    <label for="email">Correo electrónico:</label>                     
+                    <input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required> 
+                    <label for="password">Contraseña:</label>                     
+                    <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" required minlength="8"> 
+                    <label for="confirmPassword">Confirmar contraseña:</label>                     
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repite tu contraseña" required> 
+                    <div id="mensaje-password" class="mensaje"></div>                     
+                    <div class="form-buttons"> 
+                        <button type="button" class="btn-back" id="backToStep1">Atrás</button>                         
+                        <button type="button" id="goToStep3">Continuar</button>                         
+                    </div>                     
+                </div>                 
+                <!-- Paso 3: Datos personales -->                 
+                <div class="step" id="step-3"> 
+                    <p class="intro-text">Por último, completa tus datos personales:</p> 
+                    <label for="name">Nombre:</label>                     
+                    <input type="text" name="name" id="name" placeholder="Tu nombre" required> 
+                    <label for="last_name">Apellidos:</label>                     
+                    <input type="text" name="last_name" id="last_name" placeholder="Tus apellidos" required> 
+                    <label for="phone">Teléfono:</label>                     
+                    <input type="number" name="phone" id="phone" placeholder="Tu número de teléfono" required> 
+                    <div class="form-buttons"> 
+                        <button type="button" class="btn-back" id="backToStep2">Atrás</button>                         
+                        <button type="button" id="goToStep4">Siguiente</button>                         
+                    </div>                     
+                </div>                 
+                <!-- Paso 4: Confirmación final -->                 
+                <div class="step" id="step-4"> 
+                    <p class="intro-text">Por último, completa tus datos de localidad y completa el registro:</p> 
+                    <label for="locality">Localidad:</label>                     
+                    <input type="text" name="locality" id="locality" placeholder="Localidad donde vivis" required> 
+                    <label for="cp">Codigo Postal:</label>                     
+                    <input type="number" name="cp" id="cp" placeholder="Codigo postal de donde vivis" required> 
+                    <label for="address">Direccion:</label>                     
+                    <input type="text" name="address" id="address" placeholder="Direccion de residencia" required> 
+                    <div class="form-buttons"> 
+                        <button type="button" class="btn-back" id="backToStep3">Atrás</button>                         
+                        <button type="submit" id="submitBtn">Completar registro</button>                         
+                    </div>                     
+                </div>                 
+            </form>             
         </div>
-      </div>
-      
-      <!-- Paso 3: Datos personales -->
-      <div class="step" id="step-3">
-        <p class="intro-text">Por último, completa tus datos personales:</p>
-        
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required>
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" name="apellidos" id="apellidos" placeholder="Tus apellidos" required>
-        
-        <label for="telefono">Teléfono:</label>
-        <input type="number" name="telefono" id="telefono" placeholder="Tu número de teléfono" required>
-
-        <button type="button" class="btn-back" id="backToStep2">Atrás</button>
-        <button type="button" id="goToStep4">Siguiente</button>
-      </div>
-      
-      <!-- Paso 4: Confirmación final -->
-      <div class="step" id="step-4">
-        <p class="intro-text">Por último, completa tus datos de localidad y completa el registro:</p>
-        <label for="nombre">Localidad:</label>
-        <input type="text" name="localidad" id="localidad" placeholder="Localidad donde vivis" required>
-        <label for="apellidos">Codigo Postal:</label>
-        <input type="number" name="cp" id="cp" placeholder="Codigo postal de donde vivis" required>
-        
-        <label for="telefono">Direccion:</label>
-        <input type="text" name="direccion" id="direccion" placeholder="Direccion de residencia" required>
-
-        <button type="button" class="btn-back" id="backToStep3">Atrás</button>
-        <button type="submit" id="submitBtn">Completar registro</button>
-      </div>
-
-    </form>
-  </div>
-
-  <script src="js/steps.js"></script>
-  <script src="js/dni.js"></script>
-</body>
+    <script src="js/steps.js"></script>         
+    <script src="js/dni.js"></script>         
+</body>     
 </html>

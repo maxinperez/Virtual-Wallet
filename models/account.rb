@@ -1,13 +1,20 @@
+# login.rb
+require 'bcrypt'
+
 class Account < ActiveRecord::Base
-  
+  include BCrypt
+
   belongs_to :user, foreign_key: 'dni', primary_key: 'dni'
-  #contiene varias transacciones y sus origenes. 
-  has_many :source_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
-  
-  validates :account_number, presence: true, uniqueness: { message: "ya está en uso por otra cuenta" }
-  validates :alias, presence: true, uniqueness: { message: "ya está en uso por otra cuenta" }
-  validates :dni, presence: true
 
+  validates :dni, presence: true, uniqueness: true
+  validates :password_digest, presence: true
 
- 
+  def password=(new_password)
+    self.password_digest = Password.create(new_password)
+  end
+
+  def authenticate(password)
+    Password.new(password_digest) == password
+  end
 end
+
