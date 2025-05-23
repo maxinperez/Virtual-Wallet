@@ -128,7 +128,6 @@ class App < Sinatra::Application
     { icon: "+", name: "Andrés", type: "Transferencia", amount: "-$310.75", amount_class: "amount-negative", date: "15 May, 19:45" },
     { icon: "+", name: "Valentina", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "14 May, 08:20" }
   ]
->>>>>>> 93df53686eb0242561a0ed33ba6227c285e1723f
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 
