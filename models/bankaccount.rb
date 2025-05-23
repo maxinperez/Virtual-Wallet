@@ -6,13 +6,14 @@ class BankAccount < ActiveRecord::Base
 
     self.balance ||= 0.0
     self.alias ||= generate_random_alias
-    self.account_number ||= generate_random_account_number
+    self.cvu ||= generate_random_account_number
     
   end
   # relations
   belongs_to :user
   has_many :sent_transactions, class_name: 'Transaction', foreign_key: :sender_bank_account_id
   has_many :received_transactions, class_name: 'Transaction', foreign_key: :receiver_bank_account_id
+
   # functions for generate account
   def generate_random_alias
         # pending implements alias with some patron example -> pepe.tenedor.123 -> (word1.word2.number(3))

@@ -5,9 +5,8 @@ class Account < ActiveRecord::Base
   include BCrypt
   # relations
   belongs_to :user
-  
+
   # validations in model
-  validates :dni, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
   def password=(new_password)

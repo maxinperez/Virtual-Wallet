@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   # relations
-  has_one :account, depend: :destroy # each account has its own login details
-  has_one :bank_account, depend: :destroy  # each account has its bank account
-  
+  has_one :account, dependent: :destroy # each account has its own login details
+  has_one :bank_account, dependent: :destroy  # each account has its bank account
+
   # validations
   validates :dni, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
