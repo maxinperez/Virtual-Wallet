@@ -95,8 +95,14 @@ class App < Sinatra::Application
  get '/' do
    erb :main, layout: :'partial/header'
  end 
+
   get '/login' do 
     erb :login, layout: :'partial/header'
+  end 
+
+  get '/logout' do 
+    session.clear
+    redirect '/login'
   end 
 
   get '/config' do 
