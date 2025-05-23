@@ -7,6 +7,7 @@ require 'logger'
 require_relative 'models/user'
 require_relative 'models/bankaccount'
 require_relative 'models/account'
+require_relative 'models/transaction'
 class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'

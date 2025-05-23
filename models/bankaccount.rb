@@ -13,7 +13,10 @@ class BankAccount < ActiveRecord::Base
   belongs_to :user
   has_many :sent_transactions, class_name: 'Transaction', foreign_key: :sender_bank_account_id
   has_many :received_transactions, class_name: 'Transaction', foreign_key: :receiver_bank_account_id
-
+  
+  def most_recent_transactions 
+     sent_transactions.order(id: :desc).limit(10)
+  end
   # functions for generate account
   def generate_random_alias
         # pending implements alias with some patron example -> pepe.tenedor.123 -> (word1.word2.number(3))
