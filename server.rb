@@ -105,9 +105,12 @@ class App < Sinatra::Application
     redirect '/login'
   end 
 
-  get '/config' do 
-     @active_page = 'config'
-    erb :config, layout: :'partial/layout'
+  get '/personalData' do 
+     @active_page = 'personalData'
+    dni = session[:dni]
+    @user = User.find_by(dni: dni)
+    @bank_account = @user&.bank_account
+    erb :personalData, layout: :'partial/layout'
   end 
 
   post '/login' do 
