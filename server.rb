@@ -96,8 +96,8 @@ class App < Sinatra::Application
    erb :main, layout: :'partial/header'
  end 
 
-  get '/login' do 
-    erb :login, layout: :'partial/header'
+  get '/login' do  
+     erb :login, layout: :'partial/header'
   end 
 
   get '/logout' do 
@@ -116,6 +116,7 @@ class App < Sinatra::Application
     existing_user = Account.find_by(username: dni)
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
+      session[:isLogged] = true
       redirect '/index'
     else 
       session[:error] = 'Datos invalidos'
@@ -125,6 +126,10 @@ class App < Sinatra::Application
   end
 
   get '/index' do 
+    unless session[:isLogged] 
+      redirect '/login'
+    end
+    
     @active_page = 'dashboard'
     @transactions = [
   { icon: "+", name: "Tomas", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
@@ -146,4 +151,15 @@ class App < Sinatra::Application
    erb :transfer, layout: :'partial/layout'
   end 
 
+  before '/login' do
+     if session[:isLogged] 
+      redirect '/index'
+     end
+  end
+  
+  before '/register' do
+    if session[:isLogged] 
+      redirect '/index'
+    end
+  end
 end
