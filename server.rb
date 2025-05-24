@@ -4,16 +4,20 @@ require 'sqlite3'
 require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
-require_relative 'models/user'
-require_relative 'models/bankaccount'
-require_relative 'models/account'
-require_relative 'models/transaction'
+
 class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
   ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
+
+#buena practica
+require_relative 'models/user'
+require_relative 'models/bankaccount'
+require_relative 'models/account'
+require_relative 'models/transaction'
+
   configure :development do
     enable :logging
     logger = Logger.new(STDOUT)

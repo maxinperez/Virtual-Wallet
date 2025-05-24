@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_044228) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_165825) do
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
@@ -29,11 +29,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_044228) do
   create_table "transactions", force: :cascade do |t|
     t.integer "sender_bank_account_id"
     t.integer "receiver_bank_account_id"
-    t.decimal "amount", precision: 15, scale: 2
+    t.integer "amount", null: false
     t.datetime "transaction_date"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "state", default: 0, null: false
     t.index ["receiver_bank_account_id"], name: "index_transactions_on_receiver_bank_account_id"
     t.index ["sender_bank_account_id"], name: "index_transactions_on_sender_bank_account_id"
   end
