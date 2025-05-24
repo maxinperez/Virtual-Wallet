@@ -10,10 +10,13 @@ class Transaction < ActiveRecord::Base
   }
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
-  validates :state, presence: true, 
+  validates :state, presence: true,
 
   # Callback para generar ID de transacción si es necesario
-  before_create :generate_transaction_id, unless: :id_transaction?
+  before_create :generate_transaction_id, unless: 'transaction_id.present?'
+  #Maxi, fijate esta es una posible solucion:
+  #before_create :generate_transaction_id, unless: -> { transaction_id.present? }
+
 
   private
 
