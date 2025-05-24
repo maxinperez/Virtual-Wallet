@@ -1,9 +1,7 @@
 class User < ActiveRecord::Base
-
-  has_one :login, foreign_key: 'dni', primary_key: 'dni'
-  has_one :account, foreign_key: 'dni', primary_key: 'dni'
-  has_one :bank_account, foreign_key: 'dni', primary_key: 'dni'
-
+  # relations
+  has_one :account, dependent: :destroy # each account has its own login details
+  has_one :bank_account, dependent: :destroy  # each account has its bank account
 
   validates :dni, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true

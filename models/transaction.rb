@@ -1,8 +1,8 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :source_account, class_name: 'Bankccount'
-  belongs_to :target_account, class_name: 'Bankaccount'
 
-  self.primary_key = 'id_transaction'
+  belongs_to :source_account, class_name: 'BankAccount'
+  belongs_to :target_account, class_name: 'BankAccount'
+
   enum state: {
     pending: 0,
     completed: 1,
@@ -21,5 +21,7 @@ class Transaction < ActiveRecord::Base
   def generate_transaction_id
     self.id_transaction = SecureRandom.uuid if self.has_attribute?(:id_transaction)
   end
+
+
 
 end

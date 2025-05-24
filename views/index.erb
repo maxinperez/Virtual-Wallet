@@ -49,14 +49,17 @@
 
         <!-- Transactions -->
 
+        <!-- IMPLEMENTAR DESDE CERO -->
         <div class="transactions-container">
+          
           <div class="transactions-header">
             <div class="section-title">Transacciones Recientes</div>
-            <a href="#" class="view-all">Ver todas</a>
+            <a href="transaction" class="view-all">Ver todas</a>
           </div>
         <% @transactions.each do |t| %>
           <%= partial :transaction,t %>
           <% end %>
+                    
       </div>
       </div>
 

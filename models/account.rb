@@ -3,10 +3,10 @@ require 'bcrypt'
 
 class Account < ActiveRecord::Base
   include BCrypt
+  has_secure_password
+  belongs_to :user
 
-  belongs_to :user, foreign_key: 'dni', primary_key: 'dni'
-
-  validates :dni, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
   def password=(new_password)
