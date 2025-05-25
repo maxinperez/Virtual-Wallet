@@ -6,6 +6,9 @@
   <title>Virtual Wallet</title>
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/base.css">
+  <% if @active_page == 'transactions' %>
+  <link rel="stylesheet" href="/css/transactions.css">
+  <% end %>
 </head>
 <body>
   <div class="wallet-container">
@@ -28,10 +31,11 @@
           <span class="nav-icon">$</span>
           <span>Pagos</span>
         </a>
-        <a href="/transaction" class="nav-item" id="transacciones-btn">
-          <span class="nav-icon">≡</span>
-          <span>Transacciones</span>
+        <a href="/transactions" class="nav-item <%= 'active' if @active_page == 'transactions' %>">
+           <span class="nav-icon">≡</span>
+           <span>Transacciones</span>
         </a>
+
         <a href="#" class="nav-item">
           <span class="nav-icon">◇</span>
           <span>Tarjetas</span>

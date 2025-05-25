@@ -158,6 +158,13 @@ require_relative 'models/transaction'
    erb :transfer, layout: :'partial/layout'
   end 
 
+ get '/transactions' do
+  @active_page = 'transactions'
+  @transactions = Transaction.order(created_at: :desc)
+  erb :transactions, layout: :'partial/layout'
+end
+
+
   before '/login' do
      if session[:isLogged] 
       redirect '/index'

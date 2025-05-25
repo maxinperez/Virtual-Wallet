@@ -1,0 +1,27 @@
+<div class="transactions-container">
+  <h1 class="transactions-title">Transacciones</h1>
+
+  <div class="transactions-list">
+    <% @transactions.each do |t| %>
+      <div class="transaction-row">
+        <div class="avatar">
+          <%= t.target_account.user.name[0].upcase rescue '?' %>
+        </div>
+        
+        <div class="transaction-details">
+          <div class="top-row">
+            <span class="title"><%= t.description || "Transacción sin descripción" %></span>
+            <span class="amount <%= t.amount < 0 ? 'negative' : 'positive' %>">
+              <%= t.amount < 0 ? "-$#{'%.2f' % t.amount.abs}" : "$#{'%.2f' % t.amount}" %>
+            </span>
+          </div>
+          
+          <div class="bottom-row">
+            <span class="date"><%= t.created_at.strftime("%d %b, %H:%M") %></span>
+            <span class="user-name"><%= t.target_account.user.name rescue "Usuario desconocido" %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

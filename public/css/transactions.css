@@ -1,0 +1,159 @@
+/* ============= TRANSACCIONES - LAYOUT PRINCIPAL ============= */
+.transactions-container {
+  width: 100%;
+  max-width: none;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+/* ============= TÍTULO ============= */
+.transactions-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #1a1a1a;
+  letter-spacing: -0.025em;
+  margin: 0 0 2rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* ============= LISTA DE TRANSACCIONES ============= */
+.transactions-list {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ============= FILA DE TRANSACCIÓN ============= */
+.transaction-row {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr); /* Avatar + Contenido */
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.2s ease;
+}
+
+.transaction-row:hover {
+  background: #fafafa;
+}
+
+/* ============= AVATAR ============= */
+.avatar {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  color: #404040;
+  font-weight: 600;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ============= DETALLES DE TRANSACCIÓN ============= */
+.transaction-details {
+  width: 100%;
+  min-width: 0; /* Permite el truncado de texto */
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ============= ELEMENTOS DE TEXTO ============= */
+.title {
+  flex: 1;
+  font-weight: 500;
+  color: #333;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 1rem;
+}
+
+.amount {
+  font-weight: 600;
+  font-size: 1.15rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.negative {
+  color: #d32f2f;
+}
+
+.positive {
+  color: #2e7d32;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  color: #444;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ============= RESPONSIVE ============= */
+@media (max-width: 768px) {
+  .transactions-container {
+    padding: 0 1rem;
+  }
+
+  .transaction-row {
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .amount {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .user-name {
+    order: -1;
+  }
+}
