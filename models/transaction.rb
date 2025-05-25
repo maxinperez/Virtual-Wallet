@@ -9,6 +9,7 @@ class Transaction < ActiveRecord::Base
   #el generar un id no hace falta, active record lo hace automaticamente en la base de datos.
   before_create :process_transaction
 
+
   private
 
   def process_transaction
@@ -23,9 +24,5 @@ class Transaction < ActiveRecord::Base
     end
   rescue => e# maneja errores
     puts "$ERROR$"
-  end
-
-  def generate_transaction_id
-    self.id_transaction = SecureRandom.uuid if self.has_attribute?(:id_transaction)
   end
 end

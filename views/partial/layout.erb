@@ -36,8 +36,8 @@
           <span class="nav-icon">◇</span>
           <span>Tarjetas</span>
         </a>
-        <a href="/config" class="nav-item <%= 'active' if @active_page == 'config'%> " >
-          <span class="nav-icon">⚙</span>
+        <a href="/personalData" class="nav-item <%= 'active' if @active_page == 'personalData'%> " >
+          <span class="nav-icon">🕴️</span>
           <span>Datos personales</span>
         </a>
         <a href="/logout" class="nav-item <%= 'active' if @active_page == 'logout'%> ">
@@ -66,6 +66,12 @@
     <main class="main-content">
       <%= yield %>
     </main>
+
+    <!-- Footer --> #Pie de pagina en el indice, donde tenemos las vistas de la cuenta
+    <footer style="background-color: #222; color: #eee; text-align: center; padding: 15px 0; font-size: 14px; margin-top: 20px;">
+      &copy; <%= Time.now.year %> payStack - Lo mejor para vos y tu billetera!
+    </footer>
+
   </div>
 </body>
 </html>

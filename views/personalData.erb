@@ -1,0 +1,18 @@
+<h1 style="margin-left: 250px;">
+  👤 Datos Personales
+</h1>
+
+<% if @bank_account %>
+  <p><strong>Alias:</strong> <%= @bank_account.alias %></p>
+  <p><strong>CVU:</strong> <%= @bank_account.account_number %></p>
+<% else %>
+  <p style="
+    margin-top: 200px; 
+    margin-left: -420px; 
+    font-family: 'Comic Sans MS', cursive, sans-serif; 
+    font-style: italic;
+    font-size: 18px;
+  ">
+    💳 No se encontró una cuenta bancaria asociada a este usuario!
+  </p>
+<% end %>

@@ -100,8 +100,8 @@ require_relative 'models/transaction'
    erb :main, layout: :'partial/header'
  end 
 
-  get '/login' do 
-    erb :login, layout: :'partial/header'
+  get '/login' do  
+     erb :login, layout: :'partial/header'
   end 
 
   get '/logout' do 
@@ -109,9 +109,12 @@ require_relative 'models/transaction'
     redirect '/login'
   end 
 
-  get '/config' do 
-     @active_page = 'config'
-    erb :config, layout: :'partial/layout'
+  get '/personalData' do 
+     @active_page = 'personalData'
+    dni = session[:dni]
+    @user = User.find_by(dni: dni)
+    @bank_account = @user&.bank_account
+    erb :personalData, layout: :'partial/layout'
   end 
 
   post '/login' do 
@@ -120,6 +123,7 @@ require_relative 'models/transaction'
     existing_user = Account.find_by(username: dni)
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
+      session[:isLogged] = true
       redirect '/index'
     else 
       session[:error] = 'Datos invalidos'
@@ -129,6 +133,10 @@ require_relative 'models/transaction'
   end
 
   get '/index' do 
+    unless session[:isLogged] 
+      redirect '/login'
+    end
+    
     @active_page = 'dashboard'
     @transactions = [
   { icon: "+", name: "Tomas", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
@@ -150,4 +158,15 @@ require_relative 'models/transaction'
    erb :transfer, layout: :'partial/layout'
   end 
 
+  before '/login' do
+     if session[:isLogged] 
+      redirect '/index'
+     end
+  end
+  
+  before '/register' do
+    if session[:isLogged] 
+      redirect '/index'
+    end
+  end
 end
