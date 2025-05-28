@@ -1,6 +1,18 @@
 require 'securerandom'
 class BankAccount < ActiveRecord::Base
   
+  # Relations
+  belongs_to :user
+  has_many :outgoing_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
+  has_many :incoming_transactions, class_name: 'Transaction', foreign_key: 'target_account_id'
+  
+  # Validations
+  validates :alias, uniqueness: true, presence: true
+  validates :cvu, uniqueness: true, presence: true
+
+  # Callbacks
+  before_validation :ensure_unique_alias_and_cvu
+
   def initialize(attributes = {})
     super(attributes) 
 
@@ -9,12 +21,7 @@ class BankAccount < ActiveRecord::Base
     self.cvu ||= generate_random_account_number
     
   end
-  # relations
-  belongs_to :user
-  has_many :outgoing_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
-  has_many :incoming_transactions, class_name: 'Transaction', foreign_key: 'target_account_id'
   
-
   
   def most_recent_transactions 
      sent_transactions.order(id: :desc).limit(10)
