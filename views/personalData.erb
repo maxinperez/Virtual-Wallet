@@ -2,9 +2,11 @@
   👤 Datos Personales
 </h1>
 
-<% if @bank_account %>
-  <p><strong>Alias:</strong> <%= @bank_account.alias %></p>
-  <p><strong>CVU:</strong> <%= @bank_account.account_number %></p>
+<% if @user&.bank_account %>
+  <div style="margin-left: -300px; margin-top: 200px;">
+    <p style="margin-bottom: 10px;"><strong>CVU:</strong> <%= @user.bank_account.cvu %></p>
+    <p><strong>Alias:</strong> <%= @user.bank_account.alias %></p>
+  </div>
 <% else %>
   <p style="
     margin-top: 200px; 
@@ -16,3 +18,5 @@
     💳 No se encontró una cuenta bancaria asociada a este usuario!
   </p>
 <% end %>
+
+
