@@ -13,13 +13,10 @@ class BankAccount < ActiveRecord::Base
   # Callbacks
   before_validation :ensure_unique_alias_and_cvu
 
-  def initialize(attributes = {})
-    super(attributes) 
-
+  def ensure_unique_alias_and_cvu
     self.balance ||= 0.0
-    self.alias ||= generate_random_alias
-    self.cvu ||= generate_random_account_number
-    
+    self.alias ||= generate_unique_alias
+    self.cvu ||= generate_unique_cvu
   end
   
   
@@ -27,15 +24,12 @@ class BankAccount < ActiveRecord::Base
      sent_transactions.order(id: :desc).limit(10)
   end
   # functions for generate account
-  def generate_random_alias
-        # pending implements alias with some patron example -> pepe.tenedor.123 -> (word1.word2.number(3))
-    SecureRandom.alphanumeric(12).downcase  # create alias random
+  def generate_unique_alias
+        #Debo generar un alias unico
   end
 
-  def generate_random_account_number
-    # pending implements validation unique cvu ->  00310 + 17 randoms digits
-    # loop que verifique que este cvu no esta registrado Account.exist?(cvu: cvu)
-    Array.new(22) { rand(0..9) }.join  # simule cvu
+  def generate_unique_cvu
+    #Debo generar un cvu unico
   end
  
 end
