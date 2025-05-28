@@ -25,11 +25,19 @@ class BankAccount < ActiveRecord::Base
   end
   # functions for generate account
   def generate_unique_alias
-        #Debo generar un alias unico
+    words1 = %w[verde rojo azul]
+    words2 = %w[gato perro loro]
+    loop do
+      random_alias = "#{words1.sample}.#{words2.sample}.#{rand(100..999)}"
+      break random_alias unless BankAccount.exists?(alias: random_alias)
+    end
   end
 
   def generate_unique_cvu
-    #Debo generar un cvu unico
+    loop do
+    random_cvu = Array.new(22) { rand(0..9) }.join
+    break random_cvu unless BankAccount.exists?(cvu: random_cvu)
+    end
   end
  
 end
