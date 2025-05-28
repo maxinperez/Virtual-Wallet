@@ -25,8 +25,8 @@ class BankAccount < ActiveRecord::Base
   end
   # functions for generate account
   def generate_unique_alias
-    words1 = %w[verde rojo azul]
-    words2 = %w[gato perro loro]
+    words1 = %w[Boca River Velez Estudiantes Racing Independiente]
+    words2 = %w[Cancha Estadio Predio Local Visitante Gimnasio Barra]
     loop do
       random_alias = "#{words1.sample}.#{words2.sample}.#{rand(100..999)}"
       break random_alias unless BankAccount.exists?(alias: random_alias)
