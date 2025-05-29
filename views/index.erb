@@ -56,9 +56,35 @@
             <div class="section-title">Transacciones Recientes</div>
             <a href="/transactions" class="view-all">Ver todas</a>
           </div>
-        <% @transactions.each do |t| %>
-          <%= partial :transaction,t %>
+        <% if @transactions.any? %>
+        <% @transactions.each do |transaction| %>
+          <% 
+            if transaction.source_account_id == current_user.bank_account.id
+              amount_class = "amount-negative"
+              amount_display = "-$#{transaction.amount}"
+              other_user = transaction.target_account.user
+            else 
+              amount_class = "amount-positive"
+              amount_display = "+$#{transaction.amount}"
+              other_user = transaction.source_account.user
+            end
+          %>
+          <div class="transaction">
+            <div class="transaction-icon"><%= other_user.name[0].upcase %></div>
+              <div class="transaction-details">
+                <div class="transaction-name"><%= other_user.name %> <%= other_user.last_name %></div>
+                  <div class="transaction-type">Transferencia</div>
+          </div>
+            <div class="transaction-amount <%= amount_class %>"><%= amount_display %></div>
+              <div class="transaction-date"><%= transaction.created_at.strftime("%d %b, %H:%M") %></div>
+          </div>
           <% end %>
+      <% else %>
+        <div class="no-transactions-message">
+          <p>No hay transacciones recientes</p>
+        </div>
+      <% end %>
+
                     
       </div>
       </div>
