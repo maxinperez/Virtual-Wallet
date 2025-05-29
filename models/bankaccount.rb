@@ -39,5 +39,12 @@ class BankAccount < ActiveRecord::Base
     break random_cvu unless BankAccount.exists?(cvu: random_cvu)
     end
   end
+
+  def all_transactions 
+    Transaction.where(
+      "sender_bank_account_id = :id OR receiver_bank_account_id = :id", 
+      id: self.id
+    )
+  end
  
 end
