@@ -31,8 +31,11 @@ require_relative 'models/transaction'
   end
 
   helpers do 
-  def partial(template, locals = {})
-    erb(:"partial/#{template}", locals: locals)
+    def partial(template, locals = {})
+      erb(:"partial/#{template}", locals: locals)
+    end
+    def current_user
+      @current_user ||= User.find_by(dni: session[:dni]) if session[:dni]
     end
   end
 
@@ -138,15 +141,16 @@ require_relative 'models/transaction'
     end
     
     @active_page = 'dashboard'
-    @transactions = [
-  { icon: "+", name: "Tomas", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "12 May, 13:45" },
-  { icon: "P", name: "Pago Luz", type: "Pago Servicio", amount: "-$50.00", amount_class: "amount-negative", date: "10 May, 11:20" },
-    { icon: "+", name: "Lucía", type: "Transferencia", amount: "-$75.50", amount_class: "amount-negative", date: "18 May, 09:30" },
-    { icon: "+", name: "Carlos", type: "Transferencia", amount: "-$200.00", amount_class: "amount-negative", date: "17 May, 16:15" },
-    { icon: "+", name: "Sofía", type: "Transferencia", amount: "-$48.25", amount_class: "amount-negative", date: "16 May, 11:00" },
-    { icon: "+", name: "Andrés", type: "Transferencia", amount: "-$310.75", amount_class: "amount-negative", date: "15 May, 19:45" },
-    { icon: "+", name: "Valentina", type: "Transferencia", amount: "-$129.99", amount_class: "amount-negative", date: "14 May, 08:20" }
-  ]
+    user = User.find_by(dni: session[:dni])
+
+    if(user&.bank_account)
+      @transactions = user.bank_account.all_transactions
+                      .includes(:source_account, :target_account)
+                      .order(created_at: :desc)
+                      .limit(10)
+    else 
+      @transactions = []
+    end
    erb :index, layout: :'partial/layout'
   end 
   get '/pay' do 
