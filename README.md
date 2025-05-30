@@ -24,3 +24,6 @@ A final project for the **Systems Analysis and Design** course.
 - ActiveRecord ORM
 - SQLite 
 - HTML, CSS, JavaScript
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/maxinperez/Virtual-Wallet)
+
