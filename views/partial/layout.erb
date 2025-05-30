@@ -62,7 +62,13 @@
       <div class=""></div> <!-- for relocate the icons -->
       <div class="header-actions">
         <div class="notification-icon">✉</div>
-        <div class="user-avatar">JD</div>
+        <div class="user-avatar">
+          <% if current_user %>
+            <%= current_user.name[0] %><%= current_user.last_name[0] %>
+          <% else %>
+              ??
+          <% end %>
+        </div>
       </div>
     </header>
 

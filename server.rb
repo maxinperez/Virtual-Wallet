@@ -153,20 +153,22 @@ require_relative 'models/transaction'
     end
    erb :index, layout: :'partial/layout'
   end 
+
   get '/pay' do 
     @active_page = 'pay'
-   erb :pay, layout: :'partial/layout'
+    erb :pay, layout: :'partial/layout'
   end 
+
   get '/transfer' do 
     @active_page = 'transfer'
    erb :transfer, layout: :'partial/layout'
   end 
 
- get '/transactions' do
-  @active_page = 'transactions'
-  @transactions = Transaction.order(created_at: :desc)
-  erb :transactions, layout: :'partial/layout'
-end
+  get '/transactions' do
+    @active_page = 'transactions'
+    @transactions = Transaction.order(created_at: :desc)
+    erb :transactions, layout: :'partial/layout'
+  end
 
 
   before '/login' do
