@@ -14,15 +14,13 @@ class Transaction < ActiveRecord::Base
 
   def process_transaction
     ActiveRecord::Base.transaction do
-      if source_account.balance >= amount
-        source_account.update!(balance: source_account.balance - amount)
-        target_account.update!(balance: target_account.balance + amount)#
-      
-      else
-        puts "No se pudo completar la transaccion, intente nuevamente."
+      if source_account.balance < amount
+        throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
       end
+  
+      source_account.update!(balance: source_account.balance - amount)
+      target_account.update!(balance: target_account.balance + amount)
     end
-  rescue => e# maneja errores
-    puts "$ERROR$"
   end
+
 end
