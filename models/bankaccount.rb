@@ -19,10 +19,10 @@ class BankAccount < ActiveRecord::Base
     self.cvu ||= generate_unique_cvu
   end
   
-  
-  def most_recent_transactions 
-     sent_transactions.order(id: :desc).limit(10)
+  def most_recent_transactions
+    all_transactions.order(created_at: :desc).limit(10)
   end
+
   # functions for generate account
   def generate_unique_alias
     words1 = %w[Boca River Velez Estudiantes Racing Independiente]

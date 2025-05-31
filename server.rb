@@ -42,9 +42,6 @@ require_relative 'models/transaction'
   get '/register' do 
     erb :register, layout: :'partial/header'
   end 
-  get '/h' do 
-    erb :header
-  end 
 
   post '/register' do 
     dni = params[:dni]
@@ -112,12 +109,11 @@ require_relative 'models/transaction'
     redirect '/login'
   end 
 
-  get '/personalData' do 
-     @active_page = 'personalData'
-    dni = session[:dni]
-    @user = User.find_by(dni: dni)
-    @bank_account = @user&.bank_account
-    erb :personalData, layout: :'partial/layout'
+  get '/personal_data' do 
+     @active_page = 'personal_data'
+    @user = User.find_by(dni: session[:dni])
+    @bank_account = @user.bank_account if @user
+    erb :personal_data, layout: :'partial/layout'
   end 
 
   post '/login' do 
@@ -126,7 +122,6 @@ require_relative 'models/transaction'
     existing_user = Account.find_by(username: dni)
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
-      session[:isLogged] = true
       redirect '/index'
     else 
       session[:error] = 'Datos invalidos'
@@ -136,18 +131,12 @@ require_relative 'models/transaction'
   end
 
   get '/index' do 
-    unless session[:isLogged] 
-      redirect '/login'
-    end
     
     @active_page = 'dashboard'
     user = User.find_by(dni: session[:dni])
 
     if(user&.bank_account)
-      @transactions = user.bank_account.all_transactions
-                      .includes(:source_account, :target_account)
-                      .order(created_at: :desc)
-                      .limit(10)
+      @transactions = user.bank_account.most_recent_transactions
     else 
       @transactions = []
     end
@@ -170,16 +159,14 @@ require_relative 'models/transaction'
     erb :transactions, layout: :'partial/layout'
   end
 
-
-  before '/login' do
-     if session[:isLogged] 
-      redirect '/index'
-     end
-  end
-  
-  before '/register' do
-    if session[:isLogged] 
-      redirect '/index'
+  before do
+    protected_paths = ['/index', '/pay', '/transfer', '/transactions']
+    if protected_paths.include?(request.path_info) && !session[:dni] # request.path_info solo devuelve la ruta sin la query
+      redirect '/login'
     end
+  end
+
+  before ['/login', '/register'] do
+    redirect '/index' if session[:dni]
   end
 end
