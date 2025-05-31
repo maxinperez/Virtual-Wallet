@@ -46,5 +46,24 @@ class BankAccount < ActiveRecord::Base
       id: self.id
     )
   end
+  
+
+  def revenue
+    transactions = Transaction.where(receiver_bank_account_id: self.id)
+    amount = 0
+    transactions.each do |t|
+      amount += t.amount
+    end
+    amount
+  end
  
+  
+  def spends
+    transactions = Transaction.where(sender_bank_account_id: self.id)
+    amount = 0
+    transactions.each do |t|
+      amount += t.amount
+    end
+    amount.abs
+  end
 end

@@ -4,10 +4,10 @@
           <div class="balance-amount">$<%= current_user.bank_account.balance %></div>
           <div class="balance-stats">
             <div class="balance-stat">
-              <span>Ingresos:</span> $2,500.00
+              <span>Ingresos:</span> $<%= current_user.bank_account.revenue %>
             </div>
             <div class="balance-stat">
-              <span>Gastos:</span>
+              <span>Gastos:</span>$<%= current_user.bank_account.spends %>
             </div>
           </div>
         </div>
