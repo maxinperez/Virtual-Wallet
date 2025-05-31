@@ -40,8 +40,8 @@
           <span class="nav-icon">◇</span>
           <span>Tarjetas</span>
         </a>
-        <a href="/personalData" class="nav-item <%= 'active' if @active_page == 'personalData'%> " >
-          <span class="nav-icon">🕴️</span>
+        <a href="/personal_data" class="nav-item <%= 'active' if @active_page == 'personal_data'%> " >
+          <span class="nav-icon">-</span>
           <span>Datos personales</span>
         </a>
         <a href="/logout" class="nav-item <%= 'active' if @active_page == 'logout'%> ">
@@ -77,11 +77,25 @@
       <%= yield %>
     </main>
 
-    <!-- Footer -->
-    <footer style="background-color: #222; color: #eee; text-align: center; padding: 15px 0; font-size: 14px; margin-top: 20px;">
-      &copy; <%= Time.now.year %> payStack - Lo mejor para vos y tu billetera!
-    </footer>
+   
 
   </div>
+  <!-- Footer -->
+  <footer style="
+     background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+    color: #1f2937;
+    text-align: center;
+      padding: 15px 200px;  /* 15px arriba/abajo, 30px izquierda/derecha */
+    font-size: 12px;
+    width: 100%;
+    margin-top: 40px;
+    flex-shrink: 0;
+    text-align: left;
+  ">
+   <%= Time.now.year %> copyright © paystack - tu billetera segura, simple y siempre a tu alcance.
+  </footer>
+  
+  
+  
 </body>
 </html>

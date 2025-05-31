@@ -1,13 +1,13 @@
       <section class="balance-section">
         <div class="balance-card">
           <div class="balance-label">Balance Total</div>
-          <div class="balance-amount">$12,345.67</div>
+          <div class="balance-amount">$<%= current_user.bank_account.balance %></div>
           <div class="balance-stats">
             <div class="balance-stat">
               <span>Ingresos:</span> $2,500.00
             </div>
             <div class="balance-stat">
-              <span>Gastos:</span> $1,230.45
+              <span>Gastos:</span>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
         <% if @transactions.any? %>
         <% @transactions.each do |transaction| %>
           <% 
-            if transaction.source_account_id == current_user.bank_account.id
+            if transaction.sender_bank_account_id == current_user.bank_account.id
               amount_class = "amount-negative"
               amount_display = "-$#{transaction.amount}"
               other_user = transaction.target_account.user
