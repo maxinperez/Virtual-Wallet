@@ -1,4 +1,4 @@
-# Virtual Wallet
+# paystack
 
 A final project for the **Systems Analysis and Design** course.
 
@@ -11,7 +11,7 @@ A final project for the **Systems Analysis and Design** course.
 
 ## Project Description
 
-**Virtual Wallet** is a digital wallet application designed to manage personal finances in a simple and user-friendly way. it includes core functionalities typically found in modern e-wallets:
+**paystack** is a digital wallet application designed to manage personal finances in a simple and user-friendly way. it includes core functionalities typically found in modern e-wallets:
 
 - User registration and login
 - Balance and transaction management
