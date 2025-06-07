@@ -37,6 +37,9 @@ require_relative 'models/transaction'
     def current_user
       @current_user ||= User.find_by(dni: session[:dni]) if session[:dni]
     end
+    def active_page
+      @active_page ||= request.path_info
+    end
   end
 
   get '/register' do 
@@ -108,9 +111,6 @@ require_relative 'models/transaction'
   end 
 
   get '/personal_data' do 
-     @active_page = 'personal_data'
-    @user = User.find_by(dni: session[:dni])
-    @bank_account = @user.bank_account if @user
     erb :personal_data, layout: :'partial/layout'
   end 
 
@@ -129,10 +129,7 @@ require_relative 'models/transaction'
   end
 
   get '/index' do 
-    
-    @active_page = 'dashboard'
     user = User.find_by(dni: session[:dni])
-
     if(user&.bank_account)
       @transactions = user.bank_account.most_recent_transactions
     else 
@@ -142,17 +139,14 @@ require_relative 'models/transaction'
   end 
 
   get '/pay' do 
-    @active_page = 'pay'
     erb :pay, layout: :'partial/layout'
   end 
 
   get '/transfer' do 
-    @active_page = 'transfer'
    erb :transfer, layout: :'partial/layout'
   end 
 
   get '/transactions' do
-    @active_page = 'transactions'
     @transactions = Transaction.order(created_at: :desc)
     erb :transactions, layout: :'partial/layout'
   end
