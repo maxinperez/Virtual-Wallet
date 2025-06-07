@@ -67,6 +67,7 @@ GEM
       sinatra (= 4.1.1)
       tilt (~> 2.0)
     sqlite3 (2.6.0-x64-mingw-ucrt)
+    sqlite3 (2.6.0-x86_64-linux-gnu)
     tilt (2.6.0)
     timeout (0.4.3)
     tzinfo (2.0.6)
@@ -75,6 +76,7 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt

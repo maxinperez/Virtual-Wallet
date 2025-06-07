@@ -1,4 +1,3 @@
-  /* Container styles - optimized for desktop */
     .wallet-container {
       width: 100%;
       max-width: 1200px;
@@ -484,28 +483,3 @@
       color: #6b7280;
       margin-top: 16px;
     }
-
-
-    /* Agrega estos estilos a tu CSS */
-.transactions-container {
-  position: relative;
-  min-height: 200px; /* Altura mínima para mantener el espacio */
-}
-
-.no-transactions-message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  color: #888; /* Color más suave */
-  font-size: 1.2rem;
-}
-
-/* Opcional: mejorar el estilo del mensaje */
-.no-transactions-message p {
-  padding: 15px;
-  border-radius: 8px;
-  display: inline-block;
-}
