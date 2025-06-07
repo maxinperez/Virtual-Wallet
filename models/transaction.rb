@@ -1,7 +1,7 @@
 class Transaction < ActiveRecord::Base
-   belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
+  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
   belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id'
-
+  has_one :transfer, dependent: :destroy # se borra en cascada
  # enum state: { pending: 0, complete: 1, rejected: 2 }
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
