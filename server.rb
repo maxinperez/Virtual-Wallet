@@ -47,7 +47,6 @@ require_relative 'models/transaction'
     dni = params[:dni]
     email = params[:email]
     password = params[:password]
-    confirm = params[:confirmPassword]
     name = params[:name]
     last_name = params[:last_name]
     phone = params[:phone]
@@ -55,17 +54,16 @@ require_relative 'models/transaction'
     cp = params[:cp]
     address = params[:address]
 
-    if password != confirm
-      puts "Las contraseñas no coinciden"
-    end
+  if User.exists?(dni: dni)
+    halt 409, "El DNI ya está registrado"
+  end
+  if dni.length < 8
+    halt 409, "Dni invalido"
+  end
 
-    if User.exists?(dni: dni)
-      puts "El DNI ya está registrado"
-    end 
-
-    if User.exists?(email: email)
-      puts "El correo ya está registrado"
-    end
+  if User.exists?(email: email)
+    halt 409, "El correo ya está registrado"
+  end
 
     user = User.new(
     dni: dni,
