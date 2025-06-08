@@ -1,4 +1,3 @@
-<<<<<<< HEAD
   /* Dark mode styles for all classes */
 
 .dark-mode .wallet-container {
@@ -339,8 +338,6 @@
   background-color: #5a5a5a;
 }
   /* Container styles - optimized for desktop */
-=======
->>>>>>> 8e373802c1e9b3f785315c34808b6b96ce642d5c
     .wallet-container {
       width: 100%;
       max-width: 1200px;
@@ -884,7 +881,6 @@
       justify-content: center;
       color: #6b7280;
       margin-top: 16px;
-<<<<<<< HEAD
     }
 
 .no-transactions-message {
@@ -899,6 +895,3 @@
 }
 
 /* Opcional: mejorar el estilo del mensaje */
-=======
-    }
->>>>>>> 8e373802c1e9b3f785315c34808b6b96ce642d5c
