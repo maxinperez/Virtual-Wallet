@@ -190,3 +190,151 @@ main.main-content {
     order: -1;
   }
 }
+
+/* Modo oscuro para transacciones */
+
+/* Contenedor principal */
+.dark-mode main.main-content {
+  background-color: #252525;
+}
+
+/* CONTENEDOR PRINCIPAL DE TRANSACCIONES */
+.dark-mode .transactions-container {
+  background-color: #252525;
+  color: #e5e5e5;
+}
+
+/* TÍTULO */
+.dark-mode .transactions-title {
+  color: #f0f0f0;
+  border-bottom: 2px solid #404040;
+}
+
+/* LISTA SCROLLEABLE */
+.dark-mode .transactions-list {
+  background-color: transparent;
+}
+
+.dark-mode .transacciones-box {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll personalizado (Webkit) */
+.dark-mode .transactions-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-mode .transactions-list::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+  border-radius: 10px;
+}
+
+.dark-mode .transactions-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Scroll para Firefox */
+.dark-mode .transactions-list {
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a transparent;
+}
+
+/* ============= FILA ============= */
+.dark-mode .transaction-row {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.dark-mode .transaction-row:hover {
+  background: #3a3a3a;
+}
+
+.dark-mode .avatar {
+  background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
+  color: #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .transaction-details {
+  color: #e5e5e5;
+}
+
+.dark-mode .title {
+  color: #e5e5e5;
+}
+
+.dark-mode .amount {
+  color: #f0f0f0;
+}
+
+.dark-mode .negative {
+  color: #ff6b6b;
+}
+
+.dark-mode .positive {
+  color: #66bb6a;
+}
+
+.dark-mode .date {
+  color: #b5b5b5;
+}
+
+.dark-mode .user-name {
+  color: #d0d0d0;
+}
+
+/* Estilos adicionales para mejorar la consistencia */
+.dark-mode .transaction-status {
+  color: #b5b5b5;
+}
+
+.dark-mode .transaction-status.pending {
+  color: #ffd54f;
+}
+
+.dark-mode .transaction-status.completed {
+  color: #81c784;
+}
+
+.dark-mode .transaction-status.failed {
+  color: #e57373;
+}
+
+.dark-mode .transaction-icon {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .transaction-empty {
+  color: #b5b5b5;
+}
+
+.dark-mode .transaction-filter {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+  color: #e5e5e5;
+}
+
+.dark-mode .transaction-filter:focus {
+  border-color: #6b6b6b;
+  outline: none;
+}
+
+.dark-mode .transaction-filter::placeholder {
+  color: #999999;
+}
+
+.dark-mode .filter-button {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+  border: 1px solid #606060;
+}
+
+.dark-mode .filter-button:hover {
+  background-color: #5a5a5a;
+}
+
+.dark-mode .filter-active {
+  background-color: #6b6b6b;
+  color: #ffffff;
+}

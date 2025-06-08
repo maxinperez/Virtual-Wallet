@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Virtual Wallet</title>
-  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/transactions.css">
 </head>
-<body>
+<body class="<%= 'dark-mode' if dark_mode? %>">
   <div class="wallet-container">
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-logo">
-        <a href = "/index"><div class="logo-icon">W</div>
+        <a href = "/index"><div class="logo-icon">ps</div>
         </a>
-        <div class="wallet-title">Mi Billetera</div>
+        <div class="wallet-title">paystack</div>
       </div>
       <nav class="nav-menu">
         <a href="/index" class="nav-item <%= 'active' if active_page == '/index'%>">
           <span class="nav-icon">◆</span>
-          <span>Dashboard</span>
+           <span>Dashboard</span>       
         </a>
-        <a href="/transfer" class="nav-item <%= 'active' if active_page == '/transfer'%>">
+        <a href="/transfer" class="nav-item <%= 'active' if active_page == 'transfer'%>">
           <span class="nav-icon">↑</span>
           <span>Transferencias</span>
         </a>
@@ -60,6 +60,8 @@
     <header class="wallet-header">
       <div class=""></div> <!-- for relocate the icons -->
       <div class="header-actions">
+      <a href="/toggle_theme" class="notification-icon"><%= dark_mode? ? '☀' : '🌙' %></span>
+  </a>
         <div class="notification-icon">✉</div>
         <div class="user-avatar">
           <% if current_user %>

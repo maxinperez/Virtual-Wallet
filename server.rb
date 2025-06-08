@@ -29,7 +29,7 @@ require_relative 'models/transaction'
       logger.info 'Reloaded!!!'
     end
   end
-
+  
   helpers do 
     def partial(template, locals = {})
       erb(:"partial/#{template}", locals: locals)
@@ -40,7 +40,14 @@ require_relative 'models/transaction'
     def active_page
       @active_page ||= request.path_info
     end
+    def dark_mode?
+    session[:dark_mode] || false
   end
+  end
+  get '/toggle_theme' do
+  session[:dark_mode] = !session[:dark_mode]
+  redirect back
+end
 
   get '/register' do 
     erb :register, layout: :'partial/header'
@@ -142,48 +149,14 @@ require_relative 'models/transaction'
     erb :pay, layout: :'partial/layout'
   end 
 
+  get '/transfer' do 
+   erb :transfer, layout: :'partial/layout'
+  end 
+
   get '/transactions' do
     @transactions = Transaction.order(created_at: :desc)
     erb :transactions, layout: :'partial/layout'
   end
-
-  get '/transfer' do 
-   @active_page = 'transfer'
-   erb :transfer, layout: :'partial/layout'
-  end
-
- post '/transfer' do
-  @active_page = 'transfer'
-
-  source = current_user.bank_account
-  
-  input = params[:destino] # o params[:cvu] o como llames el campo del formulario
-  target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
-  
-  @error=nil
-  if target.nil?
-    @error = "Cuenta destino no encontrada"
-  elsif source_account == target_account
-    @error = "No podés transferir a tu propia cuenta."
-  end
-
-  if @error
-    return erb :transfer, layout: :'partial/layout'
-  else  
-    transfer = Transfer.new(
-    source_account: current_user.bank_account,
-    target_account: target_account,
-    amount: params[:amount],
-    description: params[:description],
-    motivo: params[:motivo],
-    transaction_date: Time.now
-    )
-  end
-  if transfer.save
-    redirect '/transactions'
-  end
- end
-
 
   before do
     protected_paths = ['/index', '/pay', '/transfer', '/transactions']
