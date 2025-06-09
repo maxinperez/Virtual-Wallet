@@ -1,6 +1,6 @@
 <div>
 <h1 style="text-align: center;">
-   Datos Personales
+   Datos Bancarios
 </h1>
 
 <% if current_user.bank_account %>
@@ -15,6 +15,45 @@
     <strong>Alias:</strong>
     <input type="text" name="alias" value="<%= current_user.bank_account.alias %>" <%= 'readonly' unless editando %>>
   </p>
+  
+  <div>
+  <h1 style="text-align: center;">
+    Datos Personales
+  </h1>
+
+    <p style="text-align: center;">
+      <strong>Nombre:</strong>
+      <input type="text" name="name" value="<%= current_user.name %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Apellido:</strong>
+      <input type="text" name="last_name" value="<%= current_user.last_name %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>DNI:</strong>
+      <input type="text" name="dni" value="<%= current_user.dni %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Email:</strong>
+      <input type="text" name="email" value="<%= current_user.email %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Telefono:</strong>
+      <input type="text" name="phone" value="<%= current_user.phone %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Localidad:</strong>
+      <input type="text" name="locality" value="<%= current_user.locality %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Codigo Postal:</strong>
+      <input type="text" name="cp" value="<%= current_user.cp %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Direccion:</strong>
+      <input type="text" name="address" value="<%= current_user.address%>" <%= 'readonly' unless editando %>>
+    </p>
+  </div>
 
   <div style="text-align: center;">
     <% if editando %>
