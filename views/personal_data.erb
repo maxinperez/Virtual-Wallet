@@ -4,8 +4,26 @@
 </h1>
 
 <% if current_user.bank_account %>
-    <p style="body; text-align: center; "><strong>CVU:</strong> <%= current_user.bank_account.cvu %></p>
-    <p style="body; text-align: center; "><strong>Alias:</strong> <%= current_user.bank_account.alias %></p>
+     <% editando = params[:edit] == "true" %>
+
+<form action="/actualizar_cuenta" method="POST"> < implementar en la parte del servidor el post actualizar_cuenta>
+  <p style="text-align: center;">
+    <strong>CVU:</strong>
+    <input type="text" name="cvu" value="<%= current_user.bank_account.cvu %>" <%= 'readonly' unless editando %>>
+  </p>
+  <p style="text-align: center;">
+    <strong>Alias:</strong>
+    <input type="text" name="alias" value="<%= current_user.bank_account.alias %>" <%= 'readonly' unless editando %>>
+  </p>
+
+  <div style="text-align: center;">
+    <% if editando %>
+      <button type="submit">Guardar</button>
+    <% else %>
+      <a href="personal_data/?edit=true"><button type="button">Editar</button></a>
+    <% end %>
+  </div>
+</form>
 <% else %>
   <p style="
     margin-top: 200px; 

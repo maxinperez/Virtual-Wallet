@@ -117,7 +117,7 @@ end
     redirect '/login'
   end 
 
-  get '/personal_data' do 
+  get '/personal_data/' do 
     erb :personal_data, layout: :'partial/layout'
   end 
 
