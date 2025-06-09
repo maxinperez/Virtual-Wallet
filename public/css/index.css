@@ -894,4 +894,35 @@
   font-size: 1.2rem;
 }
 
-/* Opcional: mejorar el estilo del mensaje */
+.contenedor-cuenta,
+.contenedor-personales {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .contenedor-cuenta,
+  .contenedor-personales {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1rem;
+  }
+}
+
+.btn {
+  width: 70%;
+  padding: 12px 20px;
+  background-color: #18181b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 100;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}

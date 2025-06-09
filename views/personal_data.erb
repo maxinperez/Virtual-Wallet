@@ -1,4 +1,5 @@
-<div>
+<div class "display: flex;">
+<div class="contenedor-cuenta">
 <h1 style="text-align: center;">
    Datos Bancarios
 </h1>
@@ -6,60 +7,72 @@
 <% if current_user.bank_account %>
      <% editando = params[:edit] == "true" %>
 
-<form action="/actualizar_cuenta" method="POST"> < implementar en la parte del servidor el post actualizar_cuenta>
+<form action="/actualizar_cuenta" method="POST">
+
   <p style="text-align: center;">
-    <strong>CVU:</strong>
-    <input type="text" name="cvu" value="<%= current_user.bank_account.cvu %>" <%= 'readonly' unless editando %>>
+    <strong>CVU</strong>
+    <input type="text" name="cvu" value="<%= current_user.bank_account.cvu %>"readonly>
   </p>
   <p style="text-align: center;">
-    <strong>Alias:</strong>
+    <strong>Alias</strong>
     <input type="text" name="alias" value="<%= current_user.bank_account.alias %>" <%= 'readonly' unless editando %>>
   </p>
-  
-  <div>
+  </div>
+  <div class="contenedor-personales">
+  <h1 style="text-align: center;">
+   Contacto
+</h1>
+
+  <p style="text-align: center;">
+      <strong>Email</strong>
+      <input type="text" name="email" value="<%= current_user.email %>" <%= 'readonly' unless editando %>>
+    </p>
+    <p style="text-align: center;">
+      <strong>Telefono</strong>
+      <input type="text" name="phone" value="<%= current_user.phone %>" <%= 'readonly' unless editando %>>
+    </p>
+  </div>
+  <div class="contenedor-personales">
   <h1 style="text-align: center;">
     Datos Personales
   </h1>
 
     <p style="text-align: center;">
-      <strong>Nombre:</strong>
+      <strong>Nombre</strong>
       <input type="text" name="name" value="<%= current_user.name %>" <%= 'readonly' unless editando %>>
     </p>
     <p style="text-align: center;">
-      <strong>Apellido:</strong>
+      <strong>Apellido</strong>
       <input type="text" name="last_name" value="<%= current_user.last_name %>" <%= 'readonly' unless editando %>>
     </p>
     <p style="text-align: center;">
       <strong>DNI:</strong>
-      <input type="text" name="dni" value="<%= current_user.dni %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Email:</strong>
-      <input type="text" name="email" value="<%= current_user.email %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Telefono:</strong>
-      <input type="text" name="phone" value="<%= current_user.phone %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Localidad:</strong>
-      <input type="text" name="locality" value="<%= current_user.locality %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Codigo Postal:</strong>
-      <input type="text" name="cp" value="<%= current_user.cp %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Direccion:</strong>
-      <input type="text" name="address" value="<%= current_user.address%>" <%= 'readonly' unless editando %>>
+      <input type="text" name="dni" value="<%= current_user.dni %>" readonly>
     </p>
   </div>
+  <div class = "contenedor-personales">
+  <h1 style="text-align: center;">
+  Datos de residencia
+</h1>
+  <p style="text-align: center;">
+  <strong>Localidad:</strong>
+  <input type="text" name="locality" value="<%= current_user.locality %>" <%= 'readonly' unless editando %>>
+</p>
+<p style="text-align: center;">
+  <strong>Codigo Postal</strong>
+  <input type="text" name="cp" value="<%= current_user.cp %>" <%= 'readonly' unless editando %>>
+</p>
+<p style="text-align: center;">
+  <strong>Direccion</strong>
+  <input type="text" name="address" value="<%= current_user.address%>" <%= 'readonly' unless editando %>>
+</p>
+</div>
 
   <div style="text-align: center;">
     <% if editando %>
-      <button type="submit">Guardar</button>
+      <button class="btn" type="submit">Guardar</button>
     <% else %>
-      <a href="?edit=true"><button type="button">Editar</button></a>
+      <a href="?edit=true"><button class="btn" type="button">Editar</button></a>
     <% end %>
   </div>
 </form>
@@ -74,3 +87,4 @@
     💳 No se encontró una cuenta bancaria asociada a este usuario!
   </p>
 <% end %>
+</div>
