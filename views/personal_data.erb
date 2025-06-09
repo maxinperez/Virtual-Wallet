@@ -1,12 +1,11 @@
-<h1 style="margin-left: 250px;">
+<div>
+<h1 style="text-align: center;">
    Datos Personales
 </h1>
 
 <% if current_user.bank_account %>
-  <div style="margin-left: -300px; margin-top: 200px;">
-    <p style="margin-bottom: 10px;"><strong>CVU:</strong> <%= current_user.bank_account.cvu %></p>
-    <p><strong>Alias:</strong> <%= current_user.bank_account.alias %></p>
-  </div>
+    <p style="body; text-align: center; "><strong>CVU:</strong> <%= current_user.bank_account.cvu %></p>
+    <p style="body; text-align: center; "><strong>Alias:</strong> <%= current_user.bank_account.alias %></p>
 <% else %>
   <p style="
     margin-top: 200px; 
@@ -18,5 +17,3 @@
     💳 No se encontró una cuenta bancaria asociada a este usuario!
   </p>
 <% end %>
-
-
