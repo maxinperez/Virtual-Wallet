@@ -1,4 +1,5 @@
-<h1>Realizar Transferencia</h1>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+<h1 style="text-align: center;">Realizar Transferencia</h1>
 
 <% if @error %>
   <div class="error-message">
@@ -6,26 +7,27 @@
   </div>
 <% end %>
 
-<form action="/transfer" method="post">
-  <div>
-    <label for="destino">CVU o Alias destino:</label>
-    <input type="text" id="destino" name="destino" required value="<%= params[:destino] %>">
-  </div>
+  <form action="/transfer" method="post" style="text-align: center; width: 300px;">
 
-  <div>
-    <label for="amount">Monto:</label>
-    <input type="number" id="amount" name="amount" step="0.01" min="0.01" required value="<%= params[:amount] %>">
-  </div>
+    <p style="text-align: center;"><br>
+      <strong>CVU o Alias destino:</strong>
+      <input type="text" id="destino" name="destino" required value="<%= params[:destino] %>">
+    </p>
+    <p style="text-align: center;"><br>
+      <strong>Monto:</strong>
+      <input type="number" id="amount" name="amount" step="0.01" min="0.01" required value="<%= params[:amount] %>">
+    </p>
+    <p style="text-align: center;"><br>
+      <strong>Motivo:</strong>
+      <input type="text" id="motivo" name="motivo" value="<%= params[:motivo] %>">
+    </p>
+    <p style="text-align: center;"><br>
+      <strong>Descripción:</strong>
+      <input type="text" id="descripcion" name="descripcion" required value="<%= params[:descripcion] %>">
+    </p>
 
-  <div>
-    <label for="motivo">Motivo:</label>
-    <input type="text" id="motivo" name="motivo" value="<%= params[:motivo] %>">
-  </div>
-
-  <div>
-    <label for="description">Descripción:</label>
-    <textarea id="description" name="description"><%= params[:description] %></textarea>
-  </div>
-
+  <p style="text-align: center; margin-top: 20px;">
   <button type="submit">Enviar Transferencia</button>
+  </p>
 </form>
+</div>
