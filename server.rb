@@ -140,8 +140,10 @@ end
     user = User.find_by(dni: session[:dni])
     if(user&.bank_account)
       @transactions = user.bank_account.most_recent_transactions
+      @frequent_recipients = user.bank_account.frequent_recipients
     else 
       @transactions = []
+      @frequent_recipients = []
     end
    erb :index, layout: :'partial/layout'
   end 
