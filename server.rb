@@ -155,8 +155,12 @@ end
   end 
 
   get '/transactions' do
-    @transactions = Transaction.order(created_at: :desc)
-    erb :transactions, layout: :'partial/layout'
+    if current_user && current_user.bank_account
+      @transactions = current_user.bank_account.all_transactions.order(created_at: :desc)
+    else
+      @transactions = []
+    end
+  erb :transactions, layout: :'partial/layout'
   end
 
   before do
