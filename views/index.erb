@@ -143,9 +143,45 @@
           </div>
         </div>
 
-        <!-- Activity Chart -->
         <div class="activity-chart">
           <div class="section-title">Actividad Reciente</div>
-          <div class="chart-placeholder">Gráfico de Actividad</div>
+          <canvas id="expenseChart" width="400" height="200"></canvas>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+        <script>
+          // Datos que viene del backend, por ejemplo:
+          const expensesData = <%= @daily_expenses.to_json %>;
+
+          //fechas y valores para el gráfico
+          const labels = Object.keys(expensesData);
+          const data = Object.values(expensesData);
+
+          const ctx = document.getElementById('expenseChart').getContext('2d');
+          const expenseChart = new Chart(ctx, {
+              type: 'line',  // o 'bar', 'area', etc.
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: 'Gasto Mensual',
+                      data: data,
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                  }]
+              },
+              options: {
+                  scales: {
+                       y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 1000000
+                          }
+                  }
+              }
+          });
+        </script>
+
+
       </div>
