@@ -66,4 +66,25 @@ class BankAccount < ActiveRecord::Base
     end
     amount.abs
   end
+
+  def frequent_recipients(limit = 3)
+  Transaction
+    .where("transactions.sender_bank_account_id = ?", self.id)
+    .joins("INNER JOIN bank_accounts ON bank_accounts.id = transactions.receiver_bank_account_id")
+    .joins("INNER JOIN users ON users.id = bank_accounts.user_id")
+    .select('users.name, users.last_name, users.email, bank_accounts.id as account_id')
+    .group('users.id, bank_accounts.id')
+    .order('count(transactions.id) DESC')
+    .limit(limit)
+    .map do |t|
+      {
+        name: "#{t.name} #{t.last_name}",
+        email: t.email,
+        initials: "#{t.name[0]}#{t.last_name[0]}",
+        account_id: t.account_id
+      }
+    end
+  end
+
+
 end
