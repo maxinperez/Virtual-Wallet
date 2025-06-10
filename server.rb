@@ -145,6 +145,9 @@ end
       @transactions = []
       @frequent_recipients = []
     end
+    
+    @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
+
    erb :index, layout: :'partial/layout'
   end 
 
