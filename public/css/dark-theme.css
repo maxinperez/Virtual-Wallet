@@ -267,7 +267,8 @@
 
 .dark-mode .transactions-container {
   background-color: #252525;
-  color: #e5e5e5;
+  color: #756f6f;
+  border: 1px solid #474748;
 }
 
 .dark-mode .transactions-title {

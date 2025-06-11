@@ -10,18 +10,6 @@ body {
     min-height: 100vh;
   }
   
-  /* Header ajustado para landing */
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
-    transition: background-color 0.3s ease;
-  }
-  
   .dark-mode .header {
     background-color: rgba(42, 42, 42, 0.95);
   }
@@ -173,9 +161,13 @@ body {
   
   /* Features Section */
   .features {
-    padding: 100px 5%;
-    background-color: #ffffff;
-    transition: background-color 0.3s ease;
+    min-height: 100vh; /* 100% de la altura de la ventana */
+    margin-top: 30px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
   }
   
   .dark-mode .features {
@@ -183,6 +175,7 @@ body {
   }
   
   .section-heading {
+    
     font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
@@ -267,7 +260,7 @@ body {
   
   /* Demo Section */
   .demo {
-    padding: 100px 5%;
+    padding: 150px 5%;
     background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
     display: flex;
     align-items: center;

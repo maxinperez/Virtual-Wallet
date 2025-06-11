@@ -15,6 +15,7 @@ body {
   justify-content: center;
   padding: 20px;
   color: #1f2937;
+  margin: 0;
 }
 
 body.dark-mode {
@@ -22,10 +23,8 @@ body.dark-mode {
   color: #e5e5e5;
 }
 
-main {
+.main-content {
   flex: 1;
-  padding-top: 20px;
-  margin-top: 60px;
 }
 
 h1 {
@@ -34,4 +33,24 @@ h1 {
   margin-bottom: 25px;
   text-align: center;
   color: #111827;
+}
+
+
+.footer {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 5rem;
+  width: 100%; /* se extiende todo el ancho */
+  box-sizing: border-box; /* para que padding no aumente ancho */
+}
+.dark-mode .footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 5rem;
+  width: 100%; /* se extiende todo el ancho */
+  box-sizing: border-box; /* para que padding no aumente ancho */
 }

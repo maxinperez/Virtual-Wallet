@@ -1,4 +1,4 @@
-<div class "display: flex;">
+<div class = "contenedor-general">
 <div class="contenedor-personales">
 <h1 style="text-align: center;">
    Datos Bancarios
@@ -67,7 +67,7 @@
   <input type="text" name="address" value="<%= current_user.address%>" <%= 'readonly' unless editando %>>
 </p>
 </div>
-
+</div>
   <div style="text-align: center;">
     <% if editando %>
       <button class="btn" type="submit">Guardar</button>
@@ -87,4 +87,3 @@
     💳 No se encontró una cuenta bancaria asociada a este usuario!
   </p>
 <% end %>
-</div>
