@@ -535,3 +535,20 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
+.demo-content {
+  flex: 1 1 40%;
+  min-width: 280px;
+}
+
+.demo-preview {
+  flex: 1 1 55%;
+  min-width: 320px;
+}
+
+/* Estadísticas alineadas horizontalmente */
+.demo-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
