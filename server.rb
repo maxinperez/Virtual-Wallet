@@ -156,8 +156,42 @@ end
   end 
 
   get '/transfer' do 
+   @active_page = 'transfer'
    erb :transfer, layout: :'partial/layout'
-  end 
+  end
+
+
+post '/transfer' do
+  @active_page = 'transfer'
+
+  source = current_user.bank_account
+  
+  input = params[:destino] # o params[:cvu] o como llames el campo del formulario
+  target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
+  
+  @error=nil
+  if target.nil?
+    @error = "Cuenta destino no encontrada"
+  elsif source_account == target_account
+    @error = "No podés transferir a tu propia cuenta."
+  end
+
+  if @error
+    return erb :transfer, layout: :'partial/layout'
+  else  
+    transfer = Transfer.new(
+    source_account: current_user.bank_account,
+    target_account: target_account,
+    amount: params[:amount],
+    description: params[:description],
+    motivo: params[:motivo],
+    transaction_date: Time.now
+    )
+  end
+  if transfer.save
+    redirect '/transactions'
+  end
+ end
 
   get '/transactions' do
     if current_user && current_user.bank_account
