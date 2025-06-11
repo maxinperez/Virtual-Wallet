@@ -1,49 +1,47 @@
 /* general structure of the form, steps and navigation. */
 .form {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    width: 450px;        
-    padding: 32px;
-    border: 1px solid #e5e7eb;
-    
-  }
-  
-  .form-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-  }
-  
-  .form-buttons button {
-    flex: 1;
-  }
-  
-  .step {
-    display: none;
-  }
-  
-  .step.active {
-    display: block;
-  }
-  
-  .steps-indicator {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-  
-  .step-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #d1d5db;
-    margin: 0 6px;
-    transition: background-color 0.3s;
-  }
-  
-  .step-dot.active {
-    background-color: #18181b;
-  }
-  
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.form-buttons button {
+  flex: 1;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.steps-indicator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  margin: 0 6px;
+  transition: background-color 0.3s;
+}
+
+.step-dot.active {
+  background-color: #18181b;
+}

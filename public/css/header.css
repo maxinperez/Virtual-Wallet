@@ -1,49 +1,35 @@
-
-body {
-    margin: 0;
-    padding-top: 80px; 
-
-    margin: 0;
-    padding-top: 80px; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9fafb;
-}
-
-/* header styles */
 .header {
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
-}
-
-.container {
+  }
+  
+  .container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo {
+  }
+  
+  .logo {
     font-size: 22px;
     font-weight: 600;
     color: #111827;
     text-decoration: none;
-}
-
-/* navegation */
-.nav {
+  }
+  
+  .nav {
     display: flex;
     gap: 12px;
-}
-
-/* buttons of header */
-.btn {
+  }
+  
+  .btn {
     padding: 8px 16px;
     border-radius: 6px;
     font-size: 14px;
@@ -53,24 +39,24 @@ body {
     cursor: pointer;
     display: inline-block;
     text-align: center;
-}
-
-.btn-outline {
+  }
+  
+  .btn-outline {
     color: #374151;
     border: 1px solid #d1d5db;
     background-color: transparent;
-}
-
-.btn-outline:hover {
+  }
+  
+  .btn-outline:hover {
     background-color: #f3f4f6;
-}
-
-.btn-primary {
+  }
+  
+  .btn-primary {
     background-color: #18181b;
     color: white;
     border: 1px solid #18181b;
-}
-
-.btn-primary:hover {
+  }
+  
+  .btn-primary:hover {
     background-color: #27272a;
-}
+  }

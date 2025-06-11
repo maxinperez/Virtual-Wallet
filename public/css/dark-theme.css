@@ -1,505 +1,57 @@
-/* Modo claro - Estilos por defecto */
-body:not(.dark-mode) {
-  background-color: #ffffff;
-  color: #1f2937;
+/* Dark mode styles for all classes */
+
+.dark-mode h1 {
+  color: #f0f0f0;
 }
 
-body:not(.dark-mode) .wallet-container {
-  background-color: #ffffff;
-}
-
-body:not(.dark-mode) .sidebar {
-  background-color: #ffffff;
-  border-right: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .sidebar-logo {
-  color: #111827;
-}
-
-body:not(.dark-mode) .logo-icon {
-  background-color: #111827;
-  color: #ffffff;
-}
-
-body:not(.dark-mode) .wallet-title {
-  color: #111827;
-}
-
-/* Navegación modo claro */
-body:not(.dark-mode) .nav-item {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) .nav-item:hover {
-  background-color: #f9fafb;
-  color: #111827;
-}
-
-body:not(.dark-mode) .nav-item.active {
-  background-color: #f3f4f6;
-  color: #111827;
-}
-
-body:not(.dark-mode) .nav-icon {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) .nav-item:hover .nav-icon {
-  color: #111827;
-}
-
-body:not(.dark-mode) .nav-item.active .nav-icon {
-  color: #111827;
-}
-
-/* Header modo claro */
-body:not(.dark-mode) .wallet-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .notification-icon {
-  background-color: #f3f4f6;
-  color: #111827;
-}
-
-body:not(.dark-mode) .user-avatar {
-  background-color: #e5e7eb;
-  color: #111827;
-}
-
-body:not(.dark-mode) .theme-toggle {
-  background-color: #f3f4f6;
-  color: #111827;
-}
-
-body:not(.dark-mode) .theme-toggle:hover {
-  background-color: #e5e7eb;
-}
-
-/* Contenido principal modo claro */
-body:not(.dark-mode) .main-content {
-  background-color: #ffffff;
-}
-
-/* Cards modo claro */
-body:not(.dark-mode) .card,
-body:not(.dark-mode) .balance-card,
-body:not(.dark-mode) .transaction-item {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  color: #111827;
-}
-
-body:not(.dark-mode) .card-header,
-body:not(.dark-mode) .card-title {
-  color: #111827;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .card-body,
-body:not(.dark-mode) .card-content {
-  background-color: #ffffff;
-  color: #111827;
-}
-
-/* Formularios modo claro */
-body:not(.dark-mode) input,
-body:not(.dark-mode) select,
-body:not(.dark-mode) textarea {
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #111827;
-}
-
-body:not(.dark-mode) input::placeholder,
-body:not(.dark-mode) textarea::placeholder {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) input:focus,
-body:not(.dark-mode) select:focus,
-body:not(.dark-mode) textarea:focus {
-  border-color: #9ca3af;
-  background-color: #ffffff;
-}
-
-body:not(.dark-mode) label {
-  color: #374151;
-}
-
-/* Botones modo claro */
-body:not(.dark-mode) .btn,
-body:not(.dark-mode) button {
-  background-color: #18181b;
-  color: #ffffff;
-  border: 1px solid #18181b;
-}
-
-body:not(.dark-mode) .btn:hover,
-body:not(.dark-mode) button:hover {
-  background-color: #27272a;
-}
-
-body:not(.dark-mode) .btn-back {
-  background-color: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
-}
-
-body:not(.dark-mode) .btn-back:hover {
-  background-color: #e5e7eb;
-}
-
-/* Tablas modo claro */
-body:not(.dark-mode) .table,
-body:not(.dark-mode) table {
-  background-color: #ffffff;
-  color: #111827;
-}
-
-body:not(.dark-mode) .table th,
-body:not(.dark-mode) table th {
-  background-color: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
-  color: #111827;
-}
-
-body:not(.dark-mode) .table td,
-body:not(.dark-mode) table td {
-  border-bottom: 1px solid #e5e7eb;
-  color: #111827;
-}
-
-/* Transacciones modo claro */
-body:not(.dark-mode) .transaction-item {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .transaction-date {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) .transaction-description {
-  color: #111827;
-}
-
-body:not(.dark-mode) .transaction-amount {
-  color: #111827;
-}
-
-body:not(.dark-mode) .transaction-status {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) .transaction-type {
-  color: #6b7280;
-}
-
-/* Alertas modo claro */
-body:not(.dark-mode) .alert {
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  color: #111827;
-}
-
-body:not(.dark-mode) .mensaje-exito {
-  background-color: #dcfce7;
-  color: #15803d;
-  border-color: #bbf7d0;
-}
-
-body:not(.dark-mode) .mensaje {
-  color: #b91c1c;
-  background-color: #fee2e2;
-  border: 1px solid #fecaca;
-}
-
-/* Links modo claro */
-body:not(.dark-mode) a {
-  color: #111827;
-}
-
-body:not(.dark-mode) a:hover {
-  color: #374151;
-}
-
-/* Texto general modo claro */
-body:not(.dark-mode) h1, 
-body:not(.dark-mode) h2, 
-body:not(.dark-mode) h3,
-body:not(.dark-mode) h4, 
-body:not(.dark-mode) h5, 
-body:not(.dark-mode) h6 {
-  color: #111827;
-}
-
-body:not(.dark-mode) p {
-  color: #374151;
-}
-
-body:not(.dark-mode) small {
-  color: #6b7280;
-}
-
-/* Footer modo claro */
-body:not(.dark-mode) footer {
-  background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
-  color: #6b7280;
-  border-top: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .sidebar-footer {
-  background-color: #ffffff;
-  border-top: 1px solid #e5e7eb;
-}
-
-body:not(.dark-mode) .help-link {
-  color: #6b7280;
-}
-
-body:not(.dark-mode) .help-link:hover {
-  color: #111827;
-  background-color: #f9fafb;
-}
-
-/* Modo noche - Paleta de grises completa */
-.dark-mode {
-  background-color: #1e1e1e;
-  color: #e5e5e5;
-}
-
-.dark-mode * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Contenedor principal */
-.dark-mode .wallet-container {
-  background-color: #1e1e1e;
-}
-
-/* Sidebar */
-.dark-mode .sidebar {
+.dark-mode .header {
   background-color: #2a2a2a;
-  border-right: 1px solid #404040;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode .sidebar-logo {
+.dark-mode .logo {
   color: #f0f0f0;
 }
 
-.dark-mode .logo-icon {
-  background-color: #6b6b6b;
-  color: #ffffff;
-}
-
-.dark-mode .wallet-title {
-  color: #f0f0f0;
-}
-
-/* Navegación */
-.dark-mode .nav-menu {
-  background-color: #2a2a2a;
-}
-
-.dark-mode .nav-item {
-  color: #d0d0d0;
-  background-color: transparent;
-}
-
-.dark-mode .nav-item:hover {
-  background-color: #3a3a3a;
-  color: #f0f0f0;
-}
-
-.dark-mode .nav-item.active {
-  background-color: #4a4a4a;
-  color: #ffffff;
-}
-
-.dark-mode .nav-icon {
-  color: #d0d0d0;
-}
-
-.dark-mode .nav-item:hover .nav-icon {
-  color: #f0f0f0;
-}
-
-.dark-mode .nav-item.active .nav-icon {
-  color: #ffffff;
-}
-
-/* Footer del sidebar */
-.dark-mode .sidebar-footer {
-  background-color: #2a2a2a;
-  border-top: 1px solid #404040;
-}
-
-.dark-mode .help-link {
-  color: #d0d0d0;
-}
-
-.dark-mode .help-link:hover {
-  color: #f0f0f0;
-  background-color: #3a3a3a;
-}
-
-.dark-mode .help-icon {
-  color: #d0d0d0;
-}
-
-/* Header */
-.dark-mode .wallet-header {
-  background-color: #2a2a2a;
-  border-bottom: 1px solid #404040;
-}
-
-.dark-mode .header-actions {
-  background-color: transparent;
-}
-
-.dark-mode .notification-icon {
-  background-color: #4a4a4a;
-  color: #f0f0f0;
-}
-
-.dark-mode .notification-icon:hover {
-  background-color: #5a5a5a;
-}
-
-.dark-mode .user-avatar {
-  background-color: #6b6b6b;
-  color: #ffffff;
-  border: 2px solid #404040;
-}
-
-.dark-mode .theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #4a4a4a;
-  color: #f0f0f0;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.dark-mode .theme-toggle:hover {
-  background-color: #5a5a5a;
-}
-
-.dark-mode .theme-icon {
-  color: #f0f0f0;
-}
-
-/* Contenido principal */
-.dark-mode .main-content {
-  background-color: #252525;
-}
-
-/* Cards y elementos de contenido */
-.dark-mode .card,
-.dark-mode .balance-card,
-.dark-mode .transaction-item,
-.dark-mode .dashboard-card,
-.dark-mode .summary-card,
-.dark-mode .account-card {
+.dark-mode .form {
   background-color: #2a2a2a;
   border: 1px solid #404040;
-  color: #e5e5e5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode .card:hover,
-.dark-mode .balance-card:hover,
-.dark-mode .transaction-item:hover {
-  background-color: #3a3a3a;
-  border-color: #505050;
-}
-
-.dark-mode .card-header,
-.dark-mode .card-title {
-  color: #f0f0f0;
-  border-bottom: 1px solid #404040;
-}
-
-.dark-mode .card-body,
-.dark-mode .card-content {
-  background-color: #2a2a2a;
-  color: #e5e5e5;
-}
-
-.dark-mode .card-footer {
-  background-color: #2a2a2a;
-  border-top: 1px solid #404040;
-  color: #d0d0d0;
-}
-
-/* Balance y montos */
-.dark-mode .balance-amount,
-.dark-mode .amount,
-.dark-mode .money {
-  color: #f0f0f0;
-}
-
-.dark-mode .balance-label,
-.dark-mode .amount-label {
+.dark-mode .intro-text {
   color: #b5b5b5;
-}
-
-/* Formularios */
-.dark-mode form {
-  background-color: #2a2a2a;
-}
-
-.dark-mode input,
-.dark-mode select,
-.dark-mode textarea {
-  background-color: #2a2a2a;
-  border: 1px solid #505050;
-  color: #e5e5e5;
-}
-
-.dark-mode input::placeholder,
-.dark-mode textarea::placeholder {
-  color: #999999;
-}
-
-.dark-mode input:focus,
-.dark-mode select:focus,
-.dark-mode textarea:focus {
-  border-color: #707070;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(112, 112, 112, 0.2);
-  background-color: #3a3a3a;
 }
 
 .dark-mode label {
   color: #d0d0d0;
 }
 
-.dark-mode .form-group {
-  background-color: transparent;
-}
-
-.dark-mode .form-control {
+.dark-mode input[type="number"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"],
+.dark-mode input[type="text"] {
   background-color: #2a2a2a;
   border: 1px solid #505050;
   color: #e5e5e5;
 }
 
-/* Botones */
-.dark-mode .btn,
+.dark-mode input::placeholder {
+  color: #999999;
+}
+
+.dark-mode input:focus {
+  border-color: #707070;
+  background-color: #3a3a3a;
+  box-shadow: 0 0 0 2px rgba(112, 112, 112, 0.2);
+}
+
 .dark-mode button {
   background-color: #4a4a4a;
   color: #f0f0f0;
   border: 1px solid #606060;
 }
 
-.dark-mode .btn:hover,
 .dark-mode button:hover {
   background-color: #5a5a5a;
   border-color: #707070;
@@ -515,63 +67,6 @@ body:not(.dark-mode) .help-link:hover {
   background-color: #5a5a5a;
 }
 
-/* Tablas */
-.dark-mode .table,
-.dark-mode table {
-  background-color: #2a2a2a;
-  color: #e5e5e5;
-}
-
-.dark-mode .table th,
-.dark-mode table th {
-  background-color: #3a3a3a;
-  border-bottom: 1px solid #505050;
-  color: #f0f0f0;
-}
-
-.dark-mode .table td,
-.dark-mode table td {
-  border-bottom: 1px solid #404040;
-  color: #e5e5e5;
-}
-
-/* Transacciones */
-.dark-mode .transaction-item {
-  background-color: #2a2a2a;
-  border-bottom: 1px solid #404040;
-}
-
-.dark-mode .transaction-item:hover {
-  background-color: #3a3a3a;
-}
-
-.dark-mode .transaction-date {
-  color: #b5b5b5;
-}
-
-.dark-mode .transaction-description {
-  color: #e5e5e5;
-}
-
-.dark-mode .transaction-amount {
-  color: #f0f0f0;
-}
-
-.dark-mode .transaction-status {
-  color: #d0d0d0;
-}
-
-.dark-mode .transaction-type {
-  color: #b5b5b5;
-}
-
-/* Alertas y notificaciones */
-.dark-mode .alert {
-  background-color: #3a3a3a;
-  border: 1px solid #505050;
-  color: #e5e5e5;
-}
-
 .dark-mode .mensaje-exito {
   background-color: #2a3a2a;
   color: #b5d0b5;
@@ -584,32 +79,340 @@ body:not(.dark-mode) .help-link:hover {
   border: 1px solid #5a4a4a;
 }
 
-/* Links generales */
-.dark-mode a {
+.dark-mode .step-dot {
+  background-color: #4a4a4a;
+}
+
+.dark-mode .step-dot.active {
+  background-color: #6b6b6b;
+}
+
+.dark-mode .toggle-checkbox {
+  background-color: #4a4a4a;
+}
+
+.dark-mode .password-toggle input:checked + .toggle-checkbox {
+  background-color: #6b6b6b;
+}
+
+.dark-mode .toggle-text {
   color: #b5b5b5;
 }
 
-.dark-mode a:hover {
-  color: #e5e5e5;
+.dark-mode .wallet-container {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Texto general */
-.dark-mode h1, .dark-mode h2, .dark-mode h3, 
-.dark-mode h4, .dark-mode h5, .dark-mode h6 {
+.dark-mode .wallet-header {
+  border-bottom: 1px solid #404040;
+  background-color: #2a2a2a;
+}
+
+.dark-mode .wallet-title {
   color: #f0f0f0;
 }
 
-.dark-mode p {
+.dark-mode .search-bar {
+  background-color: #3a3a3a;
+}
+
+.dark-mode .search-input {
   color: #e5e5e5;
 }
 
-.dark-mode small {
+.dark-mode .search-input::placeholder {
+  color: #999999;
+}
+
+.dark-mode .notification-icon {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .user-avatar {
+  background-color: #6b6b6b;
+  color: #ffffff;
+}
+
+.dark-mode .sidebar {
+  background-color: #2a2a2a;
+  border-right: 1px solid #404040;
+}
+
+.dark-mode .sidebar-logo {
+  color: #f0f0f0;
+}
+
+.dark-mode .logo-icon {
+  background-color: #6b6b6b;
+  color: #ffffff;
+}
+
+.dark-mode .nav-item {
+  color: #d0d0d0;
+}
+
+.dark-mode .nav-item.active {
+  background-color: #4a4a4a;
+  color: #ffffff;
+  border-left: 3px solid #6b6b6b;
+}
+
+.dark-mode .nav-item:hover:not(.active) {
+  background-color: #3a3a3a;
+}
+
+.dark-mode .nav-icon {
+  color: #d0d0d0;
+}
+
+.dark-mode .nav-item.active .nav-icon {
+  color: #ffffff;
+}
+
+.dark-mode .sidebar-footer {
+  border-top: 1px solid #404040;
+  background-color: #2a2a2a;
+}
+
+.dark-mode .help-link {
+  color: #d0d0d0;
+}
+
+.dark-mode .help-link:hover {
+  color: #f0f0f0;
+}
+
+.dark-mode .main-content {
+  background-color: #252525;
+}
+
+.dark-mode .balance-card {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .balance-label {
   color: #b5b5b5;
 }
 
-/* Footer */
-.dark-mode footer {
-  background: linear-gradient(to bottom, #2a2a2a, #1e1e1e);
+.dark-mode .balance-amount {
+  color: #f0f0f0;
+}
+
+.dark-mode .balance-stat {
+  background-color: #3a3a3a;
+  color: #e5e5e5;
+}
+
+.dark-mode .balance-stat span {
   color: #b5b5b5;
-  border-top: 1px solid #404040;
+}
+
+.dark-mode .action-button {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+  color: #e5e5e5;
+}
+
+.dark-mode .action-button:hover {
+  background-color: #3a3a3a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .action-icon {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .action-label {
+  color: #e5e5e5;
+}
+
+.dark-mode .section-title {
+  color: #f0f0f0;
+}
+
+.dark-mode .card {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .card-header {
+  color: #f0f0f0;
+}
+
+.dark-mode .card-type {
+  color: #b5b5b5;
+}
+
+.dark-mode .card-number {
+  color: #d0d0d0;
+}
+
+.dark-mode .card-balance-label {
+  color: #b5b5b5;
+}
+
+.dark-mode .card-balance {
+  color: #f0f0f0;
+}
+
+.dark-mode .card-expiry {
+  color: #b5b5b5;
+}
+
+.dark-mode .transactions-container {
+  background-color: #252525;
+  color: #e5e5e5;
+}
+
+.dark-mode .transactions-title {
+  color: #f0f0f0;
+  border-bottom: 2px solid #404040;
+}
+
+.dark-mode .transacciones-box {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .transactions-list::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+}
+
+.dark-mode .transaction-row {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.dark-mode .transaction-row:hover {
+  background: #3a3a3a;
+}
+
+.dark-mode .avatar {
+  background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
+  color: #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .transaction-details {
+  color: #e5e5e5;
+}
+
+.dark-mode .title {
+  color: #e5e5e5;
+}
+
+.dark-mode .amount {
+  color: #f0f0f0;
+}
+
+.dark-mode .negative {
+  color: #ff6b6b;
+}
+
+.dark-mode .positive {
+  color: #66bb6a;
+}
+
+.dark-mode .date {
+  color: #b5b5b5;
+}
+
+.dark-mode .user-name {
+  color: #d0d0d0;
+}
+
+.dark-mode .transactions-header {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+}
+
+.dark-mode .view-all {
+  color: #e5e5e5;
+}
+
+.dark-mode .view-all:hover {
+  color: #f0f0f0;
+}
+
+.dark-mode .transaction {
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.dark-mode .transaction:hover {
+  background-color: #3a3a3a;
+}
+
+.dark-mode .transaction-icon {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .transaction-name {
+  color: #f0f0f0;
+}
+
+.dark-mode .transaction-type {
+  color: #b5b5b5;
+}
+
+.dark-mode .amount-negative {
+  color: #f0b5b5;
+}
+
+.dark-mode .amount-positive {
+  color: #b5f0b5;
+}
+
+.dark-mode .transaction-date {
+  color: #b5b5b5;
+}
+
+.dark-mode .quick-transfer {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+}
+
+.dark-mode .contact:hover {
+  background-color: #3a3a3a;
+}
+
+.dark-mode .contact-avatar {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .contact-name {
+  color: #f0f0f0;
+}
+
+.dark-mode .contact-email {
+  color: #b5b5b5;
+}
+
+.dark-mode .activity-chart {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+}
+
+.dark-mode .chart-placeholder {
+  background-color: #3a3a3a;
+  color: #b5b5b5;
+}
+
+.dark-mode .no-transactions-message {
+  color: #b5b5b5;
+}
+
+.dark-mode .btn-edit {
+  background-color: #4a4a4a;
+  color: #f0f0f0;
+}
+
+.dark-mode .btn-edit:hover {
+  background-color: #5a5a5a;
 }
