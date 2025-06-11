@@ -9,6 +9,14 @@ class Transaction < ActiveRecord::Base
   #el generar un id no hace falta, active record lo hace automaticamente en la base de datos.
   before_create :process_transaction
 
+  def self.flujo_dinero
+    transactions = Transaction.all
+    amount = 0
+    transactions.each do |t|
+      amount += t.amount
+    end
+    amount.abs
+  end
 
   private
 
