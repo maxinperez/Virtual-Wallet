@@ -30,7 +30,7 @@
 .dark-mode input[type="number"],
 .dark-mode input[type="email"],
 .dark-mode input[type="password"],
-.dark-mode input[type="text"] {
+.dark-mode input[type="text"], select {
   background-color: #2a2a2a;
   border: 1px solid #505050;
   color: #e5e5e5;

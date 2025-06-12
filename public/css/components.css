@@ -3,7 +3,7 @@
 input[type="number"],
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"], select {
   width: 100%;
   padding: 12px 16px;
   border: 1px solid #d1d5db;
