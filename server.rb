@@ -166,7 +166,7 @@ post '/transfer' do
 
   source = current_user.bank_account
   
-  input = params[:destino] # o params[:cvu] o como llames el campo del formulario
+  input = params[:destino] 
   target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
   
   @error=nil
