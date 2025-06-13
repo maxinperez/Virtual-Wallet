@@ -194,6 +194,22 @@ post '/transfer' do
   end
  end
 
+ post '/actualizar_cuenta' do
+  user = User.find_by(session[:dni])
+  account = user.account
+  bank_account = user.bank_account
+  user.update(name: params[:name], last_name: params[:last_name], locality: params[:locality], cp: params[:cp], address: params[:address] )
+  if bank_account.alias != params[:alias] 
+    puts bank_account.alias
+    puts params[:alias] 
+    bank_account.update(alias: params[:alias])
+  end
+  if account.username != params[:email] 
+    account.update(username: params[:email]) 
+  end
+  redirect '/personal_data/'
+end
+
   get '/transactions' do
     if current_user && current_user.bank_account
       @transactions = current_user.bank_account.all_transactions.order(created_at: :desc)
