@@ -7,8 +7,8 @@
 <% if current_user.bank_account %>
      <% editando = params[:edit] == "true" %>
 
-<form action="/actualizar_cuenta" method="POST">
-
+<form action="/actualizar_cuenta" method="post">
+<input type="hidden" name="_method" value="put">
   <p style="text-align: center;">
     <strong>CVU</strong>
     <input type="text" name="cvu" value="<%= current_user.bank_account.cvu %>"readonly>
