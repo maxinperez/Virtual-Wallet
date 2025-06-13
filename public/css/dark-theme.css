@@ -376,6 +376,7 @@
 .dark-mode .quick-transfer {
   background-color: #2a2a2a;
   border: 1px solid #404040;
+  margin-top: 4rem; /* o la cantidad que prefieras */
 }
 
 .dark-mode .contact:hover {
