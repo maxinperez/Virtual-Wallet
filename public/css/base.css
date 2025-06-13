@@ -23,9 +23,15 @@ body.dark-mode {
   color: #e5e5e5;
 }
 
+.main-content.cards {
+  flex: 1;
+   justify-content: center; /* Centrado vertical */
+  align-items: center;     /* Centrado horizontal */
+}
 .main-content {
   flex: 1;
 }
+
 
 h1 {
   font-size: 28px;
