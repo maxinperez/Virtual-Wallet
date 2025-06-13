@@ -1,6 +1,24 @@
 <div class="transactions-container">
   <h1 class="transactions-title">Transacciones</h1>
-
+  <% conceptos = [
+    ["Abono", "abono"],
+    ["Cargo", "cargo"],
+    ["Suscripción Negativa", "suscripcion_negativa"],
+    ["Transferencia Recibida", "transferencia_recibida"],
+    ["Transferencia Emitida", "transferencia_emitida"],
+    ["Comisión", "comision"],
+    ["Interés por Débito", "interes_debito"],
+    ["Interés por Crédito", "interes_credito"],
+    ["Retención", "retencion"],
+    ["Devolución", "devolucion"],
+    ["Pago de Servicio", "pago_servicio"],
+    ["Domiciliación", "domiciliacion"],
+    ["Ajuste Contable", "ajuste_contable"],
+    ["Giro", "giro"],
+    ["Cheque Depositado", "cheque_depositado"],
+    ["Cheque Devuelto", "cheque_devuelto"]
+  ] %>
+  
   <div class="transactions-list">
     <% if @transactions.empty? %>
       <p class="no-transactions-message">No hay transacciones aún.</p>

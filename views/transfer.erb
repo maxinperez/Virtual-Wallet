@@ -1,33 +1,32 @@
-<div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 5px;">
 <h1 style="text-align: center;">Realizar Transferencia</h1>
 
-<% if @error %>
-  <div class="error-message">
-    <%= @error %>
-  </div>
-<% end %>
 
-  <form action="/transfer" method="post" style="text-align: center; width: 300px;">
+  <form action="/transfer" method="post" style="text-align: center; width: 400px;  margin-bottom: 5px;">
 
-    <p style="text-align: center;"><br>
+    <p style="text-align: center;  margin-bottom: 8px;">
       <strong>CVU o Alias destino:</strong>
       <input type="text" id="destino" name="destino" required value="<%= params[:destino] %>">
     </p>
-    <p style="text-align: center;"><br>
+    <p style=" margin-bottom: 8px;">
       <strong>Monto:</strong>
       <input type="number" id="amount" name="amount" step="0.01" min="0.01" required value="<%= params[:amount] %>">
     </p>
-    <p style="text-align: center;"><br>
+    <p style="text-align: center;  margin-bottom: 5px;">
       <strong>Motivo:</strong>
       <input type="text" id="motivo" name="motivo" value="<%= params[:motivo] %>">
     </p>
-    <p style="text-align: center;"><br>
+    
+    <p style="text-align: center;">
       <strong>Descripción:</strong>
       <input type="text" id="descripcion" name="descripcion" required value="<%= params[:descripcion] %>">
     </p>
-
-  <p style="text-align: center; margin-top: 20px;">
+   
+  <p style="text-align: center; margin-top: 8px;">
   <button type="submit">Enviar Transferencia</button>
   </p>
+  <% if @error %>
+   <div class = "mensaje"> <%= @error %> </div>
+<% end %>
 </form>
 </div>

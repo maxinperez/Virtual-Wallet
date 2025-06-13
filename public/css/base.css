@@ -1,45 +1,56 @@
 /* global styles, reset and typography */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    
-    background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #1f2937;
-  }
-  body.dark-mode {
-    
-    background: linear-gradient(to bottom, #070808, #4c4d50);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #1f2937;
-  }
-  main {
-    flex: 1;
-    padding-top: 20px; /* Espacio adicional */
-    margin-top: 60px; /* Altura aproximada del header */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-  
-  h1 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #111827;
-  }
 
-  
+body {
+  background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #1f2937;
+  margin: 0;
+}
+
+body.dark-mode {
+  background: linear-gradient(to bottom, #070808, #4c4d50);
+  color: #e5e5e5;
+}
+
+.main-content {
+  flex: 1;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #111827;
+}
+
+
+.footer {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 5rem;
+  width: 100%; /* se extiende todo el ancho */
+  box-sizing: border-box; /* para que padding no aumente ancho */
+}
+.dark-mode .footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 5rem;
+  width: 100%; /* se extiende todo el ancho */
+  box-sizing: border-box; /* para que padding no aumente ancho */
+}

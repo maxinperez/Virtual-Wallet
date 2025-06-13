@@ -35,10 +35,10 @@ require_relative 'models/transaction'
       erb(:"partial/#{template}", locals: locals)
     end
     def current_user
-      @current_user ||= User.find_by(dni: session[:dni]) if session[:dni]
+      @current_user ||= User.find_by(dni: session[:dni]) || User.find_by(email: session[:dni]) if session[:dni]
     end
     def active_page
-      @active_page ||= request.path_info
+        @active_page ||= "/" + request.path_info.split('/')[1].to_s
     end
     def dark_mode?
     session[:dark_mode] || false
@@ -65,14 +65,14 @@ end
     address = params[:address]
 
   if User.exists?(dni: dni)
-    halt 409, "El DNI ya está registrado"
+    halt 409, "el dni ya está registrado"
   end
   if dni.length < 8
-    halt 409, "Dni invalido"
+    halt 409, "dni invalido"
   end
 
   if User.exists?(email: email)
-    halt 409, "El correo ya está registrado"
+    halt 409, "el correo ya esta registrado"
   end
 
     user = User.new(
@@ -123,9 +123,9 @@ end
 
 
   post '/login' do 
-    dni = params[:dni]
+    dni = params[:dni]   
     password = params[:password]
-    existing_user = Account.find_by(username: dni)
+    existing_user = Account.find_by(username: dni) || User.find_by(email: dni).account
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'
@@ -172,7 +172,7 @@ post '/transfer' do
   @error=nil
   if target.nil?
     @error = "Cuenta destino no encontrada"
-  elsif source_account == target_account
+  elsif source == target
     @error = "No podés transferir a tu propia cuenta."
   end
 
