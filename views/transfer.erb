@@ -1,3 +1,22 @@
+<% conceptos = [
+  ["Abono", "abono"],
+  ["Cargo", "cargo"],
+  ["Suscripción Negativa", "suscripcion_negativa"],
+  ["Transferencia Recibida", "transferencia_recibida"],
+  ["Transferencia Emitida", "transferencia_emitida"],
+  ["Comisión", "comision"],
+  ["Interés por Débito", "interes_debito"],
+  ["Interés por Crédito", "interes_credito"],
+  ["Retención", "retencion"],
+  ["Devolución", "devolucion"],
+  ["Pago de Servicio", "pago_servicio"],
+  ["Domiciliación", "domiciliacion"],
+  ["Ajuste Contable", "ajuste_contable"],
+  ["Giro", "giro"],
+  ["Cheque Depositado", "cheque_depositado"],
+  ["Cheque Devuelto", "cheque_devuelto"],
+  ["Varios", "varios"]
+] %>
 <div style="display: flex; flex-direction: column; align-items: center; margin-top: 5px;">
 <h1 style="text-align: center;">Realizar Transferencia</h1>
 
@@ -14,8 +33,11 @@
     </p>
     <p style="text-align: center;  margin-bottom: 5px;">
       <strong>Motivo:</strong>
-      <input type="text" id="motivo" name="motivo" value="<%= params[:motivo] %>">
-    </p>
+      <select id="motivo" name="motivo">
+      <% conceptos.each do |nombre, valor| %>
+        <option value="<%= valor %>"><%= nombre %></option>
+      <% end %>
+    </select>
     
     <p style="text-align: center;">
       <strong>Descripción:</strong>
