@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    <div class="card-type"><%= card.card_type %></div>
+    <div>•••</div>
+  </div>
+  <div class="card-number">**** **** **** <%= card.card_number[-4..-1] %></div>
+  <div class="card-footer">
+    <div>
+      <div class="card-balance-label">Saldo</div>
+      <div class="card-balance">$<%= card.balance %></div>
+    </div>
+    <div class="card-expiry"><%= card.exp_month %>/<%= card.exp_year %></div>
+  </div>
+</div>

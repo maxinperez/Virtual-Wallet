@@ -1,0 +1,40 @@
+       <% if !current_user.bank_account.card %>
+       <div style = "justify-content: center;">
+       <div id="no-card-state" class="no-card-state">
+                <h2 class="section-title">No tienes tarjetas activas</h2>
+                <p class="intro-text">Solicita tu primera tarjeta para comenzar a disfrutar de todos los beneficios</p>
+                <button id="request-card-btn" class="request-card-btn">Solicitar Tarjeta</button>
+            </div>
+        </div>
+       <%else%>
+            <div id="card-state" class="card-state hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-type">VISA</div>
+                        <div class="card-status">Activa</div>
+                    </div>
+                    <div class="card-number">**** **** **** 1234</div>
+                    <div class="card-holder-name">NOMBRE APELLIDO</div>
+                    <div class="card-expiry">12/25</div>
+                    <div class="card-balance-label">Saldo Disponible</div>
+                    <div class="card-balance">$2,450.00</div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-button-round freeze-btn">
+                        <div class="action-icon">❄️</div>
+                        <div class="action-label">Congelar Tarjeta</div>
+                    </button>
+                    <button class="action-button-round limits-btn">
+                        <div class="action-icon">⚙️</div>
+                        <div class="action-label">Ajustar Límites</div>
+                    </button>
+                    <button class="action-button-round report-btn">
+                        <div class="action-icon">🚨</div>
+                        <div class="action-label">Reportar Robada</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<%end%>
