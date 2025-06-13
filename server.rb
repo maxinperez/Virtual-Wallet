@@ -14,6 +14,7 @@ class App < Sinatra::Application
 
 #buena practica
 require_relative 'models/user'
+require_relative 'models/card'
 require_relative 'models/bankaccount'
 require_relative 'models/account'
 require_relative 'models/transaction'
@@ -38,7 +39,7 @@ require_relative 'models/transaction'
       @current_user ||= User.find_by(dni: session[:dni]) || User.find_by(email: session[:dni]) if session[:dni]
     end
     def active_page
-        @active_page ||= "/" + request.path_info.split('/')[1].to_s
+        @active_page ||= request.path_info.split('/')[1].to_s
     end
     def dark_mode?
     session[:dark_mode] || false
@@ -151,8 +152,8 @@ end
    erb :index, layout: :'partial/layout'
   end 
 
-  get '/pay' do 
-    erb :pay, layout: :'partial/layout'
+  get '/cards' do 
+    erb :cards, layout: :'partial/layout'
   end 
 
   get '/transfer' do 
