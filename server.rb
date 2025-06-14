@@ -38,6 +38,9 @@ require_relative 'models/transaction'
     def current_user
       @current_user ||= User.find_by(dni: session[:dni]) || User.find_by(email: session[:dni]) if session[:dni]
     end
+    def current_card
+      @current_card ||= current_user.bank_account.card
+    end
     def active_page
         @active_page ||= request.path_info.split('/')[1].to_s
     end
@@ -161,7 +164,7 @@ end
    erb :index, layout: :'partial/layout'
   end 
 
-  get '/cards' do 
+  get '/cards/' do 
     erb :cards, layout: :'partial/layout'
   end 
 
