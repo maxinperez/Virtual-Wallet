@@ -9,34 +9,13 @@
             </div>
         </div>
        <%else%>
-            <div id="card-state" class="card-state hidden">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-type">VISA</div>
-                        <div class="card-status">Activa</div>
-                    </div>
-                    <div class="card-number">**** **** **** 1234</div>
-                    <div class="card-holder-name">NOMBRE APELLIDO</div>
-                    <div class="card-expiry">12/25</div>
-                    <div class="card-balance-label">Saldo Disponible</div>
-                    <div class="card-balance">$2,450.00</div>
-                </div>
-
-                <div class="card-actions">
-                    <button class="action-button-round freeze-btn">
-                        <div class="action-icon">❄️</div>
-                        <div class="action-label">Congelar Tarjeta</div>
-                    </button>
-                    <button class="action-button-round limits-btn">
-                        <div class="action-icon">⚙️</div>
-                        <div class="action-label">Ajustar Límites</div>
-                    </button>
-                    <button class="action-button-round report-btn">
-                        <div class="action-icon">🚨</div>
-                        <div class="action-label">Reportar Robada</div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div style = "  position: relative;"> 
+           <%= partial "card", {
+  card_type: "Debito",
+  card_number: current_card.card_number,
+  card_balance: current_user.bank_account.balance,
+  card_exp_month: current_card.exp_month,
+  card_exp_year: current_card.exp_year
+} %>
+</div>
 <%end%>
