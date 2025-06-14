@@ -1,8 +1,25 @@
+require 'active_record/enum'
+
 class Transaction < ActiveRecord::Base
+  extend ActiveRecord::Enum
   belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
   belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id'
   has_one :transfer, dependent: :destroy # se borra en cascada
- # enum state: { pending: 0, complete: 1, rejected: 2 }
+  attribute :transaction_type, :integer
+  attribute :state, :integer
+
+  enum :transaction_type, {
+    deposit: 0,
+    withdrawal: 1,
+    transfer: 2,
+    purchase: 3
+  }
+  enum :state, {
+    success: 0,
+    pending: 1,
+    rejected: 2
+  }
+    
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
   #validates :state, presence: true
