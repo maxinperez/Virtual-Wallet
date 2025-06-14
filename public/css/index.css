@@ -281,6 +281,7 @@
 
 .card {
   padding: 20px;
+  width: 300px;
   border-radius: 12px;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
@@ -512,17 +513,16 @@
 .contenedor-personales {
   border: 1px solid #b8b8b8;
   padding: 1rem;
+  
   margin: 1rem auto;
   width: 350px;
   border-radius: 8px;
 }
 .contenedor-general {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
-  gap: 2rem; /* espacio entre bloques */
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* opcional, centra horizontalmente */
+  gap: 1rem; /* espacio entre los elementos */
 }
 
 
