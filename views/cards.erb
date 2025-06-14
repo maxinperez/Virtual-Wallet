@@ -3,7 +3,9 @@
        <div id="no-card-state" class="no-card-state">
                 <h2 class="section-title">No tienes tarjetas activas</h2>
                 <p class="intro-text">Solicita tu primera tarjeta para comenzar a disfrutar de todos los beneficios</p>
-                <button id="request-card-btn" class="request-card-btn">Solicitar Tarjeta</button>
+                <form action="/generar_tarjeta" method="post">
+            <button class="request-card-btn"type="submit">Solicitar Tarjeta</button>
+            </form>
             </div>
         </div>
        <%else%>

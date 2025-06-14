@@ -3,7 +3,7 @@ class BankAccount < ActiveRecord::Base
   
   # Relations
   belongs_to :user
-  belongs_to :card
+  has_one :card
   has_many :outgoing_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
   has_many :incoming_transactions, class_name: 'Transaction', foreign_key: 'target_account_id'
   
