@@ -36,7 +36,6 @@ class Transaction < ActiveRecord::Base
   private
 
   def process_transaction
-    puts "Entrando a process_transaction con tipo: #{transaction_type}"
     ActiveRecord::Base.transaction do
       if transaction_type == "deposit" || transaction_type == 0
         target_account.update!(balance: target_account.balance + amount)
@@ -50,6 +49,7 @@ class Transaction < ActiveRecord::Base
   
       if transaction_type == "transfer" || transaction_type == 2
         if source_account.balance < amount
+          puts "el saldo no es suficiente"
           throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
         end
         source_account.update!(balance: source_account.balance - amount)
