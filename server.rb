@@ -126,7 +126,7 @@ end
   post '/login' do 
     dni = params[:dni]   
     password = params[:password]
-    existing_user = Account.find_by(username: dni) || User.find_by(email: dni).account
+    existing_user = User.find_by(dni: dni)&.account || User.find_by(email: dni)&.account
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'
@@ -134,6 +134,15 @@ end
       session[:error] = 'Datos invalidos'
       puts 'invalid data'
       redirect '/login'
+    end
+  end
+  post '/generar_tarjeta' do 
+    unless Card.exists?(bank_account: current_user.bank_account)
+      card = Card.create(
+        bank_account: current_user.bank_account,
+        holder_name: "#{current_user.name} #{current_user.last_name}"
+      )
+      redirect back
     end
   end
 
@@ -186,7 +195,9 @@ post '/transfer' do
     amount: params[:amount],
     description: params[:description],
     motivo: params[:motivo],
-    transaction_date: Time.now
+    transaction_date: Time.now,
+    transaction_type: 2,
+    state: 0
     )
   end
   if transfer.save
@@ -194,7 +205,7 @@ post '/transfer' do
   end
  end
 
- post '/actualizar_cuenta' do
+ put '/actualizar_cuenta' do
   user = User.find_by(session[:dni])
   account = user.account
   bank_account = user.bank_account
