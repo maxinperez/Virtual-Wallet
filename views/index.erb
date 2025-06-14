@@ -52,40 +52,48 @@
         <!-- IMPLEMENTAR DESDE CERO -->
         <div class="transactions-container">
           
-          <div class="transactions-header">
-            <div class="section-title">Transacciones Recientes</div>
-            <a href="/transactions" class="view-all">Ver todas</a>
-          </div>
-        <% if @transactions.any? %>
+        <div class="transactions-header">
+        <div class="section-title">Transacciones Recientes</div>
+        <a href="/transactions" class="view-all">Ver todas</a>
+      </div>
+      
+      <% if @transactions.any? %>
         <% @transactions.each do |transaction| %>
-          <% 
+          <%
             if transaction.sender_bank_account_id == current_user.bank_account.id
               amount_class = "amount-negative"
               amount_display = "-$#{transaction.amount}"
               other_user = transaction.target_account.user
-            else 
+            else
               amount_class = "amount-positive"
               amount_display = "+$#{transaction.amount}"
-              other_user = transaction.source_account.user
+              other_user = transaction.source_account&.user
             end
           %>
+      
           <div class="transaction">
-            <div class="transaction-icon"><%= other_user.name[0].upcase %></div>
+            <% if other_user %>
+              <div class="transaction-icon"><%= other_user.name[0].upcase %></div>
               <div class="transaction-details">
                 <div class="transaction-name"><%= other_user.name %> <%= other_user.last_name %></div>
-                  <div class="transaction-type">Transferencia</div>
-          </div>
+                <div class="transaction-type">Transferencia</div>
+              </div>
+            <% else %>
+              <div class="transaction-details">
+                <div class="transaction-name">Usuario desconocido</div>
+                <div class="transaction-type">Transferencia</div>
+              </div>
+            <% end %>
+      
             <div class="transaction-amount <%= amount_class %>"><%= amount_display %></div>
-              <div class="transaction-date"><%= transaction.created_at.strftime("%d %b, %H:%M") %></div>
+            <div class="transaction-date"><%= transaction.created_at.strftime("%d %b, %H:%M") %></div>
           </div>
-          <% end %>
+        <% end %>
       <% else %>
         <div class="no-transactions-message">
           <p>No hay transacciones recientes</p>
-       <% end %>  
-        </div>   
-      </div>
-</div>
+        </div>
+      <% end %>
 
       <!-- Right Sidebar -->
       <div class="right-sidebar">

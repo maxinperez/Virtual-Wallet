@@ -1,9 +1,6 @@
-require 'active_record/enum'
-
 class Transaction < ActiveRecord::Base
-  extend ActiveRecord::Enum
-  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
-  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id'
+  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id', optional: true
+  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id', optional: false
   has_one :transfer, dependent: :destroy # se borra en cascada
   attribute :transaction_type, :integer
   attribute :state, :integer
@@ -14,6 +11,7 @@ class Transaction < ActiveRecord::Base
     transfer: 2,
     purchase: 3
   }
+
   enum :state, {
     success: 0,
     pending: 1,
@@ -38,13 +36,25 @@ class Transaction < ActiveRecord::Base
   private
 
   def process_transaction
+    puts "Entrando a process_transaction con tipo: #{transaction_type}"
     ActiveRecord::Base.transaction do
-      if source_account.balance < amount
-        throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
+      if transaction_type == "deposit" || transaction_type == 0
+        target_account.update!(balance: target_account.balance + amount)
+        return
+      end
+
+      if transaction_type == "withdraw" || transaction_type == 1
+        target_account.update!(balance: target_account.balance - amount)
+        return
       end
   
-      source_account.update!(balance: source_account.balance - amount)
-      target_account.update!(balance: target_account.balance + amount)
+      if transaction_type == "transfer" || transaction_type == 2
+        if source_account.balance < amount
+          throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
+        end
+        source_account.update!(balance: source_account.balance - amount)
+        target_account.update!(balance: target_account.balance + amount)
+      end
     end
   end
 
