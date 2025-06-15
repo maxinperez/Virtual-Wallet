@@ -61,7 +61,7 @@
       <% if @transactions.any? %>
         <% @transactions.each do |transaction| %>
           <%
-            if transaction.sender_bank_account_id == current_user.bank_account.id
+            if transaction.source_account_id == current_user.bank_account.id
               amount_class = "amount-negative"
               amount_display = "-$#{transaction.amount}"
               other_user = transaction.target_account.user

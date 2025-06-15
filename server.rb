@@ -104,11 +104,13 @@ end
   end
 
 
-
   post '/login' do 
-    dni = params[:dni]   
+    login_param = params[:dni]   
     password = params[:password]
-    existing_user = User.find_by(dni: dni)&.account || User.find_by(email: dni)&.account
+    existing_user = Account.find_by(username: login_param)
+    puts "hola #{login_param}"
+    puts "hola #{password}"
+
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'
@@ -177,14 +179,13 @@ end
     user = User.find_by(dni: session[:dni])
     if(user&.bank_account)
       @transactions = user.bank_account.most_recent_transactions
-      @frequent_recipients = user.bank_account.frequent_recipients
+      @frequent_recipients = []
     else 
       @transactions = []
       @frequent_recipients = []
     end
     
-    @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
-
+    @daily_expenses = []
    erb :index, layout: :'partial/layout'
   end 
 

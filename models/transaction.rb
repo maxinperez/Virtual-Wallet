@@ -1,6 +1,6 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id', optional: true
-  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id', optional: false
+  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'source_account_id', optional: true
+  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'target_account_id', optional: false
   has_one :transfer, dependent: :destroy # se borra en cascada
   attribute :transaction_type, :integer
   attribute :state, :integer
@@ -42,17 +42,17 @@ class Transaction < ActiveRecord::Base
 
   def process_transaction
     ActiveRecord::Base.transaction do
-      if transaction_type == "deposit" || transaction_type == 0
+      if transaction_type == "deposit" 
         target_account.update!(balance: target_account.balance + amount)
         return
       end
 
-      if transaction_type == "withdraw" || transaction_type == 1
+      if transaction_type == "withdrawal" 
         target_account.update!(balance: target_account.balance - amount)
         return
       end
   
-      if transaction_type == "transfer" || transaction_type == 2
+      if transaction_type == "transfer" 
         if source_account.balance < amount
           puts "el saldo no es suficiente"
           throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
