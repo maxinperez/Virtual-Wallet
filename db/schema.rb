@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_06_15_001705) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_001705) do
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
@@ -25,19 +26,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_001705) do
     t.decimal "balance"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_bank_accounts_on_user_id"
-  end
-
-  create_table "cards", force: :cascade do |t|
-    t.string "holder_name"
-    t.string "card_number"
-    t.string "cvv"
-    t.integer "exp_month"
-    t.integer "exp_year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "bank_account_id"
-    t.integer "transaction_type"
-    t.index ["bank_account_id"], name: "index_cards_on_bank_account_id"
   end
 
   create_table "transactions", force: :cascade do |t|

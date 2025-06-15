@@ -91,11 +91,13 @@
   <%end%>
         <div class="notification-icon">✉</div>
         <div class="user-avatar">
+        <a href="/personal_data/" class="user-avatar">
           <% if current_user %>
             <%= current_user.name[0] %><%= current_user.last_name[0] %>
           <% else %>
               ??
           <% end %>
+          </a>
         </div>
       </div>
     </header>
