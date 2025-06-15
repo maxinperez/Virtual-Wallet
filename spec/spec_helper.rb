@@ -13,6 +13,18 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'yaml'
+require 'active_record'
+
+require_relative '../server'
+
+ENV['RACK_ENV'] ||= 'test'
+
+db_config = YAML.load_file(File.expand_path('../../config/database.yml', __FILE__), aliases: true)
+ActiveRecord::Base.establish_connection(db_config[ENV['RACK_ENV']])
+
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
