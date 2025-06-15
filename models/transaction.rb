@@ -24,6 +24,11 @@ class Transaction < ActiveRecord::Base
   #el generar un id no hace falta, active record lo hace automaticamente en la base de datos.
   before_create :process_transaction
 
+
+  def self.withdraws_and_deposit_pending
+    where('transaction_type = ? OR transaction_type = ?', 0, 1)
+  end
+
   def self.flujo_dinero
     transactions = Transaction.all
     amount = 0
