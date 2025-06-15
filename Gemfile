@@ -10,3 +10,6 @@ gem 'sinatra-activerecord' # Para ActiveRecord
 gem 'sqlite3' # Para SQLite
 gem 'rake' # Para tareas de base de datos
 gem 'bcrypt'
+# Indagando sobre test, encontre estas gemas
+gem 'minitest' # Con esta podemos testear modelos y metodos Ruby
+gem 'rack-test' # Y con este Request rutas y responses
