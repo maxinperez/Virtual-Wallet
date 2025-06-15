@@ -10,4 +10,8 @@
     <div class="<%= amount_class %>">$<%= amount %></div>
     <div class="transaction-date"><%= date %></div>
   </div>
+  <div class="transaction-actions">
+            <button class="action-btn cancel-btn" onclick="handleCancel()">✕</button>
+            <button class="action-btn confirm-btn" onclick="handleConfirm()">✓</button>
+        </div>
 </div>
