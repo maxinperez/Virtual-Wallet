@@ -107,7 +107,7 @@ end
   post '/login' do 
     login_param = params[:dni]   
     password = params[:password]
-    existing_user = Account.find_by(username: login_param)
+    existing_user = Account.find_by(username: login_param) || User.find_by(email: login_param).account
     puts "hola #{login_param}"
     puts "hola #{password}"
 
