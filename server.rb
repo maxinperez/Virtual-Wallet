@@ -204,9 +204,31 @@ post '/transfer' do
     )
   end
   if transfer.save
-    redirect '/transactions'
+    redirect '/transfer/success/#{transfer.id}'
   end
  end
+
+ get '/transfer/success/:id' do 
+  @transfer = Transfer.find(params[:id])
+  @active_page = 'transfer'
+  erb :transfer_success, layout: :'partial/layout'
+ end
+
+ get '/comprobante/:id' do
+  transfer = Transfer.find(params[:id])
+  content_type 'application/pdf'
+
+  pdf = Prawn::Document.new
+  pdf.text "Comprobante de Transferencia", size: 22, style: :bold
+  pdf.move_down 10
+  pdf.text "Código de transferencia: #{transfer.transfer_code}"
+  pdf.text "Código de comprobante: #{transfer.comprobante_code}"
+  pdf.text "Monto: $#{transfer.amount}"
+  pdf.text "Motivo: #{transfer.motivo}"
+  pdf.text "Fecha: #{transfer.transaction_date.strftime('%d/%m/%Y %H:%M')}"
+
+  pdf.render
+end
 
  put '/actualizar_cuenta' do
   user = User.find_by(session[:dni])

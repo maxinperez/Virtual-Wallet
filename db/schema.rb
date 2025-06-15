@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_165825) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_14_032319) do
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
@@ -26,6 +26,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_165825) do
     t.index ["user_id"], name: "index_bank_accounts_on_user_id"
   end
 
+  create_table "cards", force: :cascade do |t|
+    t.string "holder_name"
+    t.string "card_number"
+    t.string "cvv"
+    t.integer "exp_month"
+    t.integer "exp_year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "bank_account_id"
+    t.index ["bank_account_id"], name: "index_cards_on_bank_account_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer "sender_bank_account_id"
     t.integer "receiver_bank_account_id"
@@ -35,8 +47,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_165825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 0, null: false
+    t.string "motivo"
+    t.integer "transaction_type"
     t.index ["receiver_bank_account_id"], name: "index_transactions_on_receiver_bank_account_id"
     t.index ["sender_bank_account_id"], name: "index_transactions_on_sender_bank_account_id"
+  end
+
+  create_table "transfer", force: :cascade do |t|
+    t.integer "transaction_id", null: false
+    t.string "motivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "transfer_cod"
+    t.string "comprobante_cod"
+    t.index ["transaction_id"], name: "index_transfer_on_transaction_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +78,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_165825) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "bank_accounts", "users"
+  add_foreign_key "cards", "bank_accounts"
   add_foreign_key "transactions", "bank_accounts", column: "receiver_bank_account_id"
   add_foreign_key "transactions", "bank_accounts", column: "sender_bank_account_id"
+  add_foreign_key "transfer", "transactions"
 end

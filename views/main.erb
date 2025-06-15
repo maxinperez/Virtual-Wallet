@@ -8,15 +8,15 @@
     </p>
     <div class="demo-stats">
       <div class="stat-card">
-      <span class="stat-number"><%= User.last.id || '0' %></span>
+     <span class="stat-number"><%= User.last&.id || 0 %></span>
       <span class="stat-label">Usuarios Activos</span>
       </div>
       <div class="stat-card">
-      <span class="stat-number"><%= Transaction.last&.id || '0' %></span>
+      <span class="stat-number"><%= Transaction.last&.id || 0%></span>
       <span class="stat-label">Transacciones realizadas</span>
     </div>
       <div class="stat-card">
-        <span class="stat-number"><%= Transaction.last&.flujo_dinero || '0' %></span>
+        <span class="stat-number"><%= Transaction.last&.flujo_dinero || 0 %></span>
         <span class="stat-label">Flujo de dinero</span>
       </div>
     </div>
