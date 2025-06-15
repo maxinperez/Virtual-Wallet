@@ -53,9 +53,71 @@ require_relative 'models/transaction'
   redirect back
 end
 
+
+  get '/verificar_dni' do
+    content_type :json
+    dni = params[:dni]
+    existe = User.exists?(dni: dni)
+    { existe: existe }.to_json
+  end
+
+ get '/' do
+   erb :main, layout: :'partial/header'
+ end 
+
+  get '/login' do  
+     erb :login, layout: :'partial/header'
+  end 
+
+  get '/logout' do 
+    session.clear
+    redirect '/login'
+  end
+
   get '/register' do 
     erb :register, layout: :'partial/header'
   end 
+
+  get '/admins' do
+    erb :"admin/dashboard_admin", layout: :'partial/admins'
+  end
+
+  get '/personal_data/' do
+      erb :personal_data, layout: :'partial/layout'
+    end
+
+    get '/management' do
+      erb :"admin/management", layout: :'partial/admins'
+    end
+
+    get '/support' do
+      erb :"admin/support", layout: :'partial/admins'
+    end
+
+    
+  get '/cards/' do 
+    erb :cards, layout: :'partial/layout'
+  end 
+
+  get '/transfer' do 
+   erb :transfer, layout: :'partial/layout'
+  end
+
+
+
+  post '/login' do 
+    dni = params[:dni]   
+    password = params[:password]
+    existing_user = User.find_by(dni: dni)&.account || User.find_by(email: dni)&.account
+    if existing_user && existing_user.authenticate(password)
+      session[:dni] = params[:dni]
+      redirect '/index'
+    else 
+      session[:error] = 'Datos invalidos'
+      puts 'invalid data'
+      redirect '/login'
+    end
+  end
 
   post '/register' do 
     dni = params[:dni]
@@ -101,44 +163,6 @@ end
     end 
   end
 
-  get '/verificar_dni' do
-    content_type :json
-    dni = params[:dni]
-    existe = User.exists?(dni: dni)
-    { existe: existe }.to_json
-  end
-
- get '/' do
-   erb :main, layout: :'partial/header'
- end 
-
-  get '/login' do  
-     erb :login, layout: :'partial/header'
-  end 
-
-  get '/logout' do 
-    session.clear
-    redirect '/login'
-  end 
-
-  get '/personal_data/' do
-      erb :personal_data, layout: :'partial/layout'
-    end
-
-
-  post '/login' do 
-    dni = params[:dni]   
-    password = params[:password]
-    existing_user = User.find_by(dni: dni)&.account || User.find_by(email: dni)&.account
-    if existing_user && existing_user.authenticate(password)
-      session[:dni] = params[:dni]
-      redirect '/index'
-    else 
-      session[:error] = 'Datos invalidos'
-      puts 'invalid data'
-      redirect '/login'
-    end
-  end
   post '/generar_tarjeta' do 
     unless Card.exists?(bank_account: current_user.bank_account)
       card = Card.create(
@@ -164,21 +188,10 @@ end
    erb :index, layout: :'partial/layout'
   end 
 
-  get '/cards/' do 
-    erb :cards, layout: :'partial/layout'
-  end 
-
-  get '/transfer' do 
-   @active_page = 'transfer'
-   erb :transfer, layout: :'partial/layout'
-  end
 
 
 post '/transfer' do
-  @active_page = 'transfer'
-
   source = current_user.bank_account
-  
   input = params[:destino] 
   target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
   
