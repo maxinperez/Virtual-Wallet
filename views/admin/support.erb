@@ -1,20 +1,85 @@
-<h2>Soporte - Admin</h2>
-<p>Usuarios con mensajes:</p>
-<ul>
-  <% @users.each do |u| %>
-    <li><a href="/support?user_id=<%= u.id %>"><%= u.username %></a></li>
-  <% end %>
-</ul>
-
 <% if @selected_user %>
-  <h3>Chat con <%= @selected_user.username %></h3>
-  <% @messages.each do |msg| %>
-    <p><strong><%= msg.from_admin ? "Tú" : @selected_user.username %>:</strong> <%= msg.content %></p>
-  <% end %>
+  <!-- Solo mostrar el chat cuando hay usuario seleccionado -->
+    <div class="chat-card">
+      <div class="chat-header">
+        <!-- Botón para volver a la lista -->
+        <a href="/support" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </a>
+        
+        <div class="chat-user-info">
+          <div class="chat-avatar">
+            <%= @selected_user.username.first.upcase %>
+          </div>
+          <div class="chat-user-details">
+            <h3><%= @selected_user.username %></h3>
+            <p>En línea</p>
+          </div>
+        </div>
+        <div class="online-indicator"></div>
+      </div>
 
-  <form action="/support" method="post">
-    <input type="hidden" name="user_id" value="<%= @selected_user.id %>">
-    <input type="text" name="content" required placeholder="Respuesta">
-    <button type="submit">Responder</button>
-  </form>
+      <div class="messages-container">
+        <% @messages.each do |msg| %>
+          <div class="message <%= msg.from_admin ? 'admin' : 'user' %>">
+            <div class="message-bubble">
+              <%= msg.content %>
+              <div class="message-sender">
+                <%= msg.from_admin ? "Tú" : '' %>
+                <%= msg.created_at.strftime("%d/%m %H:%M") %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="chat-input">
+        <form action="/support" method="post" class="input-form">
+          <input type="hidden" name="user_id" value="<%= @selected_user.id %>">
+          <div class="input-wrapper">
+            <input type="text" name="content" required placeholder="Escribe tu mensaje..." class="message-input">
+          </div>
+          <button type="submit" class="close-case-btn">Enviar mensaje</button>
+        </form>
+        
+        <form method="POST" action="/support/close_case/<%= @selected_user.id %>" 
+              onsubmit="return confirm('¿Querés cerrar el caso y borrar todos los mensajes?');">
+          <input type="hidden" name="_method" value="delete" />
+          <button type="submit" class="close-case-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+            Cerrar caso
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <!-- Solo mostrar la lista cuando no hay usuario seleccionado -->
+    <div class="users-card">
+      <div class="users-header">
+        <div class="status-indicator"></div>
+        <h3 class="users-title">Usuarios Activos</h3>
+      </div>
+      <ul class="users-list">
+        <% @users.each do |u| %>
+          <li>
+            <a href="/support?user_id=<%= u.id %>" class="user-link">
+              <div class="user-item">
+                <div class="user-avatar">
+                  <%= u.username.first.upcase %>
+                </div>
+                <div class="user-info">
+                  <h4><%= u.username %></h4>
+                  <p>Conversación activa</p>
+                </div>
+              </div>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 <% end %>

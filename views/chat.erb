@@ -1,16 +1,38 @@
-<h2>Centro de Ayuda</h2>
-
-<div class="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
-  <% @messages.each do |msg| %>
-    <div style="margin-bottom: 10px;">
-      <strong><%= msg.from_admin ? "Admin" : "Vos" %>:</strong>
-      <%= msg.content %>
-      <div style="font-size: 10px; color: gray;"><%= msg.created_at.strftime("%d/%m %H:%M") %></div>
+<div class="chat-only-container">
+  <div class="chat-card">
+    <div class="chat-header">
+      <div class="chat-user-info">
+        <div class="chat-avatar">
+          A
+        </div>
+        <div class="chat-user-details">
+          <h3>Centro de Ayuda</h3>
+          <p>En línea</p>
+        </div>
+      </div>
+      <div class="online-indicator"></div>
     </div>
-  <% end %>
-</div>
 
-<form action="/chat" method="post" style="margin-top: 10px;">
-  <input type="text" name="content" placeholder="Escribí tu mensaje..." required style="width: 80%;">
-  <button type="submit">Enviar</button>
-</form>
+    <div class="messages-container">
+      <% @messages.each do |msg| %>
+        <div class="message <%= msg.from_admin ? 'admin' : 'user' %>">
+          <div class="message-bubble">
+            <%= msg.content %>
+            <div class="message-sender">
+             <%= msg.created_at.strftime("%d/%m %H:%M") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="chat-input">
+      <form action="/chat" method="post" class="input-form">
+        <div class="input-wrapper">
+          <input type="text" name="content" required placeholder="Escribí tu mensaje..." class="message-input">
+        </div>
+         <button type="submit" class="close-case-btn">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</div>
