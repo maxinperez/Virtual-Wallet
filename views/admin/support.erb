@@ -47,7 +47,7 @@
         <form method="POST" action="/support/close_case/<%= @selected_user.id %>" 
               onsubmit="return confirm('¿Querés cerrar el caso y borrar todos los mensajes?');">
           <input type="hidden" name="_method" value="delete" />
-          <button type="submit" class="close-case-btn">
+          <button type="submit" style = "margin-top: -20px" class="close-case-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
             </svg>

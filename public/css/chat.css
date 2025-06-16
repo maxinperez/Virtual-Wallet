@@ -14,9 +14,13 @@
     gap: 0.75rem;
     background: #fffefe; /* Header blanco para contraste */
     border-radius: 8px;
-
   }
-  
+
+  .dark-mode .users-header {
+    border-bottom: 1px solid #404040; /* Borde más sutil */
+    background: #2a2a2a; /* Mismo fondo que la card */
+  }
+
   .users-title {
     font-size: 1rem;
     font-weight: 600;
@@ -463,14 +467,14 @@
     color: #495057; 
     margin-bottom: 0.5rem;
   }
-.dark-mode .users-card {
-    background: #404040;
-    border-radius: 12px;
-  }
+   .dark-mode .users-card {
+  background: #2a2a2a; /* Fondo gris oscuro como en la imagen */
+  border: 1px solid #404040; /* Borde sutil */
+}
   
   
   .dark-mode .users-title {
-    color: #000000;
+    color: #ffffff;
   }
   
   .dark-mode .user-link:hover {
@@ -496,8 +500,11 @@
   }
   
   .dark-mode .chat-header {
-    border-bottom: 1px solid #525252; 
-    background: #262626; 
+      background-color: #383838;
+  color: #ffffff;
+  padding: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #555;
   }
   
   .dark-mode .back-btn {
