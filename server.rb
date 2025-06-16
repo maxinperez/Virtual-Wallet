@@ -14,10 +14,12 @@ class App < Sinatra::Application
 
 #buena practica
 require_relative 'models/user'
-require_relative 'models/card'
 require_relative 'models/bankaccount'
 require_relative 'models/account'
 require_relative 'models/transaction'
+require_relative 'models/card'
+require_relative 'models/message'
+
 
   configure :development do
     enable :logging
@@ -46,7 +48,11 @@ require_relative 'models/transaction'
     end
     def dark_mode?
     session[:dark_mode] || false
-  end
+    end
+    def admin?
+      current_user && !current_user.account.admin.nil?
+    end
+
   end
   get '/toggle_theme' do
   session[:dark_mode] = !session[:dark_mode]
@@ -91,9 +97,23 @@ end
     end
 
     get '/support' do
+      halt(403, "Acceso denegado") unless admin?
+      @users = User.where(admin: false)
+      @selected_user = User.find_by(id: params[:user_id]) if params[:user_id]
+      @messages = @selected_user ? Message.where(user_id: @selected_user.id).order(:created_at) : []
       erb :"admin/support", layout: :'partial/admins'
     end
 
+    get '/chat' do
+      redirect '/support' if admin?
+      @messages = Message.where(user_id: current_user.id).order(:created_at)
+      erb :chat, layout: :'partial/layout'
+    end
+
+    post '/chat' do
+      Message.create(user_id: current_user.id, content: params[:content], from_admin: false)
+      redirect '/chat'
+    end
     
   get '/cards/' do 
     erb :cards, layout: :'partial/layout'
@@ -113,6 +133,7 @@ end
     else
     existing_user = Account.find_by(username: login_param)
     end
+    
     if existing_user && existing_user.authenticate(password)
       session[:dni] = params[:dni]
       redirect '/index'
@@ -181,13 +202,13 @@ end
     user = User.find_by(dni: session[:dni])
     if(user&.bank_account)
       @transactions = user.bank_account.most_recent_transactions
-      @frequent_recipients = []
+      @frequent_recipients = user.bank_account.frequent_recipients
     else 
       @transactions = []
       @frequent_recipients = []
     end
     
-    @daily_expenses = []
+    @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
    erb :index, layout: :'partial/layout'
   end 
 
@@ -208,9 +229,9 @@ post '/transfer' do
   if @error
     return erb :transfer, layout: :'partial/layout'
   else  
-    transfer = Transfer.new(
+    transfer = Transaction.new(
     source_account: current_user.bank_account,
-    target_account: target_account,
+    target_account: target,
     amount: params[:amount],
     description: params[:description],
     motivo: params[:motivo],
