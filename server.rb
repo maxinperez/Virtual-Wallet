@@ -9,6 +9,7 @@ class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
   ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
+  use Rack::MethodOverride
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
 
@@ -123,10 +124,21 @@ end
       Message.create(user_id: current_user.id, content: params[:content], from_admin: false)
       redirect '/chat'
     end
-    
-  get '/cards/' do 
-    erb :cards, layout: :'partial/layout'
-  end 
+
+    delete '/support/close_case/:account_id' do
+      halt(403, "Acceso denegado") unless admin?
+      account = Account.find_by(id: params[:account_id])
+      if account
+        Message.where(user_id: account.id).delete_all
+        redirect "/support?user_id=#{account.id}"
+      else
+        halt 404, "Cuenta no encontrada"
+      end
+    end
+
+    get '/cards/' do 
+      erb :cards, layout: :'partial/layout'
+    end 
 
   get '/transfer' do 
    erb :transfer, layout: :'partial/layout'
