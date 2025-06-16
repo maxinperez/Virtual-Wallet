@@ -1,0 +1,16 @@
+<h2>Centro de Ayuda</h2>
+
+<div class="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+  <% @messages.each do |msg| %>
+    <div style="margin-bottom: 10px;">
+      <strong><%= msg.from_admin ? "Admin" : "Vos" %>:</strong>
+      <%= msg.content %>
+      <div style="font-size: 10px; color: gray;"><%= msg.created_at.strftime("%d/%m %H:%M") %></div>
+    </div>
+  <% end %>
+</div>
+
+<form action="/chat" method="post" style="margin-top: 10px;">
+  <input type="text" name="content" placeholder="Escribí tu mensaje..." required style="width: 80%;">
+  <button type="submit">Enviar</button>
+</form>

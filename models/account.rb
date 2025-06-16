@@ -10,9 +10,9 @@ class Account < ActiveRecord::Base
   validates :password_digest, presence: true
 
   enum :admin, {
-    support: 0,
-    cashier: 1,
-    superadmin: 2
+    support: 1,
+    cashier: 2,
+    superadmin: 3
   }
 
   def password=(new_password)
