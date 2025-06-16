@@ -64,7 +64,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.daily_expenses_last_month_for(user)
-    where(sender_bank_account_id: user.bank_account.id)
+    where(source_account_id: user.bank_account.id)
       .where('created_at >= ?', Time.current.beginning_of_month)
       .group("DATE(created_at)")
       .sum(:amount)

@@ -98,11 +98,20 @@ end
 
     get '/support' do
       halt(403, "Acceso denegado") unless admin?
-      @users = User.where(admin: false)
-      @selected_user = User.find_by(id: params[:user_id]) if params[:user_id]
+      @users = Account.where(admin: nil)
+      @selected_user = Account.find_by(id: params[:user_id]) if params[:user_id]
       @messages = @selected_user ? Message.where(user_id: @selected_user.id).order(:created_at) : []
       erb :"admin/support", layout: :'partial/admins'
     end
+
+    post '/support' do
+        user_id = params[:user_id]
+        content = params[:content]
+        if user_id && content && !content.strip.empty?
+          Message.create(user_id: user_id, content: content, from_admin: true)
+        end
+        redirect "/support?user_id=#{user_id}"
+      end
 
     get '/chat' do
       redirect '/support' if admin?

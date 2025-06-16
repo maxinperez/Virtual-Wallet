@@ -1,0 +1,20 @@
+<h2>Soporte - Admin</h2>
+<p>Usuarios con mensajes:</p>
+<ul>
+  <% @users.each do |u| %>
+    <li><a href="/support?user_id=<%= u.id %>"><%= u.username %></a></li>
+  <% end %>
+</ul>
+
+<% if @selected_user %>
+  <h3>Chat con <%= @selected_user.username %></h3>
+  <% @messages.each do |msg| %>
+    <p><strong><%= msg.from_admin ? "Tú" : @selected_user.username %>:</strong> <%= msg.content %></p>
+  <% end %>
+
+  <form action="/support" method="post">
+    <input type="hidden" name="user_id" value="<%= @selected_user.id %>">
+    <input type="text" name="content" required placeholder="Respuesta">
+    <button type="submit">Responder</button>
+  </form>
+<% end %>
