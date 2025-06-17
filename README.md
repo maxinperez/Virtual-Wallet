@@ -17,6 +17,11 @@ A final project for the **Systems Analysis and Design** course.
 - Balance and transaction management
 - Peer-to-peer transfers
 - Transaction history
+- Chat support
+- Card management
+- Role-Based admin system
+- Controlled deposit and withdrawal system
+
 
 
 ## Technologies used
