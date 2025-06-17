@@ -105,6 +105,22 @@ end
       erb :"admin/support", layout: :'partial/admins'
     end
 
+    get '/support/messages' do
+      halt(403, "Acceso denegado") unless admin? || current_user
+    
+      @selected_user = Account.find_by(id: params[:user_id])
+      @messages = @selected_user ? Message.where(user_id: @selected_user.id).order(:created_at) : []
+    
+      erb :"admin/_messages", layout: false
+    end
+
+    get '/chat/messages' do
+      @user = current_user
+      @messages = Message.where(user_id: @user.id).order(:created_at)
+    
+      erb :'admin/_messages', layout: false
+    end
+
     post '/support' do
         user_id = params[:user_id]
         content = params[:content]

@@ -21,18 +21,8 @@
         <div class="online-indicator"></div>
       </div>
 
-      <div class="messages-container">
-        <% @messages.each do |msg| %>
-          <div class="message <%= msg.from_admin ? 'admin' : 'user' %>">
-            <div class="message-bubble">
-              <%= msg.content %>
-              <div class="message-sender">
-                <%= msg.from_admin ? "Tú" : '' %>
-                <%= msg.created_at.strftime("%d/%m %H:%M") %>
-              </div>
-            </div>
-          </div>
-        <% end %>
+      <div id ="messages-container"class="messages-container">
+        <%= erb :"admin/_messages", layout: false %>
       </div>
 
       <div class="chat-input">
@@ -83,3 +73,27 @@
       </ul>
     </div>
 <% end %>
+
+<script>
+  const userId = "<%= @selected_user&.id %>";
+
+  function fetchMessages() {
+    if (!userId) return;
+
+    const container = document.getElementById('messages-container');
+    const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 20;
+
+    fetch(`/support/messages?user_id=${userId}`)
+      .then(res => res.text())
+      .then(html => {
+        container.innerHTML = html;
+        if (atBottom) {
+          container.scrollTop = container.scrollHeight;
+        }
+      })
+      .catch(err => console.error('Error fetching messages:', err));
+  }
+
+  fetchMessages();  // carga inicial
+  setInterval(fetchMessages, 3000); // cada 3 segundos
+</script>

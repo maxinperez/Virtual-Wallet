@@ -1,0 +1,10 @@
+<% @messages.each do |msg| %>
+    <div class="message <%= msg.from_admin ? 'admin' : 'user' %>">
+      <div class="message-bubble">
+        <%= msg.content %>
+        <div class="message-sender">
+         <%= msg.created_at.strftime("%d/%m %H:%M") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
