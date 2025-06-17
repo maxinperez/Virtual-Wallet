@@ -1,14 +1,27 @@
 require_relative '../spec_helper'
 
 RSpec.describe Transaction do
-  let(:source_account) { Account.create!(balance: 100.0) }
-  let(:target_account) { Account.create!(balance: 50.0) }
+  let(:user) { 
+  User.create!(
+    dni: "12345678#{rand(1000)}", 
+    email: "ricardo#{rand(1000)}@example.com", 
+    name: "pepe", 
+    last_name: "gomez", 
+    phone: "1234567890", 
+    locality: "Ciudad", 
+    cp: "1000", 
+    address: "Calle Falsa 123"
+  ) 
+}
+let(:source_account) { BankAccount.create!(balance: 100.0, user: user) }
+let(:target_account) { BankAccount.create!(balance: 50.0, user: user) }
 
   context 'validations' do
     it 'no permite crear transacción si no hay saldo suficiente' do
       transaction = Transaction.new(
         source_account: source_account,
         target_account: target_account,
+        transaction_type: "transfer",
         amount: 150.0
       )
       expect(transaction).not_to be_valid
@@ -19,6 +32,7 @@ RSpec.describe Transaction do
       transaction = Transaction.new(
         source_account: source_account,
         target_account: target_account,
+        transaction_type: "transfer",
         amount: 50.0
       )
       expect(transaction).to be_valid
@@ -30,6 +44,7 @@ RSpec.describe Transaction do
       transaction = Transaction.create!(
         source_account: source_account,
         target_account: target_account,
+        transaction_type: "transfer",
         amount: 40.0
       )
 

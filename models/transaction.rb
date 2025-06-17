@@ -5,6 +5,7 @@ class Transaction < ActiveRecord::Base
   attribute :transaction_type, :integer
   attribute :state, :integer
   validates :amount, presence: true, numericality: { greater_than: 0 }
+  validate :sufficient_balance_for_withdrawal_or_transfer
 
   enum :transaction_type, {
     deposit: 0,
@@ -18,9 +19,7 @@ class Transaction < ActiveRecord::Base
     pending: 1,
     rejected: 2
   }
-
-  #validates :state, presence: true
-  #el generar un id no hace falta, active record lo hace automaticamente en la base de datos.
+  
   before_create :process_transaction
 
   def self.withdraws_and_deposit_pending
@@ -34,6 +33,15 @@ class Transaction < ActiveRecord::Base
       amount += t.amount
     end
     amount.abs
+  end
+
+  def sufficient_balance_for_withdrawal_or_transfer
+    # Solo para withdrawal o transfer
+    if (transaction_type == "withdrawal" || transaction_type == "transfer") && source_account.present?
+      if source_account.balance < amount
+        errors.add(:base, "No hay saldo suficiente en la cuenta origen para esta transacción")
+      end
+    end
   end
 
   def process_transaction
