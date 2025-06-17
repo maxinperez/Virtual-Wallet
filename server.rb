@@ -9,15 +9,18 @@ class App < Sinatra::Application
   enable :sessions
   set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
   ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
+  use Rack::MethodOverride
   set :views, File.dirname(__FILE__) + '/views'
   set :public_folder, File.dirname(__FILE__) + '/public'
 
 #buena practica
 require_relative 'models/user'
-require_relative 'models/card'
 require_relative 'models/bankaccount'
 require_relative 'models/account'
 require_relative 'models/transaction'
+require_relative 'models/card'
+require_relative 'models/message'
+
 
   configure :development do
     enable :logging
@@ -46,16 +49,137 @@ require_relative 'models/transaction'
     end
     def dark_mode?
     session[:dark_mode] || false
-  end
+    end
+    def admin?
+      current_user && !current_user.account.admin.nil?
+    end
+
   end
   get '/toggle_theme' do
   session[:dark_mode] = !session[:dark_mode]
   redirect back
 end
 
+
+  get '/verificar_dni' do
+    content_type :json
+    dni = params[:dni]
+    existe = User.exists?(dni: dni)
+    { existe: existe }.to_json
+  end
+
+ get '/' do
+   erb :main, layout: :'partial/header'
+ end 
+
+  get '/login' do  
+     erb :login, layout: :'partial/header'
+  end 
+
+  get '/logout' do 
+    session.clear
+    redirect '/login'
+  end
+
   get '/register' do 
     erb :register, layout: :'partial/header'
   end 
+
+  get '/admins' do
+    erb :"admin/dashboard_admin", layout: :'partial/admins'
+  end
+
+  get '/personal_data/' do
+      erb :personal_data, layout: :'partial/layout'
+    end
+
+    get '/management' do
+      erb :"admin/management", layout: :'partial/admins'
+    end
+
+    get '/support' do
+      halt(403, "Acceso denegado") unless admin?
+      @users = Account.where(admin: nil)
+      @selected_user = Account.find_by(id: params[:user_id]) if params[:user_id]
+      @messages = @selected_user ? Message.where(user_id: @selected_user.id).order(:created_at) : []
+      erb :"admin/support", layout: :'partial/admins'
+    end
+
+    get '/support/messages' do
+      halt(403, "Acceso denegado") unless admin? || current_user
+    
+      @selected_user = Account.find_by(id: params[:user_id])
+      @messages = @selected_user ? Message.where(user_id: @selected_user.id).order(:created_at) : []
+    
+      erb :"admin/_messages", layout: false
+    end
+
+    get '/chat/messages' do
+      @user = current_user
+      @messages = Message.where(user_id: @user.id).order(:created_at)
+    
+      erb :'admin/_messages', layout: false
+    end
+
+    post '/support' do
+        user_id = params[:user_id]
+        content = params[:content]
+        if user_id && content && !content.strip.empty?
+          Message.create(user_id: user_id, content: content, from_admin: true)
+        end
+        redirect "/support?user_id=#{user_id}"
+      end
+
+    get '/chat' do
+      redirect '/support' if admin?
+      @messages = Message.where(user_id: current_user.id).order(:created_at)
+      erb :chat, layout: :'partial/layout'
+    end
+
+    post '/chat' do
+      Message.create(user_id: current_user.id, content: params[:content], from_admin: false)
+      redirect '/chat'
+    end
+
+    delete '/support/close_case/:account_id' do
+      halt(403, "Acceso denegado") unless admin?
+      account = Account.find_by(id: params[:account_id])
+      if account
+        Message.where(user_id: account.id).delete_all
+        redirect "/support?user_id=#{account.id}"
+      else
+        halt 404, "Cuenta no encontrada"
+      end
+    end
+
+    get '/cards/' do 
+      erb :cards, layout: :'partial/layout'
+    end 
+
+  get '/transfer' do 
+   erb :transfer, layout: :'partial/layout'
+  end
+
+
+  post '/login' do 
+    login_param = params[:dni]   
+    password = params[:password]
+    user = User.find_by(email: login_param)
+    if user
+    existing_user = user.account
+    else
+    existing_user = Account.find_by(username: login_param)
+    end
+    
+    if existing_user && existing_user.authenticate(password)
+      session[:dni] = params[:dni]
+      redirect '/index'
+    else 
+      session[:error] = 'Datos invalidos'
+      puts 'invalid data'
+      redirect '/login'
+    end
+  end
 
   post '/register' do 
     dni = params[:dni]
@@ -101,44 +225,6 @@ end
     end 
   end
 
-  get '/verificar_dni' do
-    content_type :json
-    dni = params[:dni]
-    existe = User.exists?(dni: dni)
-    { existe: existe }.to_json
-  end
-
- get '/' do
-   erb :main, layout: :'partial/header'
- end 
-
-  get '/login' do  
-     erb :login, layout: :'partial/header'
-  end 
-
-  get '/logout' do 
-    session.clear
-    redirect '/login'
-  end 
-
-  get '/personal_data/' do
-      erb :personal_data, layout: :'partial/layout'
-    end
-
-
-  post '/login' do 
-    dni = params[:dni]   
-    password = params[:password]
-    existing_user = User.find_by(dni: dni)&.account || User.find_by(email: dni)&.account
-    if existing_user && existing_user.authenticate(password)
-      session[:dni] = params[:dni]
-      redirect '/index'
-    else 
-      session[:error] = 'Datos invalidos'
-      puts 'invalid data'
-      redirect '/login'
-    end
-  end
   post '/generar_tarjeta' do 
     unless Card.exists?(bank_account: current_user.bank_account)
       card = Card.create(
@@ -160,25 +246,13 @@ end
     end
     
     @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
-
    erb :index, layout: :'partial/layout'
   end 
 
-  get '/cards/' do 
-    erb :cards, layout: :'partial/layout'
-  end 
-
-  get '/transfer' do 
-   @active_page = 'transfer'
-   erb :transfer, layout: :'partial/layout'
-  end
 
 
 post '/transfer' do
-  @active_page = 'transfer'
-
   source = current_user.bank_account
-  
   input = params[:destino] 
   target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
   

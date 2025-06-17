@@ -1,9 +1,13 @@
-require 'active_record/enum'
-
 class Transaction < ActiveRecord::Base
+<<<<<<< HEAD
   extend ActiveRecord::Enum
   belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
   belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id'
+=======
+  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'source_account_id', optional: true
+  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'target_account_id', optional: false
+  has_one :transfer, dependent: :destroy # se borra en cascada
+>>>>>>> origin/main
   attribute :transaction_type, :integer
   attribute :state, :integer
   validates :amount, presence: true, numericality: { greater_than: 0 }
@@ -14,6 +18,7 @@ class Transaction < ActiveRecord::Base
     transfer: 2,
     purchase: 3
   }
+
   enum :state, {
     success: 0,
     pending: 1,
@@ -24,7 +29,12 @@ class Transaction < ActiveRecord::Base
   #el generar un id no hace falta, active record lo hace automaticamente en la base de datos.
   before_create :process_transaction
 
-  def flujo_dinero
+  def self.withdraws_and_deposit_pending
+    where('transaction_type = ? OR transaction_type = ?', 0, 1)
+  end
+
+  def self.flujo_dinero
+>>>>>>> origin/main
     transactions = Transaction.all
     amount = 0
     transactions.each do |t|
@@ -37,23 +47,29 @@ def process_transaction
     return unless transaction_type == 2  # solo aplica a transferencias
 
     ActiveRecord::Base.transaction do
-      if amount.nil? || amount <= 0
-        errors.add(:amount, "Monto inválido")
-        throw(:abort)
+      if transaction_type == "deposit" 
+        target_account.update!(balance: target_account.balance + amount)
+        return
       end
 
-      if source_account.balance < amount
-        errors.add(:base, "Saldo insuficiente")
-        throw(:abort)
+      if transaction_type == "withdrawal" 
+        target_account.update!(balance: target_account.balance - amount)
+        return
       end
-
-      source_account.update!(balance: source_account.balance - amount)
-      target_account.update!(balance: target_account.balance + amount)
+  
+      if transaction_type == "transfer" 
+        if source_account.balance < amount
+          puts "el saldo no es suficiente"
+          throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion
+        end
+        source_account.update!(balance: source_account.balance - amount)
+        target_account.update!(balance: target_account.balance + amount)
+      end
     end
 end
 
   def self.daily_expenses_last_month_for(user)
-    where(sender_bank_account_id: user.bank_account.id)
+    where(source_account_id: user.bank_account.id)
       .where('created_at >= ?', Time.current.beginning_of_month)
       .group("DATE(created_at)")
       .sum(:amount)

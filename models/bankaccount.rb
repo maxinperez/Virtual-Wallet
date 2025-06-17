@@ -41,51 +41,39 @@ class BankAccount < ActiveRecord::Base
     end
   end
 
-  def all_transactions 
+  def all_transactions
     Transaction.where(
-      "sender_bank_account_id = :id OR receiver_bank_account_id = :id", 
+      "source_account_id = :id OR target_account_id = :id",
       id: self.id
     )
   end
   
 
   def revenue
-    transactions = Transaction.where(receiver_bank_account_id: self.id)
-    amount = 0
-    transactions.each do |t|
-      amount += t.amount
-    end
-    amount
+    incoming_transactions.sum(:amount)
   end
- 
   
   def spends
-    transactions = Transaction.where(sender_bank_account_id: self.id)
-    amount = 0
-    transactions.each do |t|
-      amount += t.amount
-    end
-    amount.abs
+    outgoing_transactions.sum(:amount)
   end
 
   def frequent_recipients(limit = 3)
-  Transaction
-    .where("transactions.sender_bank_account_id = ?", self.id)
-    .joins("INNER JOIN bank_accounts ON bank_accounts.id = transactions.receiver_bank_account_id")
-    .joins("INNER JOIN users ON users.id = bank_accounts.user_id")
-    .select('users.name, users.last_name, users.email, bank_accounts.id as account_id')
-    .group('users.id, bank_accounts.id')
-    .order('count(transactions.id) DESC')
-    .limit(limit)
-    .map do |t|
-      {
-        name: "#{t.name} #{t.last_name}",
-        email: t.email,
-        initials: "#{t.name[0]}#{t.last_name[0]}",
-        account_id: t.account_id
-      }
-    end
+    Transaction
+      .where("transactions.source_account_id = ?", self.id)
+      .joins("INNER JOIN bank_accounts ON bank_accounts.id = transactions.target_account_id")
+      .joins("INNER JOIN users ON users.id = bank_accounts.user_id")
+      .select('users.name, users.last_name, users.email, bank_accounts.id as account_id')
+      .group('users.id, bank_accounts.id')
+      .order('count(transactions.id) DESC')
+      .limit(limit)
+      .map do |t|
+        {
+          name: "#{t.name} #{t.last_name}",
+          email: t.email,
+          initials: "#{t.name[0]}#{t.last_name[0]}",
+          account_id: t.account_id
+        }
+      end
   end
-
 
 end

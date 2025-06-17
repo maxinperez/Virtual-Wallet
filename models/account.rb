@@ -9,6 +9,12 @@ class Account < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   validates :password_digest, presence: true
 
+  enum :admin, {
+    support: 1,
+    cashier: 2,
+    superadmin: 3
+  }
+
   def password=(new_password)
     self.password_digest = Password.create(new_password)
   end

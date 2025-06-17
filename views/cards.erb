@@ -9,13 +9,11 @@
             </div>
         </div>
        <%else%>
-       <div style = "  position: relative;"> 
            <%= partial "card", {
-  card_type: "Debito",
-  card_number: current_card.card_number,
-  card_balance: current_user.bank_account.balance,
-  card_exp_month: current_card.exp_month,
-  card_exp_year: current_card.exp_year
-} %>
-</div>
+            card_type: "Debito",
+            card_number: current_card.card_number,
+            card_balance: current_user.bank_account.balance,
+            card_exp_month: current_card.exp_month,
+            card_exp_year: current_card.exp_year
+            } %>
 <%end%>

@@ -26,6 +26,7 @@ GEM
     bigdecimal (3.1.9)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
+    diff-lcs (1.6.2)
     drb (2.2.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
@@ -48,6 +49,19 @@ GEM
     rackup (2.2.1)
       rack (>= 3)
     rake (13.2.1)
+    rspec (3.13.1)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.4)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.4)
     ruby2_keywords (0.0.5)
     securerandom (0.4.1)
     sinatra (4.1.1)
@@ -83,6 +97,7 @@ DEPENDENCIES
   puma (~> 6.6)
   rackup
   rake
+  rspec
   sinatra (~> 4.1)
   sinatra-activerecord
   sinatra-contrib

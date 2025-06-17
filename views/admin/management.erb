@@ -1,0 +1,19 @@
+<% if Transaction.withdraws_and_deposit_pending.any? %>
+  <% Transaction.withdraws_and_deposit_pending.each do |transaction| %>
+    <% if transaction.state == "pending" %> 
+     <%name = transaction.transaction_type == 0 ? "Depósito" : "Retiro" %>
+     <% amount_class = transaction.transaction_type == 0 ? "positive" : "negative"   %>
+      <%= partial "transaction", {
+        icon: "-",
+        name: name,
+        type: "",
+        amount_class: amount_class,
+        amount: transaction.amount,
+        date: "15/06/2025"
+      } %>
+       
+    <% end %>
+  <% end %>
+<% else %>
+  <p>No hay transacciones aún.</p>
+<% end %>

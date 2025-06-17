@@ -10,3 +10,8 @@ gem 'sinatra-activerecord' # Para ActiveRecord
 gem 'sqlite3' # Para SQLite
 gem 'rake' # Para tareas de base de datos
 gem 'bcrypt'
+# Testing
+group :test, :development do
+  gem 'rspec'
+  gem 'rack-test'
+end

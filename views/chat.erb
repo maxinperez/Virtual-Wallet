@@ -1,0 +1,50 @@
+<div class="chat-only-container">
+  <div class="chat-card">
+    <div class="chat-header">
+      <div class="chat-user-info">
+        <div class="chat-avatar">
+          A
+        </div>
+        <div class="chat-user-details">
+          <h3>Centro de Ayuda</h3>
+          <p>En línea</p>
+        </div>
+      </div>
+      <div class="online-indicator"></div>
+    </div>
+
+    <div id="messages-container" class="messages-container">
+      <%= erb :'admin/_messages', layout: false %>
+    </div>
+
+    <div class="chat-input">
+      <form action="/chat" method="post" class="input-form">
+        <div class="input-wrapper">
+          <input type="text" name="content" required placeholder="Escribí tu mensaje..." class="message-input">
+        </div>
+         <button type="submit" class="close-case-btn">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function fetchMessages() {
+    const container = document.getElementById('messages-container');
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+
+    fetch(`/chat/messages`)
+      .then(res => res.text())
+      .then(html => {
+        container.innerHTML = html;
+        if (atBottom) {
+          container.scrollTop = container.scrollHeight;
+        }
+      })
+      .catch(console.error);
+  }
+
+  fetchMessages();  // carga inicial
+  setInterval(fetchMessages, 3000);  // refrescar cada 3 segundos
+</script>

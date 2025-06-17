@@ -75,9 +75,6 @@ main.main-content {
   transition: background 0.2s ease;
 }
 
-.transaction-row:hover {
-  background: #fafafa;
-}
 
 .avatar {
   width: 50px;

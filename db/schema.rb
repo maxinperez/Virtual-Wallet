@@ -10,11 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_15_145006) do
+
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_001705) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_001705) do
+
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
     t.string "username"
+    t.integer "admin"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -49,8 +53,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_145006) do
     t.integer "state", default: 0, null: false
     t.string "motivo"
     t.integer "transaction_type"
+<<<<<<< HEAD
     t.string "transfer_cod"
     t.string "comprobante_cod"
+=======
+>>>>>>> origin/main
     t.index ["receiver_bank_account_id"], name: "index_transactions_on_receiver_bank_account_id"
     t.index ["sender_bank_account_id"], name: "index_transactions_on_sender_bank_account_id"
   end
@@ -60,8 +67,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_15_145006) do
     t.string "motivo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.string "transfer_cod"
     t.string "comprobante_cod"
+=======
+>>>>>>> origin/main
     t.index ["transaction_id"], name: "index_transfer_on_transaction_id"
   end
 
