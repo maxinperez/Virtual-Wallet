@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_14_032319) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_145006) do
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
@@ -49,6 +49,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_14_032319) do
     t.integer "state", default: 0, null: false
     t.string "motivo"
     t.integer "transaction_type"
+    t.string "transfer_cod"
+    t.string "comprobante_cod"
     t.index ["receiver_bank_account_id"], name: "index_transactions_on_receiver_bank_account_id"
     t.index ["sender_bank_account_id"], name: "index_transactions_on_sender_bank_account_id"
   end

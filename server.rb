@@ -192,9 +192,9 @@ post '/transfer' do
   if @error
     return erb :transfer, layout: :'partial/layout'
   else  
-    transfer = Transfer.new(
-    source_account: current_user.bank_account,
-    target_account: target_account,
+    transfer = Transaction.new(
+    source_account: source,
+    target_account: target,
     amount: params[:amount],
     description: params[:description],
     motivo: params[:motivo],
@@ -204,18 +204,27 @@ post '/transfer' do
     )
   end
   if transfer.save
-    redirect '/transfer/success/#{transfer.id}'
+     redirect "/transfer/success/#{transfer.id}"
+  else
+      @error = "No se pudo guardar la transferencia"
+      erb :transfer, layout: :'partial/layout'
   end
  end
 
  get '/transfer/success/:id' do 
-  @transfer = Transfer.find(params[:id])
-  @active_page = 'transfer'
-  erb :transfer_success, layout: :'partial/layout'
- end
+  
+  @transfer = Transaction.find_by(id: params[:id])
+  halt 404, "Transferencia no encontrada" unless @transfer 
+
+
+  random = SecureRandom.hex(2).upcase
+  @transfer_code = "TRF-#{@transfer.id}-#{random}"
+  @comprobante_code = "CBT-#{@transfer.id}-#{random}"
+  erb :transfer_succes, layout: :'partial/layout'
+end
 
  get '/comprobante/:id' do
-  transfer = Transfer.find(params[:id])
+  transfer = Transaction.find(params[:id])
   content_type 'application/pdf'
 
   pdf = Prawn::Document.new
