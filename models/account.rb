@@ -5,6 +5,8 @@ class Account < ActiveRecord::Base
   include BCrypt
   has_secure_password
   belongs_to :user
+  has_many :messages
+
 
   validates :username, presence: true, uniqueness: true
   validates :password_digest, presence: true

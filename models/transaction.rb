@@ -1,13 +1,7 @@
 class Transaction < ActiveRecord::Base
-<<<<<<< HEAD
-  extend ActiveRecord::Enum
-  belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'sender_bank_account_id'
-  belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'receiver_bank_account_id'
-=======
   belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'source_account_id', optional: true
   belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'target_account_id', optional: false
   has_one :transfer, dependent: :destroy # se borra en cascada
->>>>>>> origin/main
   attribute :transaction_type, :integer
   attribute :state, :integer
   validates :amount, presence: true, numericality: { greater_than: 0 }
@@ -34,7 +28,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.flujo_dinero
->>>>>>> origin/main
     transactions = Transaction.all
     amount = 0
     transactions.each do |t|
@@ -43,9 +36,7 @@ class Transaction < ActiveRecord::Base
     amount.abs
   end
 
-def process_transaction
-    return unless transaction_type == 2  # solo aplica a transferencias
-
+  def process_transaction
     ActiveRecord::Base.transaction do
       if transaction_type == "deposit" 
         target_account.update!(balance: target_account.balance + amount)
@@ -66,7 +57,7 @@ def process_transaction
         target_account.update!(balance: target_account.balance + amount)
       end
     end
-end
+  end
 
   def self.daily_expenses_last_month_for(user)
     where(source_account_id: user.bank_account.id)
