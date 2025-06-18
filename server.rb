@@ -7,84 +7,24 @@ require 'logger'
 require 'prawn'
 
 class App < Sinatra::Application
-  enable :sessions
-  set :database, adapter: 'sqlite3', database: 'db/development.sqlite3'
-  ActiveRecord::Base.logger = Logger.new(STDOUT) if development?
-  use Rack::MethodOverride
-  set :views, File.dirname(__FILE__) + '/views'
-  set :public_folder, File.dirname(__FILE__) + '/public'
+  register AppConfig
+  require_relative 'models/user'
+  require_relative 'models/bankaccount'
+  require_relative 'models/account'
+  require_relative 'models/transaction'
+  require_relative 'models/card'
+  require_relative 'models/message'
 
-#buena practica
-require_relative 'models/user'
-require_relative 'models/bankaccount'
-require_relative 'models/account'
-require_relative 'models/transaction'
-require_relative 'models/card'
-require_relative 'models/message'
-
-
-  configure :development do
-    enable :logging
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::DEBUG if development?
-    set :logger, logger
-
-    register Sinatra::Reloader
-    after_reload do
-      logger.info 'Reloaded!!!'
-    end
-  end
-  
-  helpers do 
-    def partial(template, locals = {})
-      erb(:"partial/#{template}", locals: locals)
-    end
-    def current_user
-      @current_user ||= User.find_by(dni: session[:dni]) || User.find_by(email: session[:dni]) if session[:dni]
-    end
-    def current_card
-      @current_card ||= current_user.bank_account.card
-    end
-    def active_page
-        @active_page ||= request.path_info.split('/')[1].to_s
-    end
-    def dark_mode?
-    session[:dark_mode] || false
-    end
-    def admin?
-      current_user && !current_user.account.admin.nil?
-    end
-
-  end
   get '/toggle_theme' do
   session[:dark_mode] = !session[:dark_mode]
   redirect back
 end
 
 
-  get '/verificar_dni' do
-    content_type :json
-    dni = params[:dni]
-    existe = User.exists?(dni: dni)
-    { existe: existe }.to_json
-  end
-
  get '/' do
    erb :main, layout: :'partial/header'
  end 
 
-  get '/login' do  
-     erb :login, layout: :'partial/header'
-  end 
-
-  get '/logout' do 
-    session.clear
-    redirect '/login'
-  end
-
-  get '/register' do 
-    erb :register, layout: :'partial/header'
-  end 
 
   get '/admins' do
     erb :"admin/dashboard_admin", layout: :'partial/admins'
@@ -162,70 +102,6 @@ end
   end
 
 
-  post '/login' do 
-    login_param = params[:dni]   
-    password = params[:password]
-    user = User.find_by(email: login_param)
-    if user
-    existing_user = user.account
-    else
-    existing_user = Account.find_by(username: login_param)
-    end
-    
-    if existing_user && existing_user.authenticate(password)
-      session[:dni] = params[:dni]
-      redirect '/index'
-    else 
-      session[:error] = 'Datos invalidos'
-      puts 'invalid data'
-      redirect '/login'
-    end
-  end
-
-  post '/register' do 
-    dni = params[:dni]
-    email = params[:email]
-    password = params[:password]
-    name = params[:name]
-    last_name = params[:last_name]
-    phone = params[:phone]
-    locality = params[:locality]
-    cp = params[:cp]
-    address = params[:address]
-
-  if User.exists?(dni: dni)
-    halt 409, "el dni ya está registrado"
-  end
-  if dni.length < 8
-    halt 409, "dni invalido"
-  end
-
-  if User.exists?(email: email)
-    halt 409, "el correo ya esta registrado"
-  end
-
-    user = User.new(
-    dni: dni,
-    email: email,
-    name: name,
-    last_name: last_name,
-    phone: phone,
-    locality: locality,
-    cp: cp,
-    address: address
-    )
-
-    if user.save
-      Account.create(user: user, username: dni, password: password)
-      BankAccount.create(user: user)
-      "Usuario creado correctamente. Por favor, iniciá sesión."
-      redirect '/login'
-    else 
-      puts "Error al registrar el usuario"
-      redirect '/register'
-    end 
-  end
-
   post '/generar_tarjeta' do 
     unless Card.exists?(bank_account: current_user.bank_account)
       card = Card.create(
@@ -234,6 +110,10 @@ end
       )
       redirect back
     end
+  end
+
+  get '/soporte/:section' do
+    section = params[:section]  # viene de la parte dinámica de la ruta
   end
 
   get '/index' do 
