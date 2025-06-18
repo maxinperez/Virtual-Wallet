@@ -100,4 +100,48 @@ class UserRoutes < Sinatra::Base
     end
   end
 
+  get '/withdraw' do
+    redirect '/login' unless current_user
+
+    @error = session.delete(:error)
+    @success = session.delete(:success)
+
+    erb :withdraw, layout: :'partial/layout'
+  end
+
+  post '/withdraw' do
+    redirect '/login' unless current_user
+
+    amount = params[:amount].to_f
+    account = current_user.bank_account
+
+    if amount <= 0
+      session[:error] = "El monto debe ser mayor que cero"
+      redirect '/withdraw'
+    end
+
+    if amount > account.balance
+      session[:error] = "Saldo insuficiente para realizar el retiro"
+      redirect '/withdraw'
+    end
+
+    transaction = Transaction.new(
+      source_account: account,
+      target_account: account,
+      amount: amount,
+      transaction_type: :withdrawal,
+      state: :pending
+    )
+
+    if transaction.save
+      session[:success] = "Retiro solicitado. Esperando aprobación de un administrador."
+    else
+      session[:error] = transaction.errors.full_messages.join(', ')
+    end
+
+    redirect '/withdraw'
+  end
+
+
+
 end
