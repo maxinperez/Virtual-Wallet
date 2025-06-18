@@ -66,5 +66,38 @@ class UserRoutes < Sinatra::Base
     end
     erb :transactions, layout: :'partial/layout'
   end
-  
+
+  get '/deposit' do
+    redirect '/login' unless current_user
+
+    @bank_account = current_user.bank_account
+    @success = session.delete(:success)
+    erb :deposit, layout: :'partial/layout'
+  end
+
+  post '/deposit' do
+    redirect '/login' unless current_user
+
+    amount = params[:amount].to_f
+    account = current_user.bank_account
+
+    if amount <= 0
+      session[:error] = "El monto debe ser mayor que cero"
+      redirect '/deposit'
+    else
+      transaction = Transaction.new(
+        target_account: account,
+        amount: amount,
+        transaction_type: :deposit,
+        state: :pending
+      )
+      if transaction.save
+        session[:success] = "Depósito solicitado. Esperando aprobación de un administrador."
+      else
+        session[:error] = transaction.errors.full_messages.join(', ')
+      end
+      redirect '/deposit'
+    end
+  end
+
 end
