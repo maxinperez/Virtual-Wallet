@@ -1,0 +1,43 @@
+.success-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #fff;
+  border: 2px solid #111;
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #111;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.success-container h2 {
+  color: #0da678; /* verde */
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.success-container p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+.actions {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #0da678;
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #0b8e65;
+}

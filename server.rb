@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
+require 'prawn'
 
 class App < Sinatra::Application
   enable :sessions
@@ -287,7 +288,8 @@ post '/transfer' do
 
  get '/transfer/success/:id' do 
   
-  @transfer = Transaction.find_by(id: params[:id])
+  @transfer = Transaction.includes( target_account: :user).find(params[:id])
+  #Transaction.find_by(id: params[:id])
   halt 404, "Transferencia no encontrada" unless @transfer 
 
 
@@ -297,18 +299,38 @@ post '/transfer' do
   erb :transfer_succes, layout: :'partial/layout'
 end
 
- get '/comprobante/:id' do
-  transfer = Transaction.find(params[:id])
-  content_type 'application/pdf'
+get '/comprobante/:id' do
+   @transfer = Transaction.includes(source_account: :user, target_account: :user).find(params[:id])
 
-  pdf = Prawn::Document.new
+  random = SecureRandom.hex(2).upcase
+  @transfer_code = "TRF-#{@transfer.id}-#{random}"
+  @comprobante_code = "CBT-#{@transfer.id}-#{random}"
+  # voy a los usuarios
+  sender = @transfer.source_account.user
+  recipient = @transfer.target_account.user
+
+
+  content_type 'application/pdf'
+  pdf = Prawn::Document.new(page_size: 'A4', page_layout: :portrait)
+  # Contenido del PDF
+  pdf.font "Helvetica"
   pdf.text "Comprobante de Transferencia", size: 22, style: :bold
-  pdf.move_down 10
-  pdf.text "Código de transferencia: #{transfer.transfer_code}"
-  pdf.text "Código de comprobante: #{transfer.comprobante_code}"
-  pdf.text "Monto: $#{transfer.amount}"
-  pdf.text "Motivo: #{transfer.motivo}"
-  pdf.text "Fecha: #{transfer.transaction_date.strftime('%d/%m/%Y %H:%M')}"
+  pdf.move_down 30
+  
+  pdf.text "Remitente: #{sender.name} #{sender.last_name}"
+  pdf.text "Destinatario: #{recipient.name} #{recipient.last_name}"
+
+  pdf.move_down 15
+  
+  pdf.text "<b>Código de transferencia:</b> #{@transfer_code}", inline_format: true
+  pdf.text "<b>Código de comprobante:</b> #{@comprobante_code}", inline_format: true
+  
+  pdf.move_down 15
+
+  pdf.text "<b>Monto:</b> $#{'%.2f' % @transfer.amount}", inline_format: true
+  pdf.text "<b>Motivo:</b> #{@transfer.motivo || 'Sin motivo especificado'}", inline_format: true
+  pdf.text "<b>Fecha:</b> #{@transfer.transaction_date&.strftime('%d/%m/%Y %H:%M') || 'No especificada'}", inline_format: true
+
 
   pdf.render
 end

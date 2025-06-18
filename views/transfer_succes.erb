@@ -1,14 +1,14 @@
 <div class="success-container">
   <h2>¡Transferencia realizada con éxito!</h2>
-
-  <p><strong>Código de transferencia:</strong> <%= @transfer_code %></p>
-  <p><strong>Comprobante:</strong> <%= @comprobante_code %></p>
+<!--<p><strong>Código de transferencia:</strong> <%= @transfer_code %></p>
+  <p><strong>Comprobante:</strong> <%= @comprobante_code %></p> -->  
+  <p><strong>Destinatario:</strong> <%= @transfer.target_account.user.name %> <%= @transfer.target_account.user.last_name %></p>
   <p><strong>Monto:</strong> $<%= @transfer.amount %></p>
   <p><strong>Fecha:</strong> <%= @transfer.transaction_date.strftime("%d/%m/%Y %H:%M") %></p>
 
   <div class="actions">
     <a href="/transfer" class="btn">Hacer otra transferencia</a>
     <a href="/transactions" class="btn">Ir al historial</a>
-    <!-- <a href="/comprobante/<%= @transfer.id %>" class="btn" target="_blank">Descargar comprobante</a> -->
+   <a href="/comprobante/<%= @transfer.id %>" class="btn" target="_blank">Descargar comprobante</a>
   </div>
 </div>
