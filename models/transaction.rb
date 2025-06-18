@@ -45,6 +45,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def process_transaction
+    return unless state == "success"
     ActiveRecord::Base.transaction do
       if transaction_type == "deposit" 
         target_account.update!(balance: target_account.balance + amount)
