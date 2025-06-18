@@ -1,0 +1,24 @@
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 5px;">
+<h1 style="text-align: center;">Realizar Retiro</h1>
+
+<form action="/withdraw" method="post" style="text-align: center; width: 400px;  margin-bottom: 5px;">
+    <% if @error %>
+    <div class="alert alert-error">
+        <%= @error %>
+    </div>
+    <% elsif @success %>
+    <div class="alert alert-success">
+        <%= @success %>
+    </div>
+    <% end %>
+
+    <p style=" margin-bottom: 8px;">
+      <strong>Monto:</strong>
+      <input type="number" id="amount" name="amount" step="0.01" min="0.01" required value="<%= params[:amount] %>">
+    </p>
+
+    <p style="text-align: center; margin-top: 8px;">
+    <button type="submit">Solicitar Retiro</button>
+    </p>
+</form>
+</div>
