@@ -1,8 +1,7 @@
-require_relative '../config/environment'
+require File.expand_path('../../config/enviroment', __FILE__)
 
-class AuthRoutes < App
-  enable :sessions
-
+class AuthRoutes < Sinatra::Base
+  register AppConfig
   get '/verificar_dni' do
     content_type :json
     dni = params[:dni]
@@ -79,5 +78,9 @@ class AuthRoutes < App
       puts "Error al registrar el usuario"
       redirect '/register'
     end 
+  end
+  
+  before ['/login', '/register'] do
+    redirect '/index' if session[:dni]
   end
 end

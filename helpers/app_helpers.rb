@@ -1,4 +1,3 @@
-# helpers/app_helpers.rb
 module AppHelpers
     def partial(template, locals = {})
       erb(:"partial/#{template}", locals: locals)
