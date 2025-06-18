@@ -1,3 +1,54 @@
+<style>
+  .success-container {
+    background-color:rgb(99, 96, 96);
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .success-container h2 {
+    color: #f0f0f0;
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  .success-container p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .btn {
+    text-align: center;
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #aaaaaa;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #e0e0e0;
+    color: #1e1e1e;
+  }
+</style>
+
+
+
 <div class="success-container">
   <h2>¡Transferencia realizada con éxito!</h2>
 <!--<p><strong>Código de transferencia:</strong> <%= @transfer_code %></p>

@@ -1,43 +1,46 @@
 .success-container {
-  max-width: 600px;
-  margin: 60px auto;
-  padding: 30px;
-  background-color: #fff;
-  border: 2px solid #111;
+  background-color: #121212;
+  color: #e0e0e0;
+  border: 1px solid #1f1f1f;
   border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.15);
   font-family: 'Segoe UI', sans-serif;
-  color: #111;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .success-container h2 {
-  color: #0da678; /* verde */
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  color: #00e676;
+  font-size: 24px;
+  margin-bottom: 25px;
 }
 
 .success-container p {
-  margin: 8px 0;
-  font-size: 1rem;
+  margin: 10px 0;
+  font-size: 16px;
 }
 
 .actions {
-  margin-top: 25px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
+  margin-top: 30px;
 }
 
 .btn {
+  text-align: center;
+  background-color: #1f1f1f;
+  color: #00e676;
+  border: 1px solid #00e676;
+  padding: 12px;
   text-decoration: none;
-  padding: 10px 20px;
-  background-color: #0da678;
-  color: white;
   border-radius: 8px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #0b8e65;
+  background-color: #00e676;
+  color: #121212;
 }

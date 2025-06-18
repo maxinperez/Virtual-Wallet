@@ -31,11 +31,17 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     logger (1.7.0)
+    matrix (0.4.2)
     minitest (5.25.5)
     multi_json (1.15.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.4)
+    pdf-core (0.10.0)
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
     puma (6.6.0)
       nio4r (~> 2.0)
     rack (3.1.14)
@@ -86,6 +92,8 @@ GEM
     sqlite3 (2.6.0-x86_64-linux-gnu)
     tilt (2.6.0)
     timeout (0.4.3)
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uri (1.0.3)
@@ -96,6 +104,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  prawn
   puma (~> 6.6)
   rack-test
   rackup

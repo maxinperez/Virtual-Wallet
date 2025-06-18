@@ -300,40 +300,71 @@ post '/transfer' do
 end
 
 get '/comprobante/:id' do
-   @transfer = Transaction.includes(source_account: :user, target_account: :user).find(params[:id])
+  @transfer = Transaction.includes(source_account: :user, target_account: :user).find(params[:id])
 
   random = SecureRandom.hex(2).upcase
   @transfer_code = "TRF-#{@transfer.id}-#{random}"
   @comprobante_code = "CBT-#{@transfer.id}-#{random}"
-  # voy a los usuarios
+  
   sender = @transfer.source_account.user
   recipient = @transfer.target_account.user
 
-
   content_type 'application/pdf'
-  pdf = Prawn::Document.new(page_size: 'A4', page_layout: :portrait)
-  # Contenido del PDF
+  pdf = Prawn::Document.new(page_size: 'A4', page_layout: :portrait, margin: 50)
+
+  # colores
+  main_color = "0d9b72" # verde esmeralda
+  gray_color = "444444"
+  # fuente
   pdf.font "Helvetica"
-  pdf.text "Comprobante de Transferencia", size: 22, style: :bold
-  pdf.move_down 30
-  
-  pdf.text "Remitente: #{sender.name} #{sender.last_name}"
-  pdf.text "Destinatario: #{recipient.name} #{recipient.last_name}"
+  pdf.fill_color main_color
+  pdf.text "Comprobante de Transferencia", size: 26, style: :bold, align: :center
+  pdf.move_down 10
 
+  pdf.stroke_color main_color
+  pdf.stroke_horizontal_rule
+  pdf.move_down 20
+
+  #  remitente y destinatario 
+  pdf.fill_color "000000"
+  pdf.text "Remitente", size: 14, style: :bold, color: main_color
+  pdf.text "#{sender.name} #{sender.last_name}", size: 12
+  pdf.move_down 10
+
+  pdf.text "Destinatario", size: 14, style: :bold, color: main_color
+  pdf.text "#{recipient.name} #{recipient.last_name}", size: 12
+
+  pdf.move_down 25
+  pdf.stroke_horizontal_rule
   pdf.move_down 15
-  
-  pdf.text "<b>Código de transferencia:</b> #{@transfer_code}", inline_format: true
-  pdf.text "<b>Código de comprobante:</b> #{@comprobante_code}", inline_format: true
-  
-  pdf.move_down 15
 
-  pdf.text "<b>Monto:</b> $#{'%.2f' % @transfer.amount}", inline_format: true
-  pdf.text "<b>Motivo:</b> #{@transfer.motivo || 'Sin motivo especificado'}", inline_format: true
-  pdf.text "<b>Fecha:</b> #{@transfer.transaction_date&.strftime('%d/%m/%Y %H:%M') || 'No especificada'}", inline_format: true
+  # tabla con los detalles
+  data = [
+    ["Código de transferencia:", @transfer_code],
+    ["Código de comprobante:", @comprobante_code],
+    ["Monto:", "$#{'%.2f' % @transfer.amount}"],
+    ["Motivo:", @transfer.motivo || 'Sin motivo especificado'],
+    ["Fecha:", @transfer.transaction_date.getlocal.strftime('%d/%m/%Y %H:%M')]
+  ]
 
+  data.each do |label, value|
+    pdf.formatted_text [
+      { text: label, styles: [:bold], color: main_color },
+      { text: " #{value}", color: gray_color }
+    ]
+    pdf.move_down 8
+  end
+
+  # footer
+  pdf.move_down 40
+  pdf.stroke_horizontal_rule
+  pdf.move_down 5
+  pdf.fill_color gray_color
+  pdf.text "PayStack - Comprobante oficial uacho", size: 9, align: :center, style: :italic
 
   pdf.render
 end
+
 
  put '/actualizar_cuenta' do
   user = User.find_by(session[:dni])
