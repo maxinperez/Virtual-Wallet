@@ -46,13 +46,15 @@ class UserRoutes < Sinatra::Base
   end
 
   get '/index' do
-    user = User.find_by(dni: session[:dni])
+    user = current_user
     if user&.bank_account
       @transactions = user.bank_account.most_recent_transactions
       @frequent_recipients = user.bank_account.frequent_recipients
+      @saving_goals = user.bank_account.saving_goals
     else
       @transactions = []
       @frequent_recipients = []
+      @saving_goals = []
     end
     @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
     erb :index, layout: :'partial/layout'
@@ -142,6 +144,56 @@ class UserRoutes < Sinatra::Base
     redirect '/withdraw'
   end
 
+  get '/saving_goals' do
+    @saving_goals = SavingGoal.where(bank_account: current_user.bank_account)
+    @error = session.delete(:error)
+    @success = session.delete(:success)
+    erb :saving_goals, layout: :'partial/layout'
+  end
 
+  post '/saving_goals/:id/deposit' do
+    goal = SavingGoal.find(params[:id])
+    amount = params[:amount].to_f
+
+    begin
+      goal.deposit(amount)
+      session[:success] = "Depósito realizado con éxito"
+    rescue => e
+      session[:error] = e.message
+    end
+
+    redirect '/saving_goals'
+  end
+
+  post '/saving_goals/:id/withdraw' do
+    goal = SavingGoal.find(params[:id])
+    amount = params[:amount].to_f
+
+    begin
+      goal.withdraw(amount)
+      session[:success] = "Retiro realizado con éxito"
+    rescue => e
+      session[:error] = e.message
+    end
+
+    redirect '/saving_goals'
+  end
+
+  post '/saving_goals' do
+    goal = SavingGoal.new(
+      name: params[:name],
+      target_amount: params[:target_amount].to_f,
+      bank_account: current_user.bank_account,
+      saved_amount: 0.0
+    )
+
+    if goal.save
+      session[:success] = "Meta creada con éxito"
+      redirect '/saving_goals'
+    else
+      session[:error] = goal.errors.full_messages.join(", ")
+      redirect '/saving_goals'
+    end
+end
 
 end
