@@ -6,11 +6,13 @@ require_relative '../models/bankaccount'
 require_relative '../models/card'
 require_relative '../models/transaction'
 require_relative '../models/message'
+require_relative '../models/savinggoal'
+require_relative '../models/savingmovement'
 
 module AppConfig
   def self.registered(app)
     app.enable :sessions
-    app.set :database, adapter: 'sqlite3', database: 'db/test.sqlite3'
+    app.set :database, adapter: 'sqlite3', database: 'db/wallet_development.sqlite3'
     app.use Rack::MethodOverride
     app.set :views, File.expand_path('../../views', __FILE__)
     app.set :public_folder, File.expand_path('../../public', __FILE__)
