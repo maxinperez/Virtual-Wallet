@@ -48,6 +48,8 @@ let(:target_account) { BankAccount.create!(balance: 50.0, user: user) }
         amount: 40.0
       )
 
+    transaction.update!(state: :success)
+
       expect(source_account.reload.balance).to eq(60.0)
       expect(target_account.reload.balance).to eq(90.0)
     end
