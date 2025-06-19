@@ -6,6 +6,7 @@ class BankAccount < ActiveRecord::Base
   has_one :card
   has_many :outgoing_transactions, class_name: 'Transaction', foreign_key: 'source_account_id'
   has_many :incoming_transactions, class_name: 'Transaction', foreign_key: 'target_account_id'
+  has_many :saving_goals
   
   # Validations
   validates :alias, uniqueness: true, presence: true
