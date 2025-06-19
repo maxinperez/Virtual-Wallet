@@ -50,11 +50,11 @@ class BankAccount < ActiveRecord::Base
   
 
   def revenue
-    incoming_transactions.sum(:amount)
+    incoming_transactions.where(state: 0).sum(:amount)
   end
   
   def spends
-    outgoing_transactions.sum(:amount)
+    outgoing_transactions.where(state: 0).sum(:amount)
   end
 
   def frequent_recipients(limit = 3)

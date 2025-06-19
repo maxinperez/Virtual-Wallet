@@ -11,6 +11,16 @@
         amount: transaction.amount,
         date: "15/06/2025"
       } %>
+      <div class="transaction-actions">
+      <form action="/management/<%= transaction.id %>/reject" method="post"> 
+      <button class="action-btn cancel-btn">✕</button>
+      </form>
+      <form action="/management/<%= transaction.id %>/success" method="post"> 
+      <button class="action-btn confirm-btn">✓</button>
+      </form>
+  </div>
+  </div>
+       
        
     <% end %>
   <% end %>

@@ -21,6 +21,7 @@ class Transaction < ActiveRecord::Base
   }
   
   before_create :process_transaction
+  before_update :process_transaction
 
   def self.withdraws_and_deposit_pending
     where('transaction_type = ? OR transaction_type = ?', 0, 1)
@@ -47,17 +48,17 @@ class Transaction < ActiveRecord::Base
   def process_transaction
     return unless state == "success"
     ActiveRecord::Base.transaction do
-      if transaction_type == "deposit" 
+      if transaction_type == "deposit" && state == "success"
         target_account.update!(balance: target_account.balance + amount)
         return
       end
 
-      if transaction_type == "withdrawal" 
+      if transaction_type == "withdrawal" && state == "success"
         target_account.update!(balance: target_account.balance - amount)
         return
       end
   
-      if transaction_type == "transfer" 
+      if transaction_type == "transfer" && state == "success"
         if source_account.balance < amount
           puts "el saldo no es suficiente"
           throw(:abort)  # hace rollback si no tiene dinero la cuenta que realiza la transaccion

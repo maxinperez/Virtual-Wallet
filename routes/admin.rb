@@ -13,6 +13,18 @@ class AdminRoutes < Sinatra::Base
     erb :"admin/management", layout: :'partial/admins'
   end
 
+  post '/management/:id/reject' do
+   id = params[:id]
+   transaction = Transaction.find(id).update(state:"rejected")
+   redirect back
+  end
+
+  post '/management/:id/success' do
+    id = params[:id]
+    transaction = Transaction.find(id).update(state:"success")
+    redirect back
+   end
+
   #   muestra usuarios sin rol admin, mensajes del usuario seleccionado y renderiza la vista soporte con layout admin.
   get '/support' do
     halt(403, "Acceso denegado") unless admin?

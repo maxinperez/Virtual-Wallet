@@ -89,7 +89,7 @@ class UserRoutes < Sinatra::Base
         target_account: account,
         amount: amount,
         transaction_type: :deposit,
-        state: :pending
+        state: 1
       )
       if transaction.save
         session[:success] = "Depósito solicitado. Esperando aprobación de un administrador."
