@@ -11,18 +11,39 @@
             </div>
           </div>
         </div>
-        <div class="balance-card">
-          <div class="balance-label">Ahorros</div>
-          <div class="balance-amount">$5,678.90</div>
-          <div class="balance-stats">
-            <div class="balance-stat">
-              <span>Meta:</span> $10,000.00
+        <% if @saving_goals.any? %>
+          <% @saving_goals.each do |goal| %>
+            <div class="balance-card">
+              <div class="balance-label">Ahorros - <%= goal.name %></div> <!-- Si tenés un nombre -->
+              <div class="balance-amount">
+                $<%= '%.1f' % goal.saved_amount %>
+              </div>
+              <div class="balance-stats">
+                <div class="balance-stat">
+                  <span>Meta:</span> $<%= '%.1f' % goal.target_amount %>
+                </div>
+                <div class="balance-stat">
+                  <span>Progreso:</span> <%= goal.progress %>%
+                </div>
+              </div>
             </div>
-            <div class="balance-stat">
-              <span>Progreso:</span> 56%
+          <% end %>
+        <% else %>
+          <div class="balance-card">
+            <div class="balance-label">Ahorros</div>
+            <div class="balance-amount">$0.00</div>
+            <div class="balance-stats">
+              <div class="balance-stat">
+                <span>Meta:</span> No creada
+              </div>
+              <div class="balance-stat">
+                <span>Progreso:</span> 0%
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
+
+
       </section>
 
       <!-- Left Column -->
@@ -49,6 +70,10 @@
             <div class="action-icon">$</div>
             <div class="action-label">Pagar</div>
             </a>
+            <a href="/saving_goals" class="action-button">
+            <div class="action-icon">⊕</div>
+            <div class="action-label">Ahorro</div>
+          </a>
           </div>
         </div>
 
