@@ -38,7 +38,7 @@
             <div class="action-label">Depositar</div>
           </a>
           <a href="/withdraw" class="action-button">
-            <div class="action-icon">➖</div>
+            <div class="action-icon">-</div>
             <div class="action-label">Retiro</div>
           </a>
           <div class="action-button">
@@ -63,42 +63,50 @@
       </div>
       
       <% if @transactions.any? %>
-        <% @transactions.each do |transaction| %>
-          <%
-            if transaction.source_account_id == current_user.bank_account.id
-              amount_class = "amount-negative"
-              amount_display = "-$#{transaction.amount}"
-              other_user = transaction.target_account.user
-            else
-              amount_class = "amount-positive"
-              amount_display = "+$#{transaction.amount}"
-              other_user = transaction.source_account&.user
-            end
-          %>
-      
-          <div class="transaction">
-            <% if other_user %>
-              <div class="transaction-icon"><%= other_user.name[0].upcase %></div>
-              <div class="transaction-details">
-                <div class="transaction-name"><%= other_user.name %> <%= other_user.last_name %></div>
-                <div class="transaction-type">Transferencia</div>
-              </div>
-            <% else %>
-              <div class="transaction-details">
-                <div class="transaction-name">Usuario desconocido</div>
-                <div class="transaction-type">Transferencia</div>
-              </div>
-            <% end %>
-      
-            <div class="transaction-amount <%= amount_class %>"><%= amount_display %></div>
-            <div class="transaction-date"><%= transaction.created_at.strftime("%d %b, %H:%M") %></div>
-          </div>
-        <% end %>
-      <% else %>
-        <div class="no-transactions-message">
-          <p>No hay transacciones recientes</p>
-        </div>
-      <% end %>
+  <% @transactions.each do |transaction| %>
+    <%
+      if transaction.transaction_type == "deposit"
+        amount_display = "#{transaction.amount}"
+        sign = '+'
+        owner = "Depósito"
+        if transaction.state == "success"
+           amount_class = "amount-positive"
+           type = "finalizado"
+        else 
+          if transaction.state == "rejected"
+          amount_class = "amount-rejected"
+          type = "rechazado"
+        else
+           if transaction.state == "pending"
+          amount_class = "amount-pending"
+          type = "pendiente"
+        end
+      end
+    end
+      else 
+        amount_class = "amount-negative"
+        amount_display = "-$#{transaction.amount}"
+        other_user = transaction.source_account&.user
+        sign = other_user&.name&.slice(0)&.upcase || "?"
+        owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
+        type = "Transferencia"
+      end
+    %>
+
+    <%= partial "transaction", {
+      icon: sign,
+      name: owner,
+      type: type,
+      amount_class: amount_class,
+      amount: amount_display,
+      date: transaction.created_at.strftime("%d %b, %H:%M")
+    } %>
+     </div>
+  <% end %>
+<% else %>
+  <p>No hay transacciones.</p>
+<% end %>
+
 
       <!-- Right Sidebar -->
       <div class="right-sidebar">
