@@ -3,11 +3,11 @@
 
 <form action="/withdraw" method="post" style="text-align: center; width: 400px;  margin-bottom: 5px;">
     <% if @error %>
-    <div class="alert alert-error">
+    <div class="mensaje">
         <%= @error %>
     </div>
     <% elsif @success %>
-    <div class="alert alert-success">
+    <div class="mensaje">
         <%= @success %>
     </div>
     <% end %>
