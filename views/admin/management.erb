@@ -1,29 +1,29 @@
-<% if Transaction.withdraws_and_deposit_pending.any? %>
-  <% Transaction.withdraws_and_deposit_pending.each do |transaction| %>
-    <% if transaction.state == "pending" %> 
-     <%name = transaction.transaction_type == 0 ? "Depósito" : "Retiro" %>
-     <% amount_class = transaction.transaction_type == 0 ? "positive" : "negative"   %>
+<% pending = Transaction.withdraws_and_deposit_pending.select { |t| t.state == "pending" } %>
+
+<% if pending.any? %>
+    <% pending.each do |transaction| %>
+      <% name = transaction.transaction_type == "withdrawal" ? "Retiro" : "Depósito" %>
+      <% amount_class = transaction.transaction_type == "withdrawal" ? "negative" : "positive" %>
+      <% sign  = transaction.transaction_type == "withdrawal" ? "-" : "+" %>
+      <% u = User.find(transaction.target_account_id) %>
       <%= partial "transaction", {
-        icon: "-",
-        name: name,
-        type: "",
+        icon: sign,
+        name: "#{u.name} #{u.last_name}",
+        type: name,
         amount_class: amount_class,
         amount: transaction.amount,
-        date: "15/06/2025"
+        date: transaction.created_at.strftime("%d %b, %H:%M")
       } %>
+
       <div class="transaction-actions">
-      <form action="/management/<%= transaction.id %>/reject" method="post"> 
-      <button class="action-btn cancel-btn">✕</button>
-      </form>
-      <form action="/management/<%= transaction.id %>/success" method="post"> 
-      <button class="action-btn confirm-btn">✓</button>
-      </form>
-  </div>
-  </div>
-       
-       
-    <% end %>
-  <% end %>
+        <form action="/management/<%= transaction.id %>/reject" method="post"> 
+          <button class="action-btn cancel-btn">✕</button>
+        </form>
+        <form action="/management/<%= transaction.id %>/success" method="post"> 
+          <button class="action-btn confirm-btn">✓</button>
+        </form>
+      </div>
+    <% end %> 
 <% else %>
-  <p>No hay transacciones aún.</p>
+  <p style="text-align: center; margin-top: 2rem;">No hay transacciones pendientes.</p>
 <% end %>

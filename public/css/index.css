@@ -351,7 +351,7 @@
   font-weight: 500;
 }
 
-.transaction {
+.dark-mode .transaction {
   background: linear-gradient(135deg, #303031 0%, #414144 100%);
   color: white;
   padding: 10px 12px; 
@@ -363,6 +363,23 @@
   max-width: 700px;
   margin: 0 auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+}
+
+.transaction {
+  background: linear-gradient(25deg, #f5f8ff 0%, #ffffff 100%);
+  color: white;
+  padding: 10px 12px; 
+  border-radius: 12px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(150, 147, 147, 0.3);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: 4px;
@@ -383,6 +400,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: rgb(34, 29, 29);
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+.dark-mode .transaction-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -396,14 +427,26 @@
   gap: 4px;
 }
 
-.transaction-name {
+.dark-mode .transaction-name {
   font-weight: 600;
   font-size: 18px;
   color: white;
   letter-spacing: -0.025em;
 }
 
+ .transaction-name {
+  font-weight: 600;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+  letter-spacing: -0.025em;
+}
+
 .transaction-type {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+}
+.dark-mode .transaction-type {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
@@ -431,10 +474,23 @@
   color: #51CF66;
   letter-spacing: -0.025em;
 }
+.amount-pending {
+  font-weight: 700;
+  font-size: 20px;
+  color: #e0e40f;
+  letter-spacing: -0.025em;
+}
+
+.amount-rejected {
+  font-weight: 700;
+  font-size: 20px;
+  color: #ff0000;
+  letter-spacing: -0.025em;
+}
 
 .transaction-date {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(7, 7, 7, 0.6);
   font-weight: 400;
 }
 

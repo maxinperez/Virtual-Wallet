@@ -368,6 +368,13 @@
   color: #b5f0b5;
 }
 
+.dark-mode .amount-rejected {
+  color: #fa7171;
+}
+.dark-mode .amount-pending {
+  color: #faf05f;
+}
+
 .dark-mode .transaction-date {
   color: #b5b5b5;
 }
