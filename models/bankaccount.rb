@@ -21,7 +21,7 @@ class BankAccount < ActiveRecord::Base
   end
   
   def most_recent_transactions
-    all_transactions.order(created_at: :desc).limit(10)
+    all_transactions.order(created_at: :desc).limit(5)
   end
 
   # functions for generate account
