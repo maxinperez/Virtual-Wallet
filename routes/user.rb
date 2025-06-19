@@ -50,11 +50,11 @@ class UserRoutes < Sinatra::Base
     if user&.bank_account
       @transactions = user.bank_account.most_recent_transactions
       @frequent_recipients = user.bank_account.frequent_recipients
-      @saving_goals = user.bank_account.saving_goals
+      @first_saving_goal = user.bank_account.saving_goals.order(:created_at).first
     else
       @transactions = []
       @frequent_recipients = []
-      @saving_goals = []
+      @first_saving_goal = nil
     end
     @daily_expenses = Transaction.daily_expenses_last_month_for(current_user)
     erb :index, layout: :'partial/layout'
