@@ -11,23 +11,19 @@
             </div>
           </div>
         </div>
-        <% if @saving_goals.any? %>
-          <% @saving_goals.each do |goal| %>
-            <div class="balance-card">
-              <div class="balance-label">Ahorros - <%= goal.name %></div> <!-- Si tenés un nombre -->
-              <div class="balance-amount">
-                $<%= '%.1f' % goal.saved_amount %>
+        <% if @first_saving_goal %>
+          <div class="balance-card">
+            <div class="balance-label">Ahorros - <%= @first_saving_goal.name %></div>
+            <div class="balance-amount">$<%= '%.1f' % @first_saving_goal.saved_amount %></div>
+            <div class="balance-stats">
+              <div class="balance-stat">
+                <span>Meta:</span> $<%= '%.1f' % @first_saving_goal.target_amount %>
               </div>
-              <div class="balance-stats">
-                <div class="balance-stat">
-                  <span>Meta:</span> $<%= '%.1f' % goal.target_amount %>
-                </div>
-                <div class="balance-stat">
-                  <span>Progreso:</span> <%= goal.progress %>%
-                </div>
+              <div class="balance-stat">
+                <span>Progreso:</span> <%= @first_saving_goal.progress %>%
               </div>
             </div>
-          <% end %>
+          </div>
         <% else %>
           <div class="balance-card">
             <div class="balance-label">Ahorros</div>
@@ -42,7 +38,6 @@
             </div>
           </div>
         <% end %>
-
 
       </section>
 
