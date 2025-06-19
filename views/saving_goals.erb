@@ -1,0 +1,69 @@
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; max-width: 700px; margin-left: auto; margin-right: auto;">
+
+  <h1 style="text-align: center;">Mis Metas de Ahorro</h1>
+
+  <% if @error %>
+    <div class="mensaje" style="margin-bottom: 8px; width: 100%; text-align: center; color: red;">
+      <%= @error %>
+    </div>
+  <% elsif @success %>
+    <div class="mensaje-exito" style="margin-bottom: 8px; width: 100%; text-align: center; color: green;">
+      <%= @success %>
+    </div>
+  <% end %>
+
+  <% @saving_goals.each do |goal| %>
+    <div style="padding: 15px; margin-bottom: 20px; width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <h2><%= goal.name %></h2>
+      <p><strong>Meta:</strong> $<%= '%.1f' % goal.target_amount %></p>
+      <p><strong>Ahorrado:</strong> $<%= '%.1f' % goal.saved_amount %> (<%= goal.progress %>%)</p>
+      <p><strong>Estado:</strong> <%= goal.reached? ? "Meta alcanzada 🎉" : "En progreso" %></p>
+
+      <form action="/saving_goals/<%= goal.id %>/deposit" method="post" style="margin-bottom: 15px; width: 100%; text-align: center;">
+        <p style="margin-bottom: 8px;">
+          <strong>Monto a depositar:</strong>
+          <input type="number" name="amount" step="0.01" min="0.01" required>
+        </p>
+        <p style="margin-top: 8px;">
+          <button type="submit">Depositar</button>
+        </p>
+      </form>
+
+      <form action="/saving_goals/<%= goal.id %>/withdraw" method="post" style="width: 100%; text-align: center;">
+        <p style="margin-bottom: 8px;">
+          <strong>Monto a retirar:</strong>
+          <input type="number" name="amount" step="0.01" min="0.01" max="<%= goal.saved_amount %>" required>
+        </p>
+        <p style="margin-top: 8px;">
+          <button type="submit">Retirar</button>
+        </p>
+      </form>
+    </div>
+  <% end %>
+
+  <form action="/saving_goals" method="post" style="text-align: center; width: 400px; margin-bottom: 20px; margin-top: 20px;">
+
+  <h2 style="text-align: center; margin-bottom: 15px;">Crear nueva meta de ahorro</h2>
+
+  <p style="text-align: center; margin-bottom: 8px;">
+    <strong>Nombre de la meta:</strong>
+    <input type="text" id="name" name="name" required value="<%= params[:name] %>">
+  </p>
+
+  <p style="text-align: center; margin-bottom: 8px;">
+    <strong>Monto objetivo ($):</strong>
+    <input type="number" id="target_amount" name="target_amount" step="0.01" min="0.01" required value="<%= params[:target_amount] %>">
+  </p>
+
+  <p style="text-align: center; margin-top: 8px;">
+    <button type="submit">Crear Meta</button>
+  </p>
+
+  <% if @error %>
+    <div class="mensaje" style="color: red; margin-top: 10px;"><%= @error %></div>
+  <% elsif @success %>
+    <div class="mensaje-exito" style="color: green; margin-top: 10px;"><%= @success %></div>
+  <% end %>
+</form>
+
+</div>
