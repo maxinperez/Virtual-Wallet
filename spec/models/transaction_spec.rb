@@ -21,7 +21,7 @@ let(:target_account) { BankAccount.create!(balance: 50.0, user: user) }
       transaction = Transaction.new(
         source_account: source_account,
         target_account: target_account,
-        transaction_type: "transfer",
+        transaction_type: "transfer", 
         amount: 150.0
       )
       expect(transaction).not_to be_valid
