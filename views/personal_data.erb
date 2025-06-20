@@ -1,89 +1,146 @@
-<div class = "contenedor-general">
-<div class="contenedor-personales">
-<h1 style="text-align: center;">
-   Datos Bancarios
-</h1>
-
-<% if current_user.bank_account %>
-     <% editando = params[:edit] == "true" %>
-
-<form action="/actualizar_cuenta" method="post">
-<input type="hidden" name="_method" value="put">
-  <p style="text-align: center;">
-    <strong>CVU</strong>
-    <input type="text" name="cvu" value="<%= current_user.bank_account.cvu %>"readonly>
-  </p>
-  <p style="text-align: center;">
-    <strong>Alias</strong>
-    <input type="text" name="alias" value="<%= current_user.bank_account.alias %>" <%= 'readonly' unless editando %>>
-  </p>
+<div class="contenedor-general">
+  <div class="profile-header">
+    <h1>Mi Perfil</h1>
+    <p>Gestiona tu información personal y bancaria</p>
   </div>
-  <div class="contenedor-personales">
-  <h1 style="text-align: center;">
-   Contacto
-</h1>
 
-  <p style="text-align: center;">
-      <strong>Email</strong>
-      <input type="text" name="email" value="<%= current_user.email %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Telefono</strong>
-      <input type="text" name="phone" value="<%= current_user.phone %>" <%= 'readonly' unless editando %>>
-    </p>
-  </div>
-  <div class="contenedor-personales">
-  <h1 style="text-align: center;">
-    Datos Personales
-  </h1>
+  <% if current_user.bank_account %>
+    <% editando = params[:edit] == "true" %>
 
-    <p style="text-align: center;">
-      <strong>Nombre</strong>
-      <input type="text" name="name" value="<%= current_user.name %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>Apellido</strong>
-      <input type="text" name="last_name" value="<%= current_user.last_name %>" <%= 'readonly' unless editando %>>
-    </p>
-    <p style="text-align: center;">
-      <strong>DNI:</strong>
-      <input type="text" name="dni" value="<%= current_user.dni %>" readonly>
-    </p>
-  </div>
-  <div class = "contenedor-personales">
-  <h1 style="text-align: center;">
-  Datos de residencia
-</h1>
-  <p style="text-align: center;">
-  <strong>Localidad:</strong>
-  <input type="text" name="locality" value="<%= current_user.locality %>" <%= 'readonly' unless editando %>>
-</p>
-<p style="text-align: center;">
-  <strong>Codigo Postal</strong>
-  <input type="text" name="cp" value="<%= current_user.cp %>" <%= 'readonly' unless editando %>>
-</p>
-<p style="text-align: center;">
-  <strong>Direccion</strong>
-  <input type="text" name="address" value="<%= current_user.address%>" <%= 'readonly' unless editando %>>
-</p>
+    <form action="/actualizar_cuenta" method="post" class="profile-form">
+      <input type="hidden" name="_method" value="put">
+      
+      <!-- Datos Bancarios -->
+      <div class="contenedor-personales">
+        <div class="section-header">
+          <i class="icon-bank"></i>
+          <h2>Datos Bancarios</h2>
+        </div>
+        
+        <div class="form-group">
+          <label for="cvu">CVU</label>
+          <div class="input-wrapper">
+            <input type="text" id="cvu" name="cvu" value="<%= current_user.bank_account.cvu %>" readonly>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="alias">Alias</label>
+          <div class="input-wrapper">
+            <input type="text" id="alias" name="alias" value="<%= current_user.bank_account.alias %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="contenedor-personales">
+        <div class="section-header">
+          <i class="icon-contact"></i>
+          <h2>Contacto</h2>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="<%= current_user.email %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="tel" id="phone" name="phone" value="<%= current_user.phone %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos Personales -->
+      <div class="contenedor-personales">
+        <div class="section-header">
+          <i class="icon-user"></i>
+          <h2>Datos Personales</h2>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" value="<%= current_user.name %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+          
+          <div class="form-group">
+            <label for="last_name">Apellido</label>
+            <input type="text" id="last_name" name="last_name" value="<%= current_user.last_name %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="dni">DNI</label>
+          <div class="input-wrapper">
+            <input type="text" id="dni" name="dni" value="<%= current_user.dni %>" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos de Residencia -->
+      <div class="contenedor-personales">
+        <div class="section-header">
+          <i class="icon-home"></i>
+          <h2>Datos de Residencia</h2>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="locality">Localidad</label>
+            <input type="text" id="locality" name="locality" value="<%= current_user.locality %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+          
+          <div class="form-group">
+            <label for="cp">Código Postal</label>
+            <input type="text" id="cp" name="cp" value="<%= current_user.cp %>" 
+                   <%= 'readonly' unless editando %> 
+                   class="<%= 'editable' if editando %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Dirección</label>
+          <input type="text" id="address" name="address" value="<%= current_user.address %>" 
+                 <%= 'readonly' unless editando %> 
+                 class="<%= 'editable' if editando %>">
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="form-actions">
+        <% if editando %>
+          <button class="btn btn-primary" type="submit">
+            <span class="btn-icon">💾</span>
+            Guardar Cambios
+          </button>
+          <a href="<%= request.path %>" class="btn btn-secondary">
+            <span class="btn-icon">❌</span>
+            Cancelar
+          </a>
+        <% else %>
+          <a href="?edit=true" class="btn btn-primary">
+            <span class="btn-icon">✏️</span>
+            Editar Información
+          </a>
+        <% end %>
+      </div>
+    </form>
+
+  <% else %>
+        <h3>No se encontró una cuenta bancaria</h3>
+  <% end %>
 </div>
-</div>
-  <div style="text-align: center;">
-    <% if editando %>
-      <button class="btn" type="submit">Guardar</button>
-    <% else %>
-      <a href="?edit=true"><button class="btn" type="button">Editar</button></a>
-    <% end %>
-  </div>
-</form>
-<% else %>
-  <p style="
-    margin-top: 200px; 
-    margin-left: -420px; 
-    font-family: 'Comic Sans MS', cursive, sans-serif; 
-    font-style: italic;
-    font-size: 18px;
-  ">
-    💳 No se encontró una cuenta bancaria asociada a este usuario!
-  </p>
-<% end %>
