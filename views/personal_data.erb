@@ -1,8 +1,4 @@
 <div class="contenedor-general">
-  <div class="profile-header">
-    <h1>Mi Perfil</h1>
-    <p>Gestiona tu información personal y bancaria</p>
-  </div>
 
   <% if current_user.bank_account %>
     <% editando = params[:edit] == "true" %>
@@ -123,17 +119,18 @@
       <!-- Botones de Acción -->
       <div class="form-actions">
         <% if editando %>
-          <button class="btn btn-primary" type="submit">
-            <span class="btn-icon">💾</span>
-            Guardar Cambios
-          </button>
-          <a href="<%= request.path %>" class="btn btn-secondary">
-            <span class="btn-icon">❌</span>
-            Cancelar
-          </a>
+          <div>
+            <button class="btn btn-primary" type="submit">
+              Guardar Cambios
+            </button>
+          </div>
+          <div>
+            <a href="<%= request.path %>" class="btn btn-primary">
+              Cancelar
+            </a>
+          </div>
         <% else %>
           <a href="?edit=true" class="btn btn-primary">
-            <span class="btn-icon">✏️</span>
             Editar Información
           </a>
         <% end %>

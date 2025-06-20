@@ -5,6 +5,7 @@
     <% @transactions.each do |transaction| %>
       <% data = transaction_display_data(transaction) %>
       <%= partial "transaction", data.merge(date: transaction.created_at.strftime("%d %b, %H:%M")) %>
+      </div>
     <% end %>
   <% else %>
     <p>No hay transacciones.</p>
