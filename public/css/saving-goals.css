@@ -1,3 +1,4 @@
+
 .goal-container * {
   box-sizing: border-box;
 }
@@ -259,6 +260,31 @@
   margin-bottom: 30px;
 }
 
+.goal-btn-danger {
+  background: #dc2626;
+  color: white;
+}
+
+.goal-delete-container {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--goal-bg-primary);
+  border-radius: 12px;
+  border: 2px solid #fee2e2;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .goal-delete-container {
+  border-color: #7f1d1d;
+  background: var(--goal-bg-primary);
+}
+
+
+.goal-btn-danger:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
 .goal-amounts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -426,3 +452,4 @@
     gap: 15px;
   }
 }
+
