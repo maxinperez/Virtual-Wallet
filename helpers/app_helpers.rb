@@ -4,7 +4,7 @@ module AppHelpers
     end
   
     def current_user
-      @current_user ||= User.find_by(dni: session[:dni]) || User.find_by(email: session[:dni]) if session[:dni]
+      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     end
   
     def current_card
@@ -14,6 +14,14 @@ module AppHelpers
     def active_page
       @active_page ||= request.path_info.split('/')[1].to_s
     end
+    
+    def authenticate_user!
+    protected_paths = ['/index', '/pay', '/transfer', '/transactions']
+    path = request.path_info.chomp('/')
+    if protected_paths.any? { |p| path == p || path.start_with?("#{p}/") }
+      redirect '/login' unless session[:user_id]
+    end
+  end
   
     def dark_mode?
       session[:dark_mode] || false

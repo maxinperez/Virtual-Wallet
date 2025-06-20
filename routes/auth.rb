@@ -2,6 +2,7 @@ require File.expand_path('../../config/enviroment', __FILE__)
 
 class AuthRoutes < Sinatra::Base
   register AppConfig
+  before { authenticate_user! }
   get '/verificar_dni' do
     content_type :json
     dni = params[:dni]
@@ -34,7 +35,7 @@ class AuthRoutes < Sinatra::Base
     existing_user = user&.account || Account.find_by(username: login_param)
 
     if existing_user && existing_user.authenticate(password)
-      session[:dni] = params[:dni]
+      session[:user_id] = user.id
       redirect '/index'
     else 
       session[:error] = 'Datos inválidos'
@@ -81,6 +82,6 @@ class AuthRoutes < Sinatra::Base
   end
   
   before ['/login', '/register'] do
-    redirect '/index' if session[:dni]
+    redirect '/index' if session[:user_id]
   end
 end

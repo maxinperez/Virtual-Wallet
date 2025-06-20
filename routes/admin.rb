@@ -2,7 +2,7 @@ require File.expand_path('../../config/enviroment', __FILE__)
 
 class AdminRoutes < Sinatra::Base
   register AppConfig
-
+  before { authenticate_user! }
   #  renderiza el dashboard principal de administración
   get '/admins' do
     erb :"admin/dashboard_admin", layout: :'partial/admins'

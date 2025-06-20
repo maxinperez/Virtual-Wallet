@@ -2,7 +2,7 @@ require File.expand_path('../../config/enviroment', __FILE__)
 
 class TransferRoutes < Sinatra::Base
     register AppConfig
-  
+    before { authenticate_user! }
     get '/transfer' do
       erb :transfer, layout: :'partial/layout'
     end

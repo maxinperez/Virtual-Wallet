@@ -2,7 +2,7 @@ require File.expand_path('../../config/enviroment', __FILE__)
 
 class UserRoutes < Sinatra::Base
   register AppConfig
-
+  before { authenticate_user! }
   get '/personal_data/' do
     erb :personal_data, layout: :'partial/layout'
   end
@@ -26,25 +26,20 @@ class UserRoutes < Sinatra::Base
     account = user.account
     bank_account = user.bank_account
 
-    user.update(
-      name: params[:name], 
-      last_name: params[:last_name], 
-      locality: params[:locality], 
-      cp: params[:cp], 
-      address: params[:address]
-    )
-    
-    if bank_account.alias != params[:alias]
-      bank_account.update(alias: params[:alias])
-    end
-
-    if account.username != params[:email]
-      account.update(username: params[:email])
-    end
-
-    redirect '/personal_data/'
-  end
-
+                user.update(
+          name: params[:name], 
+          last_name: params[:last_name], 
+          locality: params[:locality], 
+          cp: params[:cp], 
+          address: params[:address],
+          email: params[:email]
+        )
+        
+        if bank_account.alias != params[:alias]
+          bank_account.update(alias: params[:alias])
+        end
+        redirect '/personal_data/'
+      end
   get '/index' do
     user = current_user
     if user&.bank_account
