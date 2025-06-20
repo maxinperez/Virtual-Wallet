@@ -1,4 +1,4 @@
-      <section class="balance-section">
+<section class="balance-section">
         <div class="balance-card">
           <div class="balance-label">Balance Total</div>
           <div class="balance-amount">$<%= current_user.bank_account.balance %></div>
@@ -68,10 +68,6 @@
           </a>
           </div>
         </div>
-
-        <!-- Transactions -->
-
-        <!-- IMPLEMENTAR DESDE CERO -->
         <div class="transactions-container">
           
         <div class="transactions-header">
@@ -79,52 +75,15 @@
         <a href="/transactions" class="view-all">Ver todas</a>
       </div>
       
-      <% if @transactions.any? %>
+<% if @transactions.any? %>
   <% @transactions.each do |transaction| %>
-    <%
-      if transaction.transaction_type == "deposit"
-        amount_display = "#{transaction.amount}"
-        sign = '+'
-        owner = "Depósito"
-        if transaction.state == "success"
-           amount_class = "amount-positive"
-           type = "finalizado"
-        else 
-          if transaction.state == "rejected"
-          amount_class = "amount-rejected"
-          type = "rechazado"
-        else
-           if transaction.state == "pending"
-          amount_class = "amount-pending"
-          type = "pendiente"
-        end
-      end
-    end
-      else 
-        amount_class = "amount-negative"
-        amount_display = "-$#{transaction.amount}"
-        other_user = transaction.source_account&.user
-        sign = other_user&.name&.slice(0)&.upcase || "?"
-        owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
-        type = "Transferencia"
-      end
-    %>
-
-    <%= partial "transaction", {
-      icon: sign,
-      name: owner,
-      type: type,
-      amount_class: amount_class,
-      amount: amount_display,
-      date: transaction.created_at.strftime("%d %b, %H:%M")
-    } %>
-     </div>
+    <% data = transaction_display_data(transaction) %>
+    <%= partial "transaction", data.merge(date: transaction.created_at.strftime("%d %b, %H:%M")) %>
+    </div>
   <% end %>
 <% else %>
   <p>No hay transacciones.</p>
 <% end %>
-
-
       <!-- Right Sidebar -->
       <div class="right-sidebar">
 
