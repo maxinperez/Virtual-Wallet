@@ -140,55 +140,172 @@ class UserRoutes < Sinatra::Base
   end
 
   get '/saving_goals' do
-    @saving_goals = SavingGoal.where(bank_account: current_user.bank_account)
+  @saving_goals = SavingGoal.where(bank_account: current_user.bank_account)
+  @error = session.delete(:error)
+  @success = session.delete(:success)
+  erb :saving_goals, layout: :'partial/layout'
+end
+
+get '/saving_goals/new' do
+  erb :new_goal, layout: :'partial/layout'
+end
+
+post '/saving_goals' do
+  goal = SavingGoal.new(
+    name: params[:name],
+    target_amount: params[:target_amount].to_f,
+    bank_account: current_user.bank_account,
+    saved_amount: 0.0
+  )
+
+  if goal.save
+    session[:success] = "Meta creada con éxito"
+    redirect '/saving_goals'
+  else
+    session[:error] = goal.errors.full_messages.join(", ")
+    redirect '/saving_goals/new'
+  end
+end
+
+get '/saving_goals/:id' do
+  begin
+    @goal = SavingGoal.find(params[:id])
+    
+    # Verificar que la meta pertenece al usuario actual
+    unless @goal.bank_account == current_user.bank_account
+      session[:error] = "No tienes acceso a esta meta"
+      redirect '/saving_goals'
+    end
+    
     @error = session.delete(:error)
     @success = session.delete(:success)
-    erb :saving_goals, layout: :'partial/layout'
-  end
-
-  post '/saving_goals/:id/deposit' do
-    goal = SavingGoal.find(params[:id])
-    amount = params[:amount].to_f
-
-    begin
-      goal.deposit(amount)
-      session[:success] = "Depósito realizado con éxito"
-    rescue => e
-      session[:error] = e.message
-    end
-
+    erb :goal_detail, layout: :'partial/layout'
+    
+  rescue ActiveRecord::RecordNotFound
+    session[:error] = "Meta no encontrada"
     redirect '/saving_goals'
   end
+end
 
-  post '/saving_goals/:id/withdraw' do
+post '/saving_goals/:id/deposit' do
+  begin
     goal = SavingGoal.find(params[:id])
-    amount = params[:amount].to_f
-
-    begin
-      goal.withdraw(amount)
-      session[:success] = "Retiro realizado con éxito"
-    rescue => e
-      session[:error] = e.message
-    end
-
-    redirect '/saving_goals'
-  end
-
-  post '/saving_goals' do
-    goal = SavingGoal.new(
-      name: params[:name],
-      target_amount: params[:target_amount].to_f,
-      bank_account: current_user.bank_account,
-      saved_amount: 0.0
-    )
-
-    if goal.save
-      session[:success] = "Meta creada con éxito"
+    
+    # Verificar que la meta pertenece al usuario actual
+    unless goal.bank_account == current_user.bank_account
+      session[:error] = "No tienes acceso a esta meta"
       redirect '/saving_goals'
+      return
+    end
+    
+    amount = params[:amount].to_f
+    
+    # Validar monto
+    if amount <= 0
+      raise "El monto debe ser mayor a 0"
+    end
+    
+    goal.deposit(amount)
+    session[:success] = "Depósito realizado con éxito"
+    
+  rescue ActiveRecord::RecordNotFound
+    session[:error] = "Meta no encontrada"
+  rescue => e
+    session[:error] = e.message
+  end
+
+  redirect "/saving_goals/#{params[:id]}"
+end
+
+post '/saving_goals/:id/withdraw' do
+  begin
+    goal = SavingGoal.find(params[:id])
+    
+    # Verificar que la meta pertenece al usuario actual
+    unless goal.bank_account == current_user.bank_account
+      session[:error] = "No tienes acceso a esta meta"
+      redirect '/saving_goals'
+      return
+    end
+    
+    amount = params[:amount].to_f
+    
+    # Validar monto
+    if amount <= 0
+      raise "El monto debe ser mayor a 0"
+    end
+    
+    if amount > goal.saved_amount
+      raise "Fondos insuficientes. Disponible: $#{'%.2f' % goal.saved_amount}"
+    end
+    
+    goal.withdraw(amount)
+    session[:success] = "Retiro realizado con éxito"
+    
+  rescue ActiveRecord::RecordNotFound
+    session[:error] = "Meta no encontrada"
+  rescue => e
+    session[:error] = e.message
+  end
+
+  redirect "/saving_goals/#{params[:id]}"
+end
+
+# Ruta para eliminar meta (opcional)
+delete '/saving_goals/:id' do
+  begin
+    goal = SavingGoal.find(params[:id])
+    
+    # Verificar que la meta pertenece al usuario actual
+    unless goal.bank_account == current_user.bank_account
+      session[:error] = "No tienes acceso a esta meta"
+      redirect '/saving_goals'
+      return
+    end
+    
+    # Solo permitir eliminar si no tiene fondos
+    if goal.saved_amount > 0
+      session[:error] = "No puedes eliminar una meta que tiene fondos ahorrados"
     else
-      session[:error] = goal.errors.full_messages.join(", ")
-      redirect '/saving_goals'
+      goal.destroy
+      session[:success] = "Meta eliminada con éxito"
     end
+    
+  rescue ActiveRecord::RecordNotFound
+    session[:error] = "Meta no encontrada"
+  rescue => e
+    session[:error] = e.message
+  end
+
+  redirect '/saving_goals'
+end
+
+delete '/saving_goals/:id' do
+  begin
+    goal = SavingGoal.find(params[:id])
+    
+    # Verificar que la meta pertenece al usuario actual
+    unless goal.bank_account == current_user.bank_account
+      session[:error] = "No tienes acceso a esta meta"
+      redirect '/saving_goals'
+      return
+    end
+    
+    # Solo permitir eliminar si no tiene fondos
+    if goal.saved_amount > 0
+      session[:error] = "No puedes eliminar una meta que tiene fondos ahorrados. Retira todos los fondos primero."
+    else
+      goal.destroy
+      session[:success] = "Meta eliminada con éxito"
+    end
+    
+  rescue ActiveRecord::RecordNotFound
+    session[:error] = "Meta no encontrada"
+  rescue => e
+    session[:error] = e.message
+  end
+
+  redirect '/saving_goals'
 end
 
 end

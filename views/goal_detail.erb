@@ -86,4 +86,18 @@
         </div>
 
     </div>
+        <!-- Delete Section -->
+    <% if @goal.saved_amount == 0 %>
+        <div class="goal-delete-container">
+        <div class="goal-delete-section">
+            <h3 style="text-align: center; margin-top: 2px;">Eliminar Meta</h3>
+            <p style="text-align: center; margin-top: 2px;margin-bottom: 4px;">Esta meta no tiene fondos ahorrados. Puedes eliminarla si ya no la necesitas.</p>
+            <form action="/saving_goals/<%= @goal.id %>" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta meta? Esta acción no se puede deshacer.')">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="goal-btn goal-btn-danger">Eliminar Meta</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    <% end %>
 </div>
