@@ -1,0 +1,44 @@
+<div class="goal-container">
+    
+    <!-- Back button -->
+    <div class="goal-back-section">
+        <a href="/saving_goals" class="goal-btn goal-btn-back">← Volver a Mis Metas</a>
+    </div>
+
+    <!-- Header -->
+    <div class="goal-header-section">
+        <h1>Crear Nueva Meta de Ahorro</h1>
+    </div>
+
+    <!-- Messages -->
+    <% if @error %>
+        <div class="goal-message goal-error">
+            <%= @error %>
+        </div>
+    <% end %>
+
+    <!-- Form -->
+    <div class="goal-form-card">
+        <form action="/saving_goals" method="post">
+            
+            <div class="goal-form-group">
+                <label for="name">Nombre de la meta</label>
+                <input type="text" id="name" name="name" placeholder="Ej: Vacaciones, Auto nuevo..." required value="<%= params[:name] %>">
+            </div>
+
+            <div class="goal-form-group">
+                <label for="target_amount">Monto objetivo</label>
+                <div class="goal-input-group">
+                    <span class="goal-input-prefix">$</span>
+                    <input type="number" id="target_amount" name="target_amount" step="0.01" min="0.01" placeholder="0.00" required value="<%= params[:target_amount] %>">
+                </div>
+            </div>
+
+            <div class="goal-form-actions">
+                <button type="submit" class="goal-btn goal-btn-primary">Crear Meta</button>
+                <a href="/saving_goals" class="goal-btn goal-btn-outline">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>

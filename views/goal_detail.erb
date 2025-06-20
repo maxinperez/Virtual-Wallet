@@ -1,0 +1,89 @@
+<div class="goal-container">
+    
+    <!-- Back button -->
+    <div class="goal-back-section">
+        <a href="/saving_goals" class="goal-btn goal-btn-back">← Volver a Mis Metas</a>
+    </div>
+
+    <!-- Goal Header -->
+    <div class="goal-header-detail">
+        <h1><%= @goal.name %></h1>
+        <div class="goal-status <%= 'goal-completed' if @goal.reached? %>">
+            <%= @goal.reached? ? "Meta Alcanzada" : "En Progreso" %>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <% if @error %>
+        <div class="goal-message goal-error">
+            <%= @error %>
+        </div>
+    <% elsif @success %>
+        <div class="goal-message goal-success">
+            <%= @success %>
+        </div>
+    <% end %>
+
+    <!-- Goal Progress -->
+    <div class="goal-progress-detail">
+        <div class="goal-amounts-grid">
+            <div class="goal-amount-item">
+                <span class="goal-label">Ahorrado</span>
+                <span class="goal-value">$<%= '%.2f' % @goal.saved_amount %></span>
+            </div>
+            <div class="goal-amount-item">
+                <span class="goal-label">Meta</span>
+                <span class="goal-value">$<%= '%.2f' % @goal.target_amount %></span>
+            </div>
+            <div class="goal-amount-item">
+                <span class="goal-label">Falta</span>
+                <span class="goal-value">$<%= '%.2f' % [@goal.target_amount - @goal.saved_amount, 0].max %></span>
+            </div>
+        </div>
+        
+        <div class="goal-progress-bar goal-large">
+            <div class="goal-progress-fill" style="width: <%= [@goal.progress, 100].min %>%"></div>
+        </div>
+        <div class="goal-progress-percentage"><%= @goal.progress %>% completado</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="goal-actions-section">
+        
+        <!-- Deposit Form -->
+        <div class="goal-action-card">
+            <h3>Depositar Dinero</h3>
+            <form action="/saving_goals/<%= @goal.id %>/deposit" method="post">
+                <div class="goal-form-group">
+                    <label for="deposit_amount">Monto a depositar</label>
+                    <div class="goal-input-group">
+                        <span class="goal-input-prefix">$</span>
+                        <input type="number" id="deposit_amount" name="amount" step="0.01" min="0.01" placeholder="0.00" required>
+                    </div>
+                </div>
+                <button type="submit" class="goal-btn goal-btn-primary goal-full-width">Depositar</button>
+            </form>
+        </div>
+
+        <!-- Withdraw Form -->
+        <div class="goal-action-card">
+            <h3>Retirar Dinero</h3>
+            <% if @goal.saved_amount > 0 %>
+                <form action="/saving_goals/<%= @goal.id %>/withdraw" method="post">
+                    <div class="goal-form-group">
+                        <label for="withdraw_amount">Monto a retirar</label>
+                        <div class="goal-input-group">
+                            <span class="goal-input-prefix">$</span>
+                            <input type="number" id="withdraw_amount" name="amount" step="0.01" min="0.01" max="<%= @goal.saved_amount %>" placeholder="0.00" required>
+                        </div>
+                        <small class="goal-help-text">Máximo disponible: $<%= '%.2f' % @goal.saved_amount %></small>
+                    </div>
+                    <button type="submit" class="goal-btn goal-btn-outline goal-full-width">Retirar</button>
+                </form>
+            <% else %>
+                <p class="goal-no-funds">No hay fondos disponibles para retirar</p>
+            <% end %>
+        </div>
+
+    </div>
+</div>
