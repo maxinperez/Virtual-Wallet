@@ -78,7 +78,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: #909094;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
@@ -124,18 +124,18 @@
 
 /* Dark mode */
 .dark-mode .contenedor-general {
-  background: #181a20;
+  background: #252525;
   color: #e5e7eb;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
 }
 
 .dark-mode .contenedor-personales {
-  background: #23262f;
-  border: 1px solid #23262f;
+  background: #2d2d2d;
+  border: 1px solid #252525;
 }
 
 .dark-mode .section-header {
-  border-bottom: 2px solid #23262f;
+  border-bottom: 2px solid #353535;
 }
 
 .dark-mode .section-header h2 {
@@ -147,46 +147,27 @@
 }
 
 .dark-mode .form-group input {
-  background: #23262f;
+  background: #252525;
   color: #e5e7eb;
-  border: 2px solid #23262f;
+  border: 2px solid #353535;
 }
 
 .dark-mode .form-group input:focus {
-  border-color: #7c3aed;
+  border-color: #999999;
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
 }
 
 .dark-mode .form-group input[readonly] {
-  background: #1a1c23;
+  background: #1a1a1a;
   color: #7b8494;
 }
 
-
 .dark-mode .form-actions {
-  border-top: 2px solid #23262f;
+  border-top: 2px solid #353535;
 }
 
-.dark-mode .btn,
-.dark-mode .btn-primary {
-  background: linear-gradient(135deg, #23262f 0%, #4f46e5 100%);
-  color: #e5e7eb;
-}
-
-.dark-mode .btn-primary:hover {
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
-}
-
-.dark-mode .btn-secondary {
-  background: #23262f;
-  color: #e5e7eb;
-}
-
-.dark-mode .btn-secondary:hover {
-  background: #181a20;
-}
 
 .dark-mode .form-group input.editable {
-  background: #fff !important;
-  color: #222 !important;
+  background: #252525 !important;
+  color: #e5e7eb !important;
 }
