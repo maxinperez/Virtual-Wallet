@@ -1,0 +1,19 @@
+<p> <% @transfer.id %> </p>
+<div class="transfer-info-container">
+    <h2>Detalles de la Transferencia</h2>
+    
+    <% if @error %>
+        <div class="transfer-message transfer-error">
+            <%= @error %>
+        </div>
+    <% elsif @success %>
+        <div class="transfer-message transfer-success">
+            <%= @success %>
+        </div>
+    <% end %>
+
+    <div class="transfer-details">
+        <p><strong>ID de Transferencia:</strong> <%= @transfer.id %></p>
+        <p><strong>Fecha:</strong> <%= @transfer.created_at.strftime("%d %b, %Y") %></p>
+        <p><strong>Monto:</strong> $<%= '%.2f' % @transfer.amount %></p>
+        <p><strong>Estado:</strong> <%= @transfer.state%></p>
