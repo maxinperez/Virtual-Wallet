@@ -123,7 +123,6 @@ class UserRoutes < Sinatra::Base
     end
 
     transaction = Transaction.new(
-      source_account: account,
       target_account: account,
       amount: amount,
       transaction_type: :withdrawal,
@@ -251,7 +250,7 @@ post '/saving_goals/:id/withdraw' do
   redirect "/saving_goals/#{params[:id]}"
 end
 
-# Ruta para eliminar meta (opcional)
+# Ruta para eliminar meta 
 delete '/saving_goals/:id' do
   begin
     goal = SavingGoal.find(params[:id])
