@@ -75,7 +75,7 @@ class UserRoutes < Sinatra::Base
   post '/deposit' do
     redirect '/login' unless current_user
 
-    amount = params[:amount].to_f
+    amount = params[:amount].to_s.tr(',', '.').to_f
     account = current_user.bank_account
 
     if amount <= 0
@@ -109,7 +109,7 @@ class UserRoutes < Sinatra::Base
   post '/withdraw' do
     redirect '/login' unless current_user
 
-    amount = params[:amount].to_f
+    amount = params[:amount].to_s.tr(',', '.').to_f
     account = current_user.bank_account
 
     if amount <= 0
