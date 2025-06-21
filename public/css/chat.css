@@ -481,12 +481,7 @@
     background: #525252; 
     border-color: #737373; 
   }
-  
-  .dark-mode .user-avatar {
-    background: #737373;
-    color: #ffffff; 
-  }
-  
+
   .dark-mode .user-info h4 {
     color: #f5f5f5; 
   }

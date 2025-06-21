@@ -23,20 +23,20 @@
             
             <div class="goal-form-group">
                 <label for="name">Nombre de la meta</label>
-                <input type="text" id="name" name="name" placeholder="Ej: Vacaciones, Auto nuevo..." required value="<%= params[:name] %>">
+                <input type="text" id="name" name="name" class="goal-input-custom" placeholder="Ej: Vacaciones, Auto nuevo..." required value="<%= params[:name] %>">
             </div>
 
             <div class="goal-form-group">
                 <label for="target_amount">Monto objetivo</label>
                 <div class="goal-input-group">
                     <span class="goal-input-prefix">$</span>
-                    <input type="number" id="target_amount" name="target_amount" step="0.01" min="0.01" placeholder="0.00" required value="<%= params[:target_amount] %>">
+                    <input type="number" id="target_amount" name="target_amount" class="goal-input-custom" step="0.01" min="0.01" placeholder="0.00" required value="<%= params[:target_amount] %>">
                 </div>
             </div>
 
             <div class="goal-form-actions">
-                <button type="submit" class="goal-btn goal-btn-primary">Crear Meta</button>
-                <a href="/saving_goals" class="goal-btn goal-btn-outline">Cancelar</a>
+                <button type="submit" class="goal-btn goal-btn-primary goal-full-width">Crear Meta</button>
+                <a href="/saving_goals" class="goal-btn goal-btn-outline goal-full-width">Cancelar</a>
             </div>
 
         </form>
