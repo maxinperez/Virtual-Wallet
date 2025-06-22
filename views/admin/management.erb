@@ -6,6 +6,7 @@
       <% amount_class = transaction.transaction_type == "withdrawal" ? "negative" : "positive" %>
       <% sign  = transaction.transaction_type == "withdrawal" ? "-" : "+" %>
       <% u = User.find(transaction.target_account_id) %>
+      <a href="/transfer/info/<%= transaction.id %>" class="transaction-link">
       <%= partial "transaction", {
         icon: sign,
         name: "#{u.name} #{u.last_name}",
@@ -24,6 +25,7 @@
         </form>
       </div>
    </div>
+   </a>
     <% end %> 
 <% else %>
   <p style="text-align: center; margin-top: 2rem;">No hay transacciones pendientes.</p>

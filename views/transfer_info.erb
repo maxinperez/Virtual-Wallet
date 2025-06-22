@@ -1,19 +1,111 @@
-<p> <% @transfer.id %> </p>
+<a href ="/transactions" style="background: transparent; color: #ffffff; border: none; padding: 8px 0;"> ← Volver a las transacciones</a>
 <div class="transfer-info-container">
     <h2>Detalles de la Transferencia</h2>
-    
-    <% if @error %>
-        <div class="transfer-message transfer-error">
-            <%= @error %>
-        </div>
-    <% elsif @success %>
-        <div class="transfer-message transfer-success">
-            <%= @success %>
-        </div>
-    <% end %>
-
     <div class="transfer-details">
         <p><strong>ID de Transferencia:</strong> <%= @transfer.id %></p>
+        <% if @transfer.transaction_type == "transfer" %>
+        <p><strong>Cuenta origen:</strong> <%= @transfer.source_account_id %></p>
+        <p><strong>Cuenta destino:</strong> <%= @transfer.target_account_id %></p>
+        <% end %>
         <p><strong>Fecha:</strong> <%= @transfer.created_at.strftime("%d %b, %Y") %></p>
         <p><strong>Monto:</strong> $<%= '%.2f' % @transfer.amount %></p>
-        <p><strong>Estado:</strong> <%= @transfer.state%></p>
+        <p>
+          <strong>Estado:</strong>
+          <% if @transfer.state == "success" %>
+            <span class="status completed">Completada</span>
+          <% elsif @transfer.state == "pending" %>
+            <span class="status pending">Pendiente</span>
+          <% elsif @transfer.state == "rejected" %>
+            <span class="status failed">Rechazada</span>
+          <% else %>
+            <span class="status"><%= @transfer.state %></span>
+          <% end %>
+        </p>
+
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .transfer-info-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .dark-mode .transfer-details p {
+        color: #000;
+    }
+
+        .transfer-info-container h2 {
+            background: #343a40;
+            color: white;
+            padding: 20px 24px;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .transfer-details {
+            padding: 24px;
+        }
+
+        .transfer-details p {
+            margin-bottom: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transfer-details p:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .transfer-details strong {
+            color: #495057;
+            font-weight: 600;
+            min-width: 140px;
+        }
+
+        .transfer-details span {
+            color: #212529;
+            font-weight: 500;
+        }
+
+        .amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status.failed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+    </style>

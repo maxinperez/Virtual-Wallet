@@ -74,8 +74,10 @@
 <% if @transactions.any? %>
   <% @transactions.each do |transaction| %>
     <% data = transaction_display_data(transaction) %>
+    <a href="/transfer/info/<%= transaction.id %>" class="transaction-link">
     <%= partial "transaction", data.merge(date: transaction.created_at.strftime("%d %b, %H:%M")) %>
     </div>
+  </a>
   <% end %>
 <% else %>
   <p class="no-transactions-message">No hay transacciones</p>

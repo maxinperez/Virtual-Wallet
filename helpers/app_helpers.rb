@@ -34,71 +34,60 @@ end
     def admin?
       current_user && !current_user.account.admin.nil?
     end
+    
     def transaction_display_data(transaction)
-    case transaction.transaction_type
-    when "deposit"
-      sign = '+'
-      owner = "Depósito"
-      amount_display = "#{transaction.amount}"
-      case transaction.state
-      when "success"
-        amount_class = "amount-positive"
-        type = "finalizado"
-      when "rejected"
-        amount_class = "amount-rejected"
-        type = "rechazado"
-      when "pending"
-        amount_class = "amount-pending"
-        type = "pendiente"
-      else
-        amount_class = "amount-positive"
-        type = "Desconocido"
-      end
-    when "withdrawal"
-      sign = '-'
-      owner = "Retiro"
-      amount_display = "#{transaction.amount}"
-      case transaction.state
-      when "success"
-        amount_class = "amount-negative"
-        type = "finalizado"
-      when "rejected"
-        amount_class = "amount-negative"
-        type = "rechazado"
-      when "pending"
-        amount_class = "amount-pending"
-        type = "pendiente"
-      else
-        amount_class = "amount-negative"
-        type = "Desconocido"
-      end
+  case transaction.transaction_type
+  when "deposit"
+    sign = '+'
+    owner = "Depósito"
+    amount_display = "#{transaction.amount}"
+    amount_class = "amount-positive"
+    case transaction.state
+    when "success"
+      type = "finalizado"
+    when "rejected"
+      type = "rechazado"
+    when "pending"
+      type = "pendiente"
     else
-      other_user = transaction.source_account&.user
-      sign = other_user&.name&.slice(0)&.upcase || "?"
-      owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
-      amount_display = "#{transaction.amount}"
-      type = "Transferencia"
-      case transaction.state
-      when "success"
-        amount_class = "amount-negative"
-        type = "finalizado"
-      when "rejected"
-        amount_class = "amount-rejected"
-        type = "rechazado"
-      when "pending"
-        amount_class = "amount-pending"
-        type = "pendiente"
-      else
-        amount_class = "amount-negative"
-        type = "Desconocido"
-      end
+      type = "Desconocido"
     end
-    {
-      icon: sign,
-      name: owner,
-      type: type,
-      amount_class: amount_class,
-      amount: amount_display
-    }
+  when "withdrawal"
+    sign = '-'
+    owner = "Retiro"
+    amount_display = "#{transaction.amount}"
+    amount_class = "amount-negative"
+    case transaction.state
+    when "success"
+      type = "finalizado"
+    when "rejected"
+      type = "rechazado"
+    when "pending"
+      type = "pendiente"
+    else
+      type = "Desconocido"
+    end
+  else
+    other_user = transaction.source_account&.user
+    sign = other_user&.name&.slice(0)&.upcase || "?"
+    owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
+    amount_display = "#{transaction.amount}"
+    type = "Transferencia"
+    case transaction.state
+    when "success"
+      amount_class = "amount-negative"
+    when "rejected"
+      amount_class = "amount-rejected"
+    when "pending"
+      amount_class = "amount-pending"
+    end
   end
+  {
+    icon: sign,
+    name: owner,
+    type: type,
+    amount_class: amount_class,
+    amount: amount_display
+  }
+end
 end
