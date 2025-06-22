@@ -42,10 +42,10 @@ class TransferRoutes < Sinatra::Base
       end
     end
 
-    get '/transfer/info/:id' do
+    get '/transactions/info/:id' do
 
     @transfer = Transaction.find_by(id: params[:id])
-    if @transfer.source_account != current_user.bank_account && @transfer.target_account != current_user.bank_account
+    if @transfer.source_account != current_user.bank_account && @transfer.target_account != current_user.bank_account && !admin? 
       halt 403, "No tenés permiso para ver esta transferencia"
     end
     halt 404, "Transferencia no encontrada" unless @transfer

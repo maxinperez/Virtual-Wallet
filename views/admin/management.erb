@@ -2,19 +2,10 @@
 
 <% if pending.any? %>
     <% pending.each do |transaction| %>
-      <% name = transaction.transaction_type == "withdrawal" ? "Retiro" : "Depósito" %>
-      <% amount_class = transaction.transaction_type == "withdrawal" ? "negative" : "positive" %>
-      <% sign  = transaction.transaction_type == "withdrawal" ? "-" : "+" %>
+      <% data = transaction_display_data(transaction) %>
       <% u = User.find(transaction.target_account_id) %>
-      <a href="/transfer/info/<%= transaction.id %>" class="transaction-link">
-      <%= partial "transaction", {
-        icon: sign,
-        name: "#{u.name} #{u.last_name}",
-        type: name,
-        amount_class: amount_class,
-        amount: transaction.amount,
-        date: transaction.created_at.strftime("%d %b, %H:%M")
-      } %>
+      <a href="/transactions/info/<%= transaction.id %>" class="transaction-link">
+      <%= partial "transaction", data.merge(date: transaction.created_at.strftime("%d %b, %H:%M")) %>
 
       <div class="transaction-actions">
         <form action="/management/<%= transaction.id %>/reject" method="post"> 
