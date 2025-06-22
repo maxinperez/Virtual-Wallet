@@ -1,4 +1,3 @@
-# login.rb
 require 'bcrypt'
 
 class Account < ActiveRecord::Base
@@ -6,7 +5,6 @@ class Account < ActiveRecord::Base
   has_secure_password
   belongs_to :user
   has_many :messages
-
 
   validates :username, presence: true, uniqueness: true
   validates :password_digest, presence: true

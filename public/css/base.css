@@ -36,6 +36,9 @@ body.dark-mode {
    justify-content: center; /* Centrado vertical */
   align-items: center;     /* Centrado horizontal */
 }
+a {
+  text-decoration: none;
+}
 
 h1 {
   font-size: 28px;

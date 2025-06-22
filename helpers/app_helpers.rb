@@ -40,7 +40,7 @@ end
   when "deposit"
     sign = '+'
     owner = "Depósito"
-    amount_display = "#{transaction.amount}"
+    amount_display = "+$#{transaction.amount}"
     amount_class = "amount-positive"
     case transaction.state
     when "success"
@@ -55,7 +55,7 @@ end
   when "withdrawal"
     sign = '-'
     owner = "Retiro"
-    amount_display = "#{transaction.amount}"
+    amount_display = "-$#{transaction.amount}"
     amount_class = "amount-negative"
     case transaction.state
     when "success"
@@ -71,16 +71,15 @@ end
     other_user = transaction.source_account&.user
     sign = other_user&.name&.slice(0)&.upcase || "?"
     owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
-    amount_display = "#{transaction.amount}"
-    type = "Transferencia"
-    case transaction.state
-    when "success"
-      amount_class = "amount-negative"
-    when "rejected"
-      amount_class = "amount-rejected"
-    when "pending"
-      amount_class = "amount-pending"
+    if transaction.target_account == current_user.bank_account
+       amount_class = "amount-positive"
+      amount_display = "+$#{transaction.amount}"
     end
+    if transaction.source_account == current_user.bank_account
+      amount_class = "amount-negative"
+      amount_display = "-$#{transaction.amount}"
+    end
+    type = "Transferencia"
   end
   {
     icon: sign,
