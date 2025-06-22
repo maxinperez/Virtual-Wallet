@@ -41,6 +41,7 @@ class UserRoutes < Sinatra::Base
         redirect '/personal_data/'
       end
   get '/index' do
+    session[:admin_active] = false
     user = current_user
     if user&.bank_account
       @transactions = user.bank_account.most_recent_transactions

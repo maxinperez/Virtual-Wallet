@@ -5,6 +5,7 @@ class AdminRoutes < Sinatra::Base
   before { authenticate_user! }
   #  renderiza el dashboard principal de administración
   get '/admins' do
+    session[:admin_active] = true
     erb :"admin/dashboard_admin", layout: :'partial/admins'
   end
 
