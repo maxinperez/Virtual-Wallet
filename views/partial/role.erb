@@ -3,11 +3,13 @@
         <span class="user-name"><%= name %></span>
         <span class="user-email"><%= mail %></span>
         <span class="user-email"><%= dni %></span>
+        <span class="user-email"><%= role%></span>
     </div>
     <div class="user-actions">
-        <form class="role-form">
+        <form class="role-form" action="/management/update_role/<%= id %>" method="post">
             <select name="role" class="role-select">
                 <option value="">Seleccionar rol</option>
+                <option value="nil">Usuario</option>
                 <option value="cashier">Cajero</option>
                 <option value="support">Soporte</option>
             </select>
