@@ -1,7 +1,5 @@
-<html>
-<head>
-    <style>
 
+    <style>
         .container {
             display: flex;
             justify-content: center;
@@ -73,13 +71,12 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
     </style>
-</head>
 <body>
     <div class="container">
         <div class="search-section">
             <form method="post" action="/transfer/find_target" class="search-form">
                 <label class="search-label" for="dni">Buscar por CVU o Alias</label>
-                <input type="text" style="background-color: #fff; border: 1px solid #c1b9b9; color: #e5e5e5;"name="content_input" id="content_input" class="search-input" value="<%= params[:content_input] %>">
+                <input type="text" style="background-color: #fff; border: 1px solid #c1b9b9; color: black;"name="content_input" id="content_input" class="search-input" value="<%= params[:content_input] %>">
                 <button type="submit" class="search-button">Buscar</button>
             </form>
         </div>
