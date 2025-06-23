@@ -31,6 +31,7 @@
     <% data = User.find_by(id:@target) %>
     <p style ="margin-bottom:10px"> Destinatario: <%= data.name %> <%= data.last_name %> </p>
     <p style ="margin-bottom:10px"> CVU: <%= data.bank_account.cvu %></p>
+    <p style ="margin-bottom:10px"> DNI: <%= data.dni %></p>
   <% else %>
     <p style="text-align: center; margin-bottom: 8px;">
       <strong>CVU o Alias destino:</strong>

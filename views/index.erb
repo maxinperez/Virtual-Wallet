@@ -89,14 +89,19 @@
         <div class="quick-transfer">
           <div class="section-title">Transferencia Rápida</div>
           <div class="contacts-list">
-          <% @frequent_recipients.each do |contact| %>
+          <% current_user.contacts.each do |c| %>
+            <form action = "/transfer/<%= c.contact %>" method="get">
+            <button type="submit" style="background: none; border: none; padding: 0; width: 100%; text-align: left; cursor: pointer;">
+            <%data = User.find_by(id: c.contact) %>
             <div class="contact">
-              <div class="contact-avatar"><%= contact[:initials] %></div>
+              <div class="contact-avatar"><%= data.name[0..0].upcase %></div>
               <div class="contact-info">
-                <div class="contact-name"><%= contact[:name] %></div>
-                <div class="contact-email"><%= contact[:email] %></div>
+                <div class="contact-name"><%= data.name %> <%= data.last_name %></div>
+                <div class="contact-email"><%= data.email %></div>
               </div>
             </div>
+            </button>
+          </form>
           <% end %>
           <% if @frequent_recipients.empty? %>
             <div class="no-contacts">No hay contactos frecuentes</div>
