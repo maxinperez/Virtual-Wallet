@@ -136,6 +136,11 @@
       </div>
     </form>
 
+    <form action="/personal_data/delete_account" method="post" onsubmit="return confirm('¿Estás seguro que querés eliminar tu cuenta? Esta acción no se puede deshacer.');">
+          <button type="submit" style="background-color: red; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%;">
+            Eliminar mi cuenta
+          </button>
+    </form>
   <% else %>
         <h3>No se encontró una cuenta bancaria</h3>
   <% end %>
