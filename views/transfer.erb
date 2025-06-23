@@ -24,12 +24,13 @@
 ] %>
 <div style="display: flex; flex-direction: column; align-items: center; margin-top: 5px;">
 <h1 style="text-align: center;">Realizar Transferencia</h1>
+<div class="contenedor-personales">
   <form action="/transfer" method="post" style="text-align: center; width: 400px;  margin-bottom: 5px;">
-    <% if @target.present? || params[:content_input]  %>
-     <% if params[:content_input] %>
-     <% @target = BankAccount.find_by(cvu: params[:content_input])&.id || BankAccount.find_by(alias: params[:content_input])&.id %>
-     <%end%>
+    <% if @target %>
     <input type="hidden" id="destino" name="destino" value="<%= @target %>">
+    <% data = User.find_by(id:@target) %>
+    <p style ="margin-bottom:10px"> Destinatario: <%= data.name %> <%= data.last_name %> </p>
+    <p style ="margin-bottom:10px"> CVU: <%= data.bank_account.cvu %></p>
   <% else %>
     <p style="text-align: center; margin-bottom: 8px;">
       <strong>CVU o Alias destino:</strong>
@@ -60,4 +61,5 @@
    <div class = "mensaje"> <%= @error %> </div>
 <% end %>
 </form>
+</div>
 </div>

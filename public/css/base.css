@@ -31,11 +31,6 @@ body.dark-mode {
 .main-content {
   flex: 1;
 }
-.main-content.cards {
-  flex: 1;
-   justify-content: center; /* Centrado vertical */
-  align-items: center;     /* Centrado horizontal */
-}
 a {
   text-decoration: none;
 }
