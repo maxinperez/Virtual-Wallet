@@ -2,7 +2,7 @@
 <h1> Estadisticas de paystack </h1>
   <label>Desde: <input type="date" name="from" value="<%= params[:from] %>" max="<%= Date.today.strftime("%Y-%m-%d") %>"></label>
   <label>Hasta: <input type="date" name="to" value="<%= params[:to] %>" max="<%= Date.today.strftime("%Y-%m-%d") %>"></label>
-  <button type="submit" style = "margin-bottom:50px;class="goal-btn goal-btn-primary">Filtrar</button>
+  <button type="submit" class="buttonadmin">Filtrar</button>
 </form>
 
 <%
@@ -58,24 +58,13 @@
     color: black;
 }
 
-.goal-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: black;
-    font-weight: bold;
+.buttonadmin {
+    width: 10% !important;
 }
  .dark-mode label{
     color: black;
  }
 
-.goal-btn-primary {
-    background-color: black;
-    color: white;
-    padding: 6px 14px;
-    font-size: 0.95rem;
-}
 
 .goal-btn-primary:hover {
     background-color: #0056b3;

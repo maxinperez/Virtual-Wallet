@@ -1,4 +1,23 @@
-<% @users.each do |user| %>
-    <% data = User.find_by(id: user.id) %>
-  <%= partial "role", { name: data.name, mail: data.email } %>
+<h1> Asignacion de roles </h1>
+<form method="get" action="/administration" style="margin-bottom: 20px;">
+  <label for="dni">Buscar por DNI:</label>
+  <input type="text" name="dni" id="dni" value="<%= params[:dni] %>">
+  <button type="submit" name="buscar" value="1">Buscar</button>
+  <button type="submit" name="todos" value="1">Mostrar todos los usuarios</button>
+</form>
+
+<%
+  if params[:todos]
+    filtered_users = @users
+  elsif params[:dni].present?
+    filtered_users = User.where(dni: params[:dni])
+  else
+    filtered_users = []
+  end
+%>
+
+<% filtered_users.each do |user| %>
+  <% data = User.find_by(id: user.id) %>
+  <%= partial "role", { name: "#{data.name} #{data.last_name}", mail: data.email, dni: data.dni } %>
 <% end %>
+

@@ -16,7 +16,13 @@ class AdminRoutes < Sinatra::Base
 
   get '/administration' do 
     halt(403, "Acceso denegado") unless admin? && current_user.account.admin == "superadmin"
+    if params[:todos]
     @users = Account.where(admin: nil)
+  elsif params[:dni].present?
+    @users = Account.where(admin: nil).joins(:user).where(users: { dni: params[:dni] })
+  else
+    @users = [] # No mostrar nada por defecto
+  end
     erb :"admin/administration", layout: :'partial/admins'
   end
 
