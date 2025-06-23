@@ -1,0 +1,93 @@
+<html>
+<head>
+    <style>
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .search-section {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-form {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .search-label {
+            display: block;
+            color: #495057;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .dark-mode .search-label {
+            display: block;
+            color: black;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            background-color: #ffffff;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6c757d;
+            box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+        }
+
+        .search-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-section">
+            <form method="post" action="/transfer/find_target" class="search-form">
+                <label class="search-label" for="dni">Buscar por CVU o Alias</label>
+                <input type="text" style="background-color: #fff; border: 1px solid #c1b9b9; color: #e5e5e5;"name="content_input" id="content_input" class="search-input" value="<%= params[:content_input] %>">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+        </div>
+    </div> 
+    <% if @error %>
+    <div class = "mensaje" >
+      <%= @error %>
+    <% end %>   
+  </div>
+</body>
+</html>

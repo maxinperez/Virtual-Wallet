@@ -1,0 +1,49 @@
+ <body>
+        <div class="contacts-section">
+            <div class="contacts-list">
+                <h1 class="contacts-title">Agenda de contactos</h1>
+                <% current_user.contacts.each do |c| %>
+                    <% data = User.find_by(id: c.contact) %>
+                        <%= partial "contacts", {initials: data.name[0..0].upcase, name: "#{data.name} #{data.last_name}", email: data.email, c: c} %>
+                <%end%>
+            </div>
+        </div>
+    </div>
+</body>
+    <style>
+        .contacts-section {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .contacts-title {
+            color: #343a40;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .contacts-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #6c757d;
+            border-radius: 2px;
+        }
+
+        .contacts-list {
+            display: grid;
+            gap: 15px;
+        }
+
+</style>

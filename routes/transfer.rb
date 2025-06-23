@@ -3,15 +3,38 @@ require File.expand_path('../../config/enviroment', __FILE__)
 class TransferRoutes < Sinatra::Base
     register AppConfig
     before { authenticate_user! }
+
+    get '/contact_book' do
+      erb :transfer_contact_book, layout: :'partial/layout'
+    end
+
     get '/transfer' do
       erb :transfer, layout: :'partial/layout'
     end
-  
+
+    get '/transfer/find_target' do
+      erb :prev_transfer, layout: :'partial/layout'
+    end
+
+    post '/transfer/find_target' do
+      target = BankAccount.find_by(cvu: params[:content_input] ) || BankAccount.find_by(alias: params[:content_input])
+      if target
+        redirect "/transfer/#{target.id}"
+      else
+        @error = "Cuenta destino no encontrada"
+        erb :prev_transfer, layout: :'partial/layout'
+      end
+    end
+
+    get '/transfer/:id' do
+      @target = params[:id]
+      erb :transfer, layout: :'partial/layout'
+    end
+
     post '/transfer' do
       source = current_user.bank_account
-      input = params[:destino]
-      target = BankAccount.find_by(cvu: input) || BankAccount.find_by(alias: input)
-  
+      input = params[:amount]
+      target = BankAccount.find(params[:destino])
       @error = nil
       if target.nil?
         @error = "Cuenta destino no encontrada"
@@ -34,6 +57,7 @@ class TransferRoutes < Sinatra::Base
         )
   
         if transfer.save
+          Contact.new(user: current_user, contact: target.id).save
           redirect "/transfer/success/#{transfer.id}"
         else
           @error = "No se pudo guardar la transferencia"
@@ -119,7 +143,7 @@ class TransferRoutes < Sinatra::Base
       pdf.stroke_horizontal_rule
       pdf.move_down 5
       pdf.fill_color gray_color
-      pdf.text "PayStack - Comprobante oficial uacho", size: 9, align: :center, style: :italic
+      pdf.text "paystack", size: 9, align: :center, style: :italic
   
       pdf.render
     end
