@@ -11,6 +11,71 @@ class UserRoutes < Sinatra::Base
     erb :cards, layout: :'partial/layout'
   end
 
+  # Ruta para congelar tarjeta
+  post '/cards/:id/freeze' do
+    begin
+      card = Card.find(params[:id])
+
+      if card.bank_account.user != current_user
+        session[:error] = "No tienes permiso para modificar esta tarjeta."
+      else
+        card.freeze!
+        session[:success] = "Tarjeta congelada correctamente."
+      end
+    rescue ActiveRecord::RecordNotFound
+      session[:error] = "Tarjeta no encontrada."
+    end
+
+    redirect '/cards/'
+  end
+
+  # Ruta para descongelar tarjeta
+  post '/cards/:id/unfreeze' do
+    begin
+      card = Card.find(params[:id])
+
+      if card.bank_account.user != current_user
+        session[:error] = "No tienes permiso para modificar esta tarjeta."
+      else
+        card.unfreeze!
+        session[:success] = "Tarjeta activada correctamente."
+      end
+    rescue ActiveRecord::RecordNotFound
+      session[:error] = "Tarjeta no encontrada."
+    end
+
+    redirect '/cards/'
+  end
+
+  post '/cards/:id/set_limit' do
+    begin
+      card = Card.find(params[:id])
+
+      # Verificamos que el usuario sea dueño de la tarjeta
+      if card.bank_account.user != current_user
+        session[:error] = "No tienes permiso para modificar esta tarjeta."
+        redirect '/cards/'
+      end
+
+      # Validar que el límite sea un número positivo
+      new_limit = params[:limit].to_f
+      if new_limit <= 0
+        session[:error] = "El límite debe ser un número positivo."
+        redirect '/cards/'
+      end
+
+      card.update(limit: new_limit)
+      session[:success] = "Límite actualizado correctamente."
+
+    rescue ActiveRecord::RecordNotFound
+      session[:error] = "Tarjeta no encontrada."
+    end
+
+    redirect '/cards/'
+  end
+
+
+
   post '/generar_tarjeta' do
     unless Card.exists?(bank_account: current_user.bank_account)
       Card.create(
