@@ -8,6 +8,9 @@
 </head>
 
 <h1>Iniciar sesión</h1>
+<% if params[:goodbye] == 'true' %>
+  <p class="goodbye-message" style="margin-bottom: 20px;">¡Tu cuenta fue eliminada con éxito!</p>
+<% end %>
 <form action="/login" method="post" class="form">
     <label for="dni">DNI o email</label>
     <input type="text" id="dni" name="dni" placeholder="Ingresa tu DNI o email"  pattern="\d{8}" title="8 dígitos sin letras" required><br><br>
