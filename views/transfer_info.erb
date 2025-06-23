@@ -1,4 +1,8 @@
+<% if !session[:admin_active]%>
 <a href ="/transactions" style="background: transparent; color: #ffffff; border: none; padding: 8px 0;"> ← Volver a las transacciones</a>
+<% else %>
+<a href ="/management" style="background: transparent; color: #ffffff; border: none; padding: 8px 0;"> ← Volver a gestion</a>
+<%end%>
 <div class="transfer-info-container">
     <h2>Detalles de la Transferencia</h2>
     <div class="transfer-details">
@@ -9,7 +13,7 @@
         <p><strong>Remitente:</strong> <%= "#{source.name} #{source.last_name}" %></p>
         <p><strong>Destinatario:</strong> <%= "#{target.name} #{target.last_name}" %></p>
         <% end %>
-        <% if @transfer.transaction_type == "deposit" || @transfer.transaction_type == "withdraw" %>
+        <% if @transfer.transaction_type == "deposit" || @transfer.transaction_type == "withdrawal" %>
         <p><strong>Destinatario:</strong> <%= "#{target.name} #{target.last_name}" %></p>
         <% end %>
 

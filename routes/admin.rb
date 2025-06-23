@@ -14,6 +14,12 @@ class AdminRoutes < Sinatra::Base
     erb :"admin/management", layout: :'partial/admins'
   end
 
+  get '/administration' do 
+    halt(403, "Acceso denegado") unless admin? && current_user.account.admin == "superadmin"
+    @users = Account.where(admin: nil)
+    erb :"admin/administration", layout: :'partial/admins'
+  end
+
   post '/management/:id/reject' do
    id = params[:id]
    transaction = Transaction.find(id).update(state:"rejected")

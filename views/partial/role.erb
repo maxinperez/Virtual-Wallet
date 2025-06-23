@@ -1,0 +1,176 @@
+<div class="user-card">
+    <div class="user-info">
+        <span class="user-name"><%= name %></span>
+        <span class="user-email"><%= mail %></span>
+    </div>
+    <div class="user-actions">
+        <form class="role-form">
+            <select name="role" class="role-select">
+                <option value="">Seleccionar rol</option>
+                <option value="cashier">Cajero</option>
+                <option value="support">Soporte</option>
+            </select>
+            <button type="submit" class="update-btn">Actualizar rol</button>
+        </form>
+    </div>
+</div>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.user-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.user-info {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-name {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.user-email {
+    display: block;
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.user-id {
+    display: block;
+    font-size: 12px;
+    color: #95a5a6;
+    font-weight: 500;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.role-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.role-select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    min-height: 36px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+    transition: border-color 0.3s ease;
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.role-select option {
+    padding: 8px;
+    background-color: white;
+    color: #333;
+}
+
+.update-btn {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    min-height: 36px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.update-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.update-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .user-card {
+        padding: 15px;
+    }
+    
+    .role-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .role-select {
+        width: 100%;
+    }
+    
+    .update-btn {
+        width: 100%;
+        padding: 10px;
+    }
+}
+</style>
