@@ -104,7 +104,8 @@ class UserRoutes < Sinatra::Base
           bank_account.update(alias: params[:alias])
         end
         redirect '/personal_data/'
-      end
+  end
+  
   get '/index' do
     session[:admin_active] = false
     user = current_user

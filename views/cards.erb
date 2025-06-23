@@ -8,12 +8,58 @@
             </form>
             </div>
         </div>
-       <%else%>
-           <%= partial "card", {
-            card_type: "Debito",
-            card_number: current_card.card_number,
-            card_balance: current_user.bank_account.balance,
-            card_exp_month: current_card.exp_month,
-            card_exp_year: current_card.exp_year
-            } %>
-<%end%>
+       <% else %>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <%= partial "card", {
+                card_type: "Débito",
+                card_number: current_card.card_number,
+                card_balance: current_user.bank_account.balance,
+                card_exp_month: current_card.exp_month,
+                card_exp_year: current_card.exp_year
+                } %>
+
+                <!-- Estado de la tarjeta -->
+                <% if current_card.is_frozen %>
+                <div style="background-color: #f8d7da; color: #842029; padding: 10px 15px; border-radius: 6px; border: 1px solid #f5c2c7; font-weight: bold; margin-top: 10px; width: 400px; text-align: center;">
+                    🔒 Esta tarjeta está congelada
+                </div>
+                <% else %>
+                <div style="background-color: #d1e7dd; color: #0f5132; padding: 10px 15px; border-radius: 6px; border: 1px solid #badbcc; font-weight: bold; margin-top: 10px; width: 400px; text-align: center;">
+                    ✅ Esta tarjeta está activa
+                </div>
+                <% end %>
+
+                <!-- Botón congelar/descongelar -->
+                <form action="/cards/<%= current_card.id %>/<%= current_card.is_frozen ? "unfreeze" : "freeze" %>" method="post" style="margin-top: 10px; width: 400px; text-align: center;">
+                <button class="freeze-btn" type="submit" style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
+                    <%= current_card.is_frozen ? "Descongelar Tarjeta" : "Congelar Tarjeta" %>
+                </button>
+                </form>
+
+                <!-- Formulario de actualización de límite -->
+                <form action="/cards/<%= current_card.id %>/set_limit" method="post" style="margin-top: 10px; width: 400px; text-align: center;">
+                <p style="margin-bottom: 10px;">
+                    <strong>Nuevo límite:</strong>
+                    <input
+                    type="number"
+                    id="limit"
+                    name="limit"
+                    step="0.01"
+                    min="0.01"
+                    required
+                    value=""
+                    style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;"
+                    >
+                </p>
+                <button type="submit" style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
+                    Guardar nuevo límite
+                </button>
+                </form>
+            </div>
+
+            <% if session[:error] %>
+            <div class="mensaje" style="color: red; font-weight: bold; margin-top: 5px;"><%= session[:error] %></div>
+            <% elsif session[:success] %>
+            <div class="mensaje" style="color: green; font-weight: bold; margin-top: 5px;"><%= session[:success] %></div>
+            <% end %>
+<% end %>
