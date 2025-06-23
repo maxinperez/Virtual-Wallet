@@ -20,8 +20,10 @@ class AdminRoutes < Sinatra::Base
     @users = Account.where(admin: nil)
   elsif params[:dni].present?
     @users = Account.where(admin: nil).joins(:user).where(users: { dni: params[:dni] })
+  elsif params[:admins].present?
+    @users = Account.where.not(admin: nil)
   else
-    @users = [] # No mostrar nada por defecto
+    @users = []
   end
     erb :"admin/administration", layout: :'partial/admins'
   end
@@ -35,6 +37,20 @@ class AdminRoutes < Sinatra::Base
   post '/management/:id/success' do
     id = params[:id]
     transaction = Transaction.find(id).update(state:"success")
+    redirect back
+   end
+
+   post '/management/update_role/:id' do
+    halt(403, "No tenes permiso para realizar esto") unless admin? && current_user.account.admin == "superadmin"
+    id = params[:id]
+    role = params[:role]
+    account = Account.find(id)
+    if role == "nil"
+    account.update(admin: nil)
+    else
+      account.update(admin: role)
+    end
+    session[:success] = "Rol actualizado correctamente"
     redirect back
    end
 

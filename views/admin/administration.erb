@@ -4,10 +4,17 @@
   <input type="text" name="dni" id="dni" value="<%= params[:dni] %>">
   <button type="submit" name="buscar" value="1">Buscar</button>
   <button type="submit" name="todos" value="1">Mostrar todos los usuarios</button>
+  <button type="submit" name="admins" value="1">Mostrar todos los administradores</button>
 </form>
+<%if session[:success]%>
+  <div class="mensaje-exito">
+   <%= session[:success] %>
+  </div>
+  <% session[:success] = nil %>
+  <%end%>
 
 <%
-  if params[:todos]
+  if params[:todos] || params[:admins]
     filtered_users = @users
   elsif params[:dni].present?
     filtered_users = User.where(dni: params[:dni])
@@ -18,6 +25,5 @@
 
 <% filtered_users.each do |user| %>
   <% data = User.find_by(id: user.id) %>
-  <%= partial "role", { name: "#{data.name} #{data.last_name}", mail: data.email, dni: data.dni } %>
+  <%= partial "role", { name: "#{data.name} #{data.last_name}", mail: data.email, dni: data.dni, id: data.id, role: user.admin } %>
 <% end %>
-
