@@ -133,13 +133,17 @@
             Editar Información
           </a>
         <% end %>
-      </div>
-    </form>
-
-    <form action="/personal_data/delete_account" method="post" onsubmit="return confirm('¿Estás seguro que querés eliminar tu cuenta? Esta acción no se puede deshacer.');">
-          <button type="submit" style="background-color: red; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%;">
+        </div>
+        </form>
+      <% if !editando%>
+        <div class="form-actions">
+         <form action="/personal_data/delete_account" method="post" onsubmit="return confirm('¿Estás seguro que querés eliminar tu cuenta? Esta acción no se puede deshacer.');">
+          <button type="submit" style="background-color: red; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; width: auto;">
             Eliminar mi cuenta
           </button>
+    </form>
+    <%end%>
+    </div>
     </form>
   <% else %>
         <h3>No se encontró una cuenta bancaria</h3>
