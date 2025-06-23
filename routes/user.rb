@@ -3,6 +3,10 @@ require File.expand_path('../../config/enviroment', __FILE__)
 class UserRoutes < Sinatra::Base
   register AppConfig
   before { authenticate_user! }
+  before do
+    response.headers['Cache-Control'] = 'no-store'
+  end
+
   get '/personal_data/' do
     erb :personal_data, layout: :'partial/layout'
   end
@@ -105,6 +109,28 @@ class UserRoutes < Sinatra::Base
         end
         redirect '/personal_data/'
   end
+
+  post '/personal_data/delete_account' do
+    user = current_user
+
+    # Eliminamos dependencias manualmente
+    if user.bank_account
+      user.bank_account.card&.destroy
+      user.bank_account.saving_goals.destroy_all
+      user.bank_account.all_transactions.destroy_all
+
+      # Luego eliminamos la cuenta bancaria
+      user.bank_account.destroy
+    end
+
+    # Finalmente eliminar al usuario
+    user.destroy
+
+    session.clear
+    redirect '/login?goodbye=true'
+  end
+
+
   
   get '/index' do
     session[:admin_active] = false
