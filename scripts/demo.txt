@@ -1,0 +1,15 @@
+for use: 
+curl -X POST http://localhost:8000/register -d "data"
+
+examples: 
+
+dni=12345670&email=juan1@yopmail.com&password=clave123&name=Juan&last_name=Pérez&phone=1111111111&locality=Buenos Aires&cp=1000&address=Calle Falsa 123
+dni=23456789&email=ana2@yopmail.com&password=clave123&name=Ana&last_name=García&phone=2222222222&locality=Córdoba&cp=5000&address=Av. Siempreviva 742
+dni=34567890&email=luis3@yopmail.com&password=clave123&name=Luis&last_name=Martínez&phone=3333333333&locality=Rosario&cp=2000&address=San Martín 456
+dni=45678901&email=carla4@yopmail.com&password=clave123&name=Carla&last_name=Fernández&phone=4444444444&locality=Mendoza&cp=5500&address=Belgrano 789
+dni=56789012&email=roberto5@yopmail.com&password=clave123&name=Roberto&last_name=Suárez&phone=5555555555&locality=La Plata&cp=1900&address=Mitre 321
+dni=67890123&email=mariana6@yopmail.com&password=clave123&name=Mariana&last_name=Lopez&phone=6666666666&locality=Salta&cp=4400&address=Urquiza 111
+dni=78901234&email=daniel7@yopmail.com&password=clave123&name=Daniel&last_name=Ramirez&phone=7777777777&locality=Santa Fe&cp=3000&address=Rivadavia 222
+dni=89012345&email=flor8@yopmail.com&password=clave123&name=Florencia&last_name=Torres&phone=8888888888&locality=Neuquén&cp=8300&address=Italia 333
+dni=90123456&email=martin9@yopmail.com&password=clave123&name=Martin&last_name=Gomez&phone=9999999999&locality=San Juan&cp=5400&address=España 444
+dni=11223344&email=sofia10@yopmail.com&password=clave123&name=Sofia&last_name=Diaz&phone=1010101010&locality=Chaco&cp=3500&address=Francia 555
