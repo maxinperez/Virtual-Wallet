@@ -2,11 +2,17 @@
 <div class="transfer-info-container">
     <h2>Detalles de la Transferencia</h2>
     <div class="transfer-details">
+    <% target = User.find_by(id: @transfer.target_account_id) %>
+    <% source = User.find_by(id: @transfer.source_account_id) %>
         <p><strong>ID de Transferencia:</strong> <%= @transfer.id %></p>
         <% if @transfer.transaction_type == "transfer" %>
-        <p><strong>Cuenta origen:</strong> <%= @transfer.source_account_id %></p>
-        <p><strong>Cuenta destino:</strong> <%= @transfer.target_account_id %></p>
+        <p><strong>Remitente:</strong> <%= "#{source.name} #{source.last_name}" %></p>
+        <p><strong>Destinatario:</strong> <%= "#{target.name} #{target.last_name}" %></p>
         <% end %>
+        <% if @transfer.transaction_type == "deposit" || @transfer.transaction_type == "withdraw" %>
+        <p><strong>Destinatario:</strong> <%= "#{target.name} #{target.last_name}" %></p>
+        <% end %>
+
         <p><strong>Fecha:</strong> <%= @transfer.created_at.strftime("%d %b, %Y") %></p>
         <p><strong>Monto:</strong> $<%= '%.2f' % @transfer.amount %></p>
         <p>

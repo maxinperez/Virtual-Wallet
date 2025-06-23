@@ -68,7 +68,7 @@ end
       type = "Desconocido"
     end
   else
-    other_user = transaction.source_account&.user
+    other_user = transaction.target_account&.user
     sign = other_user&.name&.slice(0)&.upcase || "?"
     owner = other_user ? "#{other_user.name} #{other_user.last_name}" : "Usuario desconocido"
     if transaction.target_account == current_user.bank_account
