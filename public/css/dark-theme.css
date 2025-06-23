@@ -36,8 +36,14 @@
 .dark-mode input[type="number"],
 .dark-mode input[type="email"],
 .dark-mode input[type="password"],
-.dark-mode input[type="text"], select {
-  background-color: #2a2a2a;
+.dark-mode input[type="text"]{
+  background-color: #2a2a2a ;
+  border: 1px solid #505050;
+  color: #e5e5e5;
+}
+
+.dark-mode select {
+  background-color: #2a2a2a ;
   border: 1px solid #505050;
   color: #e5e5e5;
 }
@@ -58,10 +64,6 @@
   border: 1px solid #606060;
 }
 
-.dark-mode button:hover {
-  background-color: #5a5a5a;
-  border-color: #707070;
-}
 
 .dark-mode .btn-back {
   background-color: #4a4a4a;
@@ -221,11 +223,6 @@
   background-color: #2a2a2a;
   border: 1px solid #404040;
   color: #e5e5e5;
-}
-
-.dark-mode .action-button:hover {
-  background-color: #3a3a3a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .action-icon {
@@ -390,14 +387,9 @@
   border: 1px solid #404040;
   margin-top: 4rem; /* o la cantidad que prefieras */
 }
-
-.dark-mode .contact:hover {
-  background-color: #3a3a3a;
-}
-
 .dark-mode .contact-avatar {
-  background-color: #4a4a4a;
-  color: #f0f0f0;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .dark-mode .contact-name {

@@ -241,12 +241,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.action-button:hover {
-  background-color: #f9fafb;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
 .action-icon {
   width: 24px;
   height: 24px;
@@ -568,9 +562,6 @@
   cursor: pointer;
 }
 
-.contact:hover {
-  background-color: #f9fafb;
-}
 
 .contact-avatar {
   width: 40px;
@@ -590,7 +581,7 @@
 
 .contact-name {
   font-weight: 500;
-  color: #111827;
+  color: #ffffff;
   margin-bottom: 2px;
 }
 
