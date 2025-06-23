@@ -1,0 +1,106 @@
+<form method="get" action="/admins" class="admin-date-filter" style="margin-bottom: 20px;">
+<h1> Estadisticas de paystack </h1>
+  <label>Desde: <input type="date" name="from" value="<%= params[:from] %>" max="<%= Date.today.strftime("%Y-%m-%d") %>"></label>
+  <label>Hasta: <input type="date" name="to" value="<%= params[:to] %>" max="<%= Date.today.strftime("%Y-%m-%d") %>"></label>
+  <button type="submit" style = "margin-bottom:50px;class="goal-btn goal-btn-primary">Filtrar</button>
+</form>
+
+<%
+  from = params[:from].present? ? Date.parse(params[:from]) : nil
+  to = params[:to].present? ? Date.parse(params[:to]) : nil
+
+  users = User.all
+  transactions = Transaction.all
+  cards = Card.all
+
+  if from
+    users = users.where("created_at >= ?", from)
+    transactions = transactions.where("created_at >= ?", from)
+    cards = cards.where("created_at >= ?", from)
+  end
+  if to
+    users = users.where("created_at <= ?", to)
+    transactions = transactions.where("created_at <= ?", to)
+    cards = cards.where("created_at <= ?", to)
+  end
+%>
+
+<div class="admin-summary">
+  <div>Total de usuarios: <%= users.count %></div>
+  <div>Total de transacciones: <%= transactions.count %></div>
+  <div>Total de dinero movido: $<%= transactions.sum(:amount) %></div>
+  </div>
+  <div class="admin-summary">
+  <div style="justify-content: center; align-items: center;">Tarjetas creadas: <%= cards.count %></div>
+  </div>
+<style>
+
+.admin-date-filter {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.admin-date-filter label {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.admin-date-filter input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+.dark-mode h1 {
+    color: black;
+}
+
+.goal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: black;
+    font-weight: bold;
+}
+ .dark-mode label{
+    color: black;
+ }
+
+.goal-btn-primary {
+    background-color: black;
+    color: white;
+    padding: 6px 14px;
+    font-size: 0.95rem;
+}
+
+.goal-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.admin-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.admin-summary > div {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-summary > div:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+</style>
