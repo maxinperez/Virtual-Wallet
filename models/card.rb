@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
     # relations
-    belongs_to :bank_account, dependent: :destroy
+    belongs_to :bank_account
   
     validates :holder_name, presence: true
     validates :card_number, presence: true, uniqueness: true

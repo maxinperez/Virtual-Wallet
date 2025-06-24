@@ -3,6 +3,7 @@ require File.expand_path('../../config/enviroment', __FILE__)
 class UserRoutes < Sinatra::Base
   register AppConfig
   before { authenticate_user! }
+  
   before do
     response.headers['Cache-Control'] = 'no-store'
   end
@@ -14,6 +15,22 @@ class UserRoutes < Sinatra::Base
   get '/cards/' do
     erb :cards, layout: :'partial/layout'
   end
+
+  post '/cards/:id/delete' do
+    if params[:id].nil? || params[:id].empty?
+      session[:error] = "ID de tarjeta no proporcionado."
+      redirect '/cards/'
+    end
+
+    card = Card.find(params[:id])
+    if card.bank_account.user != current_user
+      session[:error] = "No tienes permiso para eliminar esta tarjeta."
+    else
+      card.destroy
+      session[:success] = "Tarjeta eliminada correctamente."
+    end
+  redirect '/cards/'
+end
 
   # Ruta para congelar tarjeta
   post '/cards/:id/freeze' do

@@ -1,65 +1,487 @@
-       <% if !current_user.bank_account.card %>
-       <div style = "justify-content: center;">
-       <div id="no-card-state" class="no-card-state">
-                <h2 class="section-title">No tienes tarjetas activas</h2>
-                <p class="intro-text">Solicita tu primera tarjeta para comenzar a disfrutar de todos los beneficios</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tarjetas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Estado sin tarjeta */
+        .no-card-state {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+
+        .intro-text {
+            color: #6c757d;
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .request-card-btn {
+            background-color: #262626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        /* Estado con tarjeta */
+        .card-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-status {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-status.frozen {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .card-status.active {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        /* Botones de acción */
+        .action-buttons {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+            .dark-mode .action-buttons {
+            background: #252525;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .buttons-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .buttons-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 8% auto;
+    padding: 0;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    overflow: hidden;
+}
+.modal-header {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-icon {
+    margin-bottom: 12px;
+}
+
+.icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    font-size: 24px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: white;
+}
+
+.modal-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 400;
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+}
+
+.modal form {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.label-icon {
+    font-size: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 12px;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 16px;
+    z-index: 1;
+}
+
+.currency-input {
+    padding-left: 32px !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #6c757d;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.1);
+}
+
+.form-help {
+    display: block;
+    margin-top: 6px;
+    color: #6c757d;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.btn-cancel {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 2px solid #e9ecef;
+}
+
+.btn-cancel:hover {
+    background-color: #e9ecef;
+    color: #495057;
+    transform: translateY(-1px);
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-save:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+        .message {
+            margin-top: 16px;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .no-card-state {
+                padding: 32px 20px;
+            }
+            
+            .action-buttons {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <% if !current_user.bank_account.card %>
+            <div class="no-card-state">
+                <h2 class="section-title" style = "color:black;">No tienes tarjetas activas</h2>
+                <p class="intro-text" style = "color:black;">Solicita tu primera tarjeta para comenzar a disfrutar de todos los beneficios</p>
                 <form action="/generar_tarjeta" method="post">
-            <button class="request-card-btn"type="submit">Solicitar Tarjeta</button>
-            </form>
+                    <button class="request-card-btn" type="submit">Solicitar Tarjeta</button>
+                </form>
             </div>
-        </div>
-       <% else %>
-            <div style="display: flex; flex-direction: column; align-items: center;">
+        <% else %>
+            <div class="card-section">
                 <%= partial "card", {
-                card_type: "Débito",
-                card_number: current_card.card_number,
-                card_balance: current_user.bank_account.balance,
-                card_exp_month: current_card.exp_month,
-                card_exp_year: current_card.exp_year
+                    card_type: "Débito",
+                    card_number: current_card.card_number,
+                    card_balance: current_user.bank_account.balance,
+                    card_exp_month: current_card.exp_month,
+                    card_exp_year: current_card.exp_year,
+                    limit: current_card.limit
                 } %>
 
                 <!-- Estado de la tarjeta -->
-                <% if current_card.is_frozen %>
-                <div style="background-color: #f8d7da; color: #842029; padding: 10px 15px; border-radius: 6px; border: 1px solid #f5c2c7; font-weight: bold; margin-top: 10px; width: 400px; text-align: center;">
-                    🔒 Esta tarjeta está congelada
+                <div class="card-status <%= current_card.is_frozen ? 'frozen' : 'active' %>">
+                    <%= current_card.is_frozen ? ' Esta tarjeta está congelada' : ' Esta tarjeta está activa' %>
                 </div>
-                <% else %>
-                <div style="background-color: #d1e7dd; color: #0f5132; padding: 10px 15px; border-radius: 6px; border: 1px solid #badbcc; font-weight: bold; margin-top: 10px; width: 400px; text-align: center;">
-                    ✅ Esta tarjeta está activa
+
+                <!-- Botones de acción -->
+                <div class= "action-buttons">
+
+                        <!-- Botón Congelar/Descongelar -->
+                        <form action="/cards/<%= current_card.id %>/<%= current_card.is_frozen ? "unfreeze" : "freeze" %>" method="post">
+                            <button class="btn <%= current_card.is_frozen ? 'btn-unfreeze' : 'btn-freeze' %>" type="submit">
+                                <%= current_card.is_frozen ? "Descongelar Tarjeta" : "Congelar Tarjeta" %>
+                            </button>
+                        </form>
+
+                        <!-- Botón Modificar Límite -->
+                        <button class="btn btn-limit" onclick="openLimitModal()">
+                            Modificar Límite
+                        </button>
+
+                        <!-- Botón Borrar Tarjeta -->
+                        <form action="/cards/<%= current_card.id %>/delete" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer.')">
+                            <button class="btn btn-delete" type="submit">
+                                Borrar Tarjeta
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <% end %>
-
-                <!-- Botón congelar/descongelar -->
-                <form action="/cards/<%= current_card.id %>/<%= current_card.is_frozen ? "unfreeze" : "freeze" %>" method="post" style="margin-top: 10px; width: 400px; text-align: center;">
-                <button class="freeze-btn" type="submit" style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
-                    <%= current_card.is_frozen ? "Descongelar Tarjeta" : "Congelar Tarjeta" %>
-                </button>
-                </form>
-
-                <!-- Formulario de actualización de límite -->
-                <form action="/cards/<%= current_card.id %>/set_limit" method="post" style="margin-top: 10px; width: 400px; text-align: center;">
-                <p style="margin-bottom: 10px;">
-                    <strong>Nuevo límite:</strong>
-                    <input
-                    type="number"
-                    id="limit"
-                    name="limit"
-                    step="0.01"
-                    min="0.01"
-                    required
-                    value=""
-                    style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;"
-                    >
-                </p>
-                <button type="submit" style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
-                    Guardar nuevo límite
-                </button>
-                </form>
             </div>
 
+            <!-- Modal para modificar límite -->
+            <div id="limitModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Modificar Límite</h3>
+                        <button class="close" onclick="closeLimitModal()">&times;</button>
+                    </div>
+                    <form action="/cards/<%= current_card.id %>/set_limit" method="post">
+                        <div class="form-group">
+                            <label for="limit" class="form-label">Nuevo límite</label>
+                            <input
+                                type="number"
+                                id="limit"
+                                name="limit"
+                                step="0.01"
+                                min="0.01"
+                                required
+                                class="form-input"
+                                placeholder="0.00"
+                            >
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-modal btn-cancel" onclick="closeLimitModal()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn-modal btn-save">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+
+            <!-- Mensajes -->
             <% if session[:error] %>
-            <div class="mensaje" style="color: red; font-weight: bold; margin-top: 5px;"><%= session[:error] %></div>
+                <div class="message error"><%= session[:error] %></div>
+                <%= session[:error] = nil %>
             <% elsif session[:success] %>
-            <div class="mensaje" style="color: green; font-weight: bold; margin-top: 5px;"><%= session[:success] %></div>
+                <div class="message success"><%= session[:success] %></div>
+                <% session[:success] = nil %>
             <% end %>
-<% end %>
+        <% end %>
+    </div>
+
+    <script>
+        function openLimitModal() {
+            document.getElementById('limitModal').style.display = 'block';
+        }
+
+        function closeLimitModal() {
+            document.getElementById('limitModal').style.display = 'none';
+            document.getElementById('limit').value = '';
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('limitModal');
+            if (event.target == modal) {
+                closeLimitModal();
+            }
+        }
+    </script>
+</body>
+</html>

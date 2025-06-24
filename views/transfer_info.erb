@@ -19,6 +19,7 @@
 
         <p><strong>Fecha:</strong> <%= @transfer.created_at.strftime("%d %b, %Y") %></p>
         <p><strong>Monto:</strong> $<%= '%.2f' % @transfer.amount %></p>
+        
         <p>
           <strong>Estado:</strong>
           <% if @transfer.state == "success" %>
@@ -31,7 +32,7 @@
             <span class="status"><%= @transfer.state %></span>
           <% end %>
         </p>
-
+        <button> <a style = "color:white;"href="/comprobante/<%= @transfer.id %>">Generar comprobante</a> </button>
         <style>
         * {
             margin: 0;
