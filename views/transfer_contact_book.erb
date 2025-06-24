@@ -15,9 +15,16 @@
 </body>
     <style>
 
-    .no-contacts-message{
-        color:black;
+    .dark-mode .no-contacts-message{
+        color:white;
     }
+        .dark-mode .contacts-section {
+            background: #3c3c3c;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
         .contacts-section {
             background: #ffffff;
             border: 1px solid #e9ecef;
@@ -28,6 +35,16 @@
 
         .contacts-title {
             color: black !important;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .dark-mode .contacts-title {
+            color: white !important;
             font-size: 28px;
             font-weight: 600;
             margin-bottom: 25px;
