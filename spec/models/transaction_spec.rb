@@ -1,10 +1,12 @@
 require_relative '../spec_helper'
+require 'securerandom'
 
 RSpec.describe Transaction do
   let(:user) { 
+  unique = SecureRandom.hex(5)
   User.create!(
-    dni: "12345678#{rand(1000)}", 
-    email: "ricardo#{rand(1000)}@example.com", 
+    dni: "12345678#{unique}", 
+    email: "ricardo#{unique}@example.com", 
     name: "pepe", 
     last_name: "gomez", 
     phone: "1234567890", 
