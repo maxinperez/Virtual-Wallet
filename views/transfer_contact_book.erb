@@ -2,6 +2,9 @@
         <div class="contacts-section">
             <div class="contacts-list">
                 <h1 class="contacts-title">Agenda de contactos</h1>
+                <% if current_user.contacts.empty? %>
+                    <p style= "text-align: center;" class="no-contacts-message">No hay contactos</p>
+                <% end %>
                 <% current_user.contacts.each do |c| %>
                     <% data = User.find_by(id: c.contact) %>
                         <%= partial "contacts", {initials: data.name[0..0].upcase, name: "#{data.name} #{data.last_name}", email: data.email, c: c} %>
@@ -11,6 +14,10 @@
     </div>
 </body>
     <style>
+
+    .no-contacts-message{
+        color:black;
+    }
         .contacts-section {
             background: #ffffff;
             border: 1px solid #e9ecef;

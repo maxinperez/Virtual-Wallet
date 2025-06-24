@@ -82,9 +82,10 @@
         </div>
     </div> 
     <% if @error %>
-    <div class = "mensaje" >
-      <%= @error %>
-    <% end %>   
+  <div class="mensaje" style="width: 28%; margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+    <%= @error %>
   </div>
+<% end %>
+ <%= @error = nil %>
 </body>
 </html>

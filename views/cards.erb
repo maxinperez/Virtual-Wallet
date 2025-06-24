@@ -5,24 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Tarjetas</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-        }
 
         /* Estado sin tarjeta */
         .no-card-state {
@@ -90,52 +72,62 @@
             color: #155724;
             border-color: #c3e6cb;
         }
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
 
-        /* Botones de acción */
-        .action-buttons {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 100%;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-            .dark-mode .action-buttons {
-            background: #252525;
-            padding: 20px;
-            width: 100%;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
+/* Wrapper para cada botón con texto debajo */
+.btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
 
-        .buttons-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #212529;
-            margin-bottom: 16px;
-            text-align: center;
-        }
+/* Estilos base para botones - círculos perfectos como Brubank */
+.btn {
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: inherit;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-        .buttons-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
 
-        .btn {
-            width: 100%;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .modal {
+/* Texto debajo de cada botón */
+.btn-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* Modal */
+.modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -143,35 +135,20 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
     background-color: white;
-    margin: 8% auto;
+    margin: 10% auto;
     padding: 0;
     border-radius: 16px;
     width: 90%;
-    max-width: 420px;
+    max-width: 500px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease;
-    overflow: hidden;
+    animation: modalSlideIn 0.3s ease-out;
 }
-.modal-header {
-    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-    color: white;
-    padding: 24px;
-    text-align: center;
-    position: relative;
-}
-
 .modal-icon {
     margin-bottom: 12px;
 }
@@ -263,6 +240,19 @@
     font-size: 16px;
     font-weight: 500;
 }
+.buttons-container {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    margin: 20px auto;
+    background: transparent;
+}
+
+.dark-mode .buttons-container {
+    border: 2px solid #333;
+    border-radius: 12px;
+    margin: 20px auto;
+    background: transparent;
+}
 
 .form-input {
     width: 100%;
@@ -328,6 +318,13 @@
     color: white;
     box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
 }
+.dark-mode .btn-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
 
 .btn-save:hover {
     background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
@@ -353,21 +350,6 @@
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 10px;
-            }
-            
-            .no-card-state {
-                padding: 32px 20px;
-            }
-            
-            .action-buttons {
-                padding: 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -391,35 +373,45 @@
                     limit: current_card.limit
                 } %>
 
-                <!-- Estado de la tarjeta -->
-                <div class="card-status <%= current_card.is_frozen ? 'frozen' : 'active' %>">
-                    <%= current_card.is_frozen ? ' Esta tarjeta está congelada' : ' Esta tarjeta está activa' %>
-                </div>
+    <div class="buttons-container">
+    <div class="action-buttons">
+    <!-- Botón Congelar/Descongelar -->
+    <div class="btn-wrapper">
+        <form action="/cards/<%= current_card.id %>/<%= current_card.is_frozen ? "unfreeze" : "freeze" %>" method="post">
+            <button class="btn <%= current_card.is_frozen ? 'btn-unfreeze' : 'btn-freeze' %>" type="submit">
+                <%= current_card.is_frozen ? '<svg width="26px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 17L9 20M12 17L15 20M12 17V12M12 17V21M12 7L9 4M12 7L15 4M12 7V12M12 7V3M12 12L7.66985 9.49995M12 12L16.3301 14.4999M12 12L7.66985 14.4999M12 12L16.3301 9.49995M16.3301 14.4999L17.4282 18.598M16.3301 14.4999L20.4282 13.4019M16.3301 14.4999L19.7943 16.5M7.66985 9.49995L3.57178 10.598M7.66985 9.49995L6.57178 5.40187M7.66985 9.49995L4.20581 7.5M16.3301 9.49995L20.4282 10.598M16.3301 9.49995L17.4282 5.40187M16.3301 9.49995L19.7943 7.5M7.66985 14.4999L6.57178 18.598M7.66985 14.4999L3.57178 13.4019M7.66985 14.4999L4.20581 16.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>' : '<svg style ="width: 24px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+</svg>'%>
+            </button>
+        </form>
+        <p class="btn-label"><%= current_card.is_frozen ? "Descongelar" : "Pausar" %></p>
+    </div>
 
-                <!-- Botones de acción -->
-                <div class= "action-buttons">
+    <!-- Botón Modificar Límite -->
+    <div class="btn-wrapper">
+        <button class="btn btn-limit" onclick="openLimitModal()">
+            <svg style="width:24px"xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+</svg>
+        </button>
+        <p class="btn-label">Ajustes</p>
+    </div>
 
-                        <!-- Botón Congelar/Descongelar -->
-                        <form action="/cards/<%= current_card.id %>/<%= current_card.is_frozen ? "unfreeze" : "freeze" %>" method="post">
-                            <button class="btn <%= current_card.is_frozen ? 'btn-unfreeze' : 'btn-freeze' %>" type="submit">
-                                <%= current_card.is_frozen ? "Descongelar Tarjeta" : "Congelar Tarjeta" %>
-                            </button>
-                        </form>
+    <!-- Botón Borrar Tarjeta -->
+    <div class="btn-wrapper">
+        <form action="/cards/<%= current_card.id %>/delete" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer.')">
+            <button class="btn btn-delete" type="submit">
+                <svg style = "width:22px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+</svg>
 
-                        <!-- Botón Modificar Límite -->
-                        <button class="btn btn-limit" onclick="openLimitModal()">
-                            Modificar Límite
-                        </button>
-
-                        <!-- Botón Borrar Tarjeta -->
-                        <form action="/cards/<%= current_card.id %>/delete" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer.')">
-                            <button class="btn btn-delete" type="submit">
-                                Borrar Tarjeta
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            </button>
+        </form>
+        <p class="btn-label">Reportar</p>
+    </div>
+</div>
+</div>
 
             <!-- Modal para modificar límite -->
             <div id="limitModal" class="modal">
