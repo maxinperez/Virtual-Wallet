@@ -74,9 +74,10 @@ class AuthRoutes < Sinatra::Base
     if user.save
       Account.create(user: user, username: dni, password: password)
       BankAccount.create(user: user)
+      puts 'Usuario registrado correctamente'
       redirect '/login'
     else 
-      puts "Error al registrar el usuario"
+      puts 'Error al registrar el usuario'
       redirect '/register'
     end 
   end
