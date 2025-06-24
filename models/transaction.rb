@@ -1,7 +1,7 @@
 class Transaction < ActiveRecord::Base
   belongs_to :source_account, class_name: 'BankAccount', foreign_key: 'source_account_id', optional: true
   belongs_to :target_account, class_name: 'BankAccount', foreign_key: 'target_account_id', optional: false
-  has_one :transfer, dependent: :destroy # se borra en cascada
+   # has_one :transfer, dependent: : # se borra en cascada
   attribute :transaction_type, :integer
   attribute :state, :integer
   validates :amount, presence: true, numericality: { greater_than: 0 }

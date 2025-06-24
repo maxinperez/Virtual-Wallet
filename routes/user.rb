@@ -130,17 +130,30 @@ end
   post '/personal_data/delete_account' do
     user = current_user
 
-    # Eliminamos dependencias manualmente
+    # Elimina dependencias manualmente
     if user.bank_account
-      user.bank_account.card&.destroy
-      user.bank_account.saving_goals.destroy_all
-      user.bank_account.all_transactions.destroy_all
+      # Elimina transacciones donde la cuenta es source o target
+      Transaction.where(source_account_id: user.bank_account.id).destroy_all
+      Transaction.where(target_account_id: user.bank_account.id).destroy_all
 
-      # Luego eliminamos la cuenta bancaria
+      # Elimina metas de ahorro
+      user.bank_account.saving_goals.destroy_all if user.bank_account.respond_to?(:saving_goals)
+
+      # Elimina tarjeta
+      user.bank_account.card&.destroy if user.bank_account.respond_to?(:card)
+      # ELimina su agenda, y si es parte de otra tambien elimina el contacto
+      user.contacts.destroy_all if user.respond_to?(:contacts)
+      Contact.where(contact: user.id).destroy_all
+
+
+      # Elimina la cuenta bancaria
       user.bank_account.destroy
     end
 
-    # Finalmente eliminar al usuario
+    # Elimina contactos
+    user.contacts.destroy_all if user.respond_to?(:contacts)
+
+    # Finalmente elimina el usuario
     user.destroy
 
     session.clear

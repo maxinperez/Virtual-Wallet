@@ -92,7 +92,7 @@
           <% current_user.contacts.each do |c| %>
             <form action = "/transfer/<%= c.contact %>" method="get">
             <button type="submit" style="background: none; border: none; padding: 0; width: 100%; text-align: left; cursor: pointer;">
-            <%data = User.find_by(id: c.contact) %>
+            <% data = User.find_by(id: c.contact) %>
             <div class="contact">
               <div class="contact-avatar"><%= data.name[0..0].upcase %></div>
               <div class="contact-info">
