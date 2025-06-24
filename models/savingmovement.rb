@@ -7,4 +7,6 @@ class SavingMovement < ActiveRecord::Base
   }
 
   validates :amount, numericality: { greater_than: 0 }
+  validates :saving_goal, presence: true
+  validates :transaction_type, presence: true
 end
