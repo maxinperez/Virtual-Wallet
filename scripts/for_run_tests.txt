@@ -1,0 +1,11 @@
+to execute all test run 
+
+bundle exec rspec
+
+if need run test specific
+
+bundle exec rspec /path
+
+example:
+
+bundle exec rspec spec/models/account_spec.rb
