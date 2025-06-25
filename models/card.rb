@@ -17,8 +17,7 @@ class Card < ActiveRecord::Base
     self.exp_month ||= 12
     self.exp_year ||= 30
     self.is_frozen = false if is_frozen.nil?
-    self.limit = 1000 if limit.nil? || limit <= 0
-    
+    self.limit = 1000 if limit.nil? 
   end
 
   def generate_unique_cardnumber

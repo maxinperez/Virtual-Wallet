@@ -41,4 +41,5 @@ it 'no recibe mensajes vacios' do
   expect(message).not_to be_valid
   expect(message.errors[:content]).to include("can't be blank")
 end
+
 end

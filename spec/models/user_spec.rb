@@ -51,4 +51,5 @@ RSpec.describe User, type: :model do
     user = User.create!(valid_attributes)
     expect(user.contacts).to be_an(ActiveRecord::Associations::CollectionProxy)
   end
+  
 end

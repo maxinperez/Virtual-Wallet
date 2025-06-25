@@ -227,6 +227,14 @@
   text-decoration: none;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  text-decoration: none;
+}
+
 .action-button {
   display: flex;
   color: inherit;   
