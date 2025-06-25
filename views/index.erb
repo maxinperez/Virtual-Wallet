@@ -46,20 +46,27 @@
         <!-- Action Buttons -->
         <div style="justify-content: center;"class="action-buttons">
           <a href = "/transfer/find_target" class="action-button">
-            <div class="action-icon">↑</div>
+          
+            <div class="action-icon">
+            <%unless dark_mode?%>
+            <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" class ="icon-fill" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 7.5V16.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 6V2H18" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17 7L22 2" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <%else%>
+            <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 7.5V16.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22 6V2H18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17 7L22 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <%end%>
+            </div>
             <div class="action-label">Enviar</div>
           </a>
           <a href="/deposit" class="action-button">
-            <div class="action-icon">↓</div>
+            <div class="action-icon"><svg class ="icon-fill" height="17px" width="17px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M335.367,257.951c-7.187,0-13.033,5.847-13.033,13.034v43.562c0,7.187,5.847,13.033,13.033,13.033H512v-69.628H335.367z M357.347,312.858c-11.097,0-20.094-8.996-20.094-20.094c0-11.097,8.996-20.094,20.094-20.094s20.094,8.996,20.094,20.094 C377.44,303.862,368.444,312.858,357.347,312.858z"></path> </g> </g> <g> <g> <path d="M335.367,227.534H512V152.95c0-23.959-19.492-43.45-43.45-43.45h-6.084H133.703H43.45C19.492,109.5,0,128.991,0,152.95 v310.047c0,23.959,19.492,43.451,43.45,43.451h425.099c23.959,0,43.45-19.492,43.45-43.451v-105H335.367 c-23.959,0-43.45-19.491-43.45-43.45v-43.562C291.917,247.026,311.41,227.534,335.367,227.534z"></path> </g> </g> <g> <g> <polygon points="425.425,5.552 219.067,79.082 451.626,79.082 "></polygon> </g> </g> </g></svg></div>
             <div class="action-label">Depositar</div>
           </a>
           <a href="/withdraw" class="action-button">
-            <div class="action-icon">$⇩</div>
+            <div class="action-icon"><svg width="18px" height="18px" class = "icon-fill" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g class = "icon-fill" id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" class = "icon-fill" stroke-linejoin="round"></g><g class = "icon-fill" id="SVGRepo_iconCarrier"> <path d="M12 9C11.4477 9 11 9.44771 11 10V15.5856L9.70711 14.2928C9.3166 13.9024 8.68343 13.9024 8.29292 14.2928C7.90236 14.6834 7.90236 15.3165 8.29292 15.7071L11.292 18.7063C11.6823 19.0965 12.3149 19.0968 12.7055 18.707L15.705 15.7137C16.0955 15.3233 16.0955 14.69 15.705 14.2996C15.3145 13.909 14.6814 13.909 14.2908 14.2996L13 15.5903V10C13 9.44771 12.5523 9 12 9Z" class = "icon-fill"></path> <path  clip-rule="evenodd" d="M21 1C22.6569 1 24 2.34315 24 4V8C24 9.65685 22.6569 11 21 11H19V20C19 21.6569 17.6569 23 16 23H8C6.34315 23 5 21.6569 5 20V11H3C1.34315 11 0 9.65685 0 8V4C0 2.34315 1.34315 1 3 1H21ZM22 8C22 8.55228 21.5523 9 21 9H19V7H20C20.5523 7 21 6.55229 21 6C21 5.44772 20.5523 5 20 5H4C3.44772 5 3 5.44772 3 6C3 6.55229 3.44772 7 4 7H5V9H3C2.44772 9 2 8.55228 2 8V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V8ZM7 7V20C7 20.5523 7.44772 21 8 21H16C16.5523 21 17 20.5523 17 20V7H7Z" class = "icon-fill" ></path> </g></svg></div>
             <div class="action-label">Retiro</div>
           </a>
           
             <a href="/saving_goals" class="action-button">
-            <div class="action-icon"><svg fill="#c0bfbc" height="20px" width="20px" version="1.2" baseProfile="tiny" id="piggy_bank_by_Adioma" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 245" xml:space="preserve" stroke="#c0bfbc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M254,128.7c0,2.3,0,36,0,49.5c0,4.6-3.6,5.5-6.1,5.5c-2.6,0-30.9,0-30.9,0c-6.1,7.8-13.9,14.7-22.9,20.7v27.2 c0,4-3.3,7.3-7.3,7.3h-26.6c-4,0-7.3-3.3-7.3-7.3v-9.7c-11,2.6-22.8,4-35,4c-13.4,0-26.2-1.7-38.1-4.8v10.5c0,4-3.3,7.3-7.3,7.3 H45.8c-4,0-7.3-3.3-7.3-7.3v-29.3C16.7,186.7,3,164.8,3,140.6c0-31.2,22.6-58.4,56.3-73.3l0.3,0c7.6,22.1,28.6,38.1,53.3,38.1 c25.9,0,47.9-17.6,54.5-41.6c5.7,2,11.1,4.3,16.2,7c5.1-11,22.2-23.1,46.3-18c2.7,0.6,4.2,3.5,3.1,6.1l-16.4,38.3 c6.7,8.3,11.5,17.6,14,27.4c0,0,14.8,0,18.2,0C252.1,124.6,254,125.8,254,128.7z M68.5,49.4C68.3,24.2,88.6,3.7,113.9,4.1 c24,0.4,43.6,20,44,44c0.4,25.6-20.6,46.3-46.2,45.5C87.9,92.9,68.7,73.3,68.5,49.4z M119,59.4c0,3.1-2.5,5.3-7.6,5.3 c-4.8,0-9.3-1.7-12.1-3.1L97,70.7c2.6,1.5,8,2.9,13.3,2.9v6.8h6.2v-7c9.1-2,13.3-7.4,13.3-14.4s-3.9-11.3-12.4-14.4 c-6.2-2.5-9.1-3.7-9.1-6.8c0-2.3,2.5-4.5,7-4.5s7.9,1.4,9.9,2.3l2.5-8.8c-2.7-1.5-6.4-2.5-11.6-2.5v-7h-6.2v7.4 c-8.3,1.7-12.8,7-12.8,13.8c0,7.4,5.1,11.5,13.3,14.4C116.6,55,119,56.3,119,59.4z"></path> </g></svg></div>
+            <div class="action-icon"><svg class = "icon-fill" height="18px" width="18px" version="1.2" baseProfile="tiny" id="piggy_bank_by_Adioma" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 245" xml:space="preserve" stroke="#c0bfbc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M254,128.7c0,2.3,0,36,0,49.5c0,4.6-3.6,5.5-6.1,5.5c-2.6,0-30.9,0-30.9,0c-6.1,7.8-13.9,14.7-22.9,20.7v27.2 c0,4-3.3,7.3-7.3,7.3h-26.6c-4,0-7.3-3.3-7.3-7.3v-9.7c-11,2.6-22.8,4-35,4c-13.4,0-26.2-1.7-38.1-4.8v10.5c0,4-3.3,7.3-7.3,7.3 H45.8c-4,0-7.3-3.3-7.3-7.3v-29.3C16.7,186.7,3,164.8,3,140.6c0-31.2,22.6-58.4,56.3-73.3l0.3,0c7.6,22.1,28.6,38.1,53.3,38.1 c25.9,0,47.9-17.6,54.5-41.6c5.7,2,11.1,4.3,16.2,7c5.1-11,22.2-23.1,46.3-18c2.7,0.6,4.2,3.5,3.1,6.1l-16.4,38.3 c6.7,8.3,11.5,17.6,14,27.4c0,0,14.8,0,18.2,0C252.1,124.6,254,125.8,254,128.7z M68.5,49.4C68.3,24.2,88.6,3.7,113.9,4.1 c24,0.4,43.6,20,44,44c0.4,25.6-20.6,46.3-46.2,45.5C87.9,92.9,68.7,73.3,68.5,49.4z M119,59.4c0,3.1-2.5,5.3-7.6,5.3 c-4.8,0-9.3-1.7-12.1-3.1L97,70.7c2.6,1.5,8,2.9,13.3,2.9v6.8h6.2v-7c9.1-2,13.3-7.4,13.3-14.4s-3.9-11.3-12.4-14.4 c-6.2-2.5-9.1-3.7-9.1-6.8c0-2.3,2.5-4.5,7-4.5s7.9,1.4,9.9,2.3l2.5-8.8c-2.7-1.5-6.4-2.5-11.6-2.5v-7h-6.2v7.4 c-8.3,1.7-12.8,7-12.8,13.8c0,7.4,5.1,11.5,13.3,14.4C116.6,55,119,56.3,119,59.4z"></path> </g></svg></div>
             <div class="action-label">Ahorro</div>
           </a>
           </div>
@@ -147,6 +154,11 @@
               }
           });
         </script>
-
-
-      </div>
+<style>
+.icon-fill{
+  fill:black;
+}
+.dark-mode .icon-fill{
+  fill:white;
+}
+</style>
