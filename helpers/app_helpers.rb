@@ -34,38 +34,38 @@ end
     def admin?
       current_user && !current_user.account.admin.nil?
     end
-    
+    # => [array con los datos de la transaccion]
     def transaction_display_data(transaction)
-  case transaction.transaction_type
-  when "deposit"
-    sign = '+'
-    owner = "Depósito"
-    amount_display = "+$#{transaction.amount}"
-    amount_class = "amount-positive"
-    case transaction.state
-    when "success"
-      type = "finalizado"
-    when "rejected"
-      type = "rechazado"
-    when "pending"
-      type = "pendiente"
+      case transaction.transaction_type
+      when "deposit"
+        sign = '+'
+        owner = "Depósito"
+        amount_display = "+$#{transaction.amount}"
+        amount_class = "amount-positive"
+      case transaction.state
+        when "success"
+        type = "finalizado"
+        when "rejected"
+        type = "rechazado"
+        when "pending"
+        type = "pendiente"
+       else
+        type = "Desconocido"
+      end
+    when "withdrawal"
+      sign = '-'
+      owner = "Retiro"
+      amount_display = "-$#{transaction.amount}"
+      amount_class = "amount-negative"
+      case transaction.state
+      when "success"
+        type = "finalizado"
+      when "rejected"
+        type = "rechazado"
+      when "pending"
+        type = "pendiente"
     else
-      type = "Desconocido"
-    end
-  when "withdrawal"
-    sign = '-'
-    owner = "Retiro"
-    amount_display = "-$#{transaction.amount}"
-    amount_class = "amount-negative"
-    case transaction.state
-    when "success"
-      type = "finalizado"
-    when "rejected"
-      type = "rechazado"
-    when "pending"
-      type = "pendiente"
-    else
-      type = "Desconocido"
+       type = "Desconocido"
     end
   else
     other_user = transaction.target_account&.user
@@ -89,4 +89,23 @@ end
     amount: amount_display
   }
 end
+
+def log_data
+  ip_uri = URI("https://api.ipify.org?format=json")
+  ip_response = Net::HTTP.get(ip_uri)
+  ip_data = JSON.parse(ip_response)
+  ip = ip_data["ip"]
+
+  # Paso 2: geolocalizar esa IP
+  geo_uri = URI("https://ipapi.co/#{ip}/json")
+  geo_response = Net::HTTP.get(geo_uri)
+  geo_data = JSON.parse(geo_response)
+{
+    ip: ip,
+    location: "#{geo_data['city']}, #{geo_data['region']}", 
+    date: Time.now.strftime("%Y-%m-%d %H:%M:%S"),
+    country_name: geo_data['country_code']      
+  }
+end
+
 end

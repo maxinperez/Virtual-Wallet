@@ -4,6 +4,8 @@ require 'sqlite3'
 require 'sinatra/reloader' if Sinatra::Base.environment == :development
 require 'sinatra/activerecord'
 require 'logger'
+require 'net/http'
+require 'json'
 require 'prawn'
 require_relative 'config/enviroment'
 require_relative 'routes/auth'

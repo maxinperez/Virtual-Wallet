@@ -7,10 +7,11 @@ class GeneralRoutes < Sinatra::Base
   get '/toggle_theme' do
     session[:dark_mode] = !session[:dark_mode]
     redirect back
-    end
-
+  end
+  get '/logs' do
+    erb :logs, layout: :'partial/layout'
+  end
     get '/' do
      erb :main, layout: :'partial/header'
     end 
-
 end
