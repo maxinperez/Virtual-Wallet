@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_19_193259) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_26_174023) do
+  create_table "access_logs", force: :cascade do |t|
+    t.string "ip_address", null: false
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_access_logs_on_account_id"
+  end
+
   create_table "accounts", force: :cascade do |t|
     t.string "password_digest", null: false
     t.integer "user_id", null: false
@@ -36,7 +44,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_19_193259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "bank_account_id"
+    t.decimal "limit", default: "1000.0", null: false
+    t.boolean "is_frozen", default: false, null: false
     t.index ["bank_account_id"], name: "index_cards_on_bank_account_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "contact", null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -98,9 +114,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_19_193259) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "access_logs", "accounts"
   add_foreign_key "accounts", "users"
   add_foreign_key "bank_accounts", "users"
   add_foreign_key "cards", "bank_accounts"
+  add_foreign_key "contacts", "users"
   add_foreign_key "messages", "accounts", column: "user_id"
   add_foreign_key "saving_goals", "bank_accounts"
   add_foreign_key "saving_movements", "saving_goals"

@@ -9,6 +9,7 @@ require_relative '../models/message'
 require_relative '../models/savinggoal'
 require_relative '../models/savingmovement'
 require_relative '../models/contact'
+require_relative '../models/accesslog'
 module AppConfig
   def self.registered(app)
     app.enable :sessions

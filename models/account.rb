@@ -4,7 +4,7 @@ class Account < ActiveRecord::Base
   include BCrypt
   has_secure_password
   belongs_to :user
-  has_many :messages, dependent: :destroy
+  has_many :messages, foreign_key: :user_id
   has_many :access_logs, dependent: :destroy
 
 
