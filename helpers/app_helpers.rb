@@ -97,16 +97,33 @@ def real_ip
   ip_data["ip"]
 end
 
+$ip_cache ||= {}
+
 def log_data(ip)
+  return $ip_cache[ip] if $ip_cache[ip]
+
   geo_uri = URI("https://ipapi.co/#{ip}/json")
   geo_response = Net::HTTP.get(geo_uri)
-  geo_data = JSON.parse(geo_response)
-{
-    ip: ip,
-    location: "#{geo_data['city']}, #{geo_data['region']}", 
-    country_name: geo_data['country_code']      
-  }
+
+  begin
+    geo_data = JSON.parse(geo_response)
+    data = {
+      ip: ip,
+      location: "#{geo_data['city']}, #{geo_data['region']}",
+      country_name: geo_data['country_code']
+    }
+  rescue JSON::ParserError
+    data = {
+      ip: ip,
+      location: "-",
+      country_name: "-",
+      error: "Límite de API excedido o respuesta inválida"
+    }
+  end
+
+  $ip_cache[ip] = data
 end
+
 
 
 

@@ -1,5 +1,7 @@
 <h1> Logs de acceso </h1>
+<div style="max-height: 400px; overflow-y: auto; padding: 10px; border-radius: 8px;">
 <% current_user.account.access_logs.each do |log| %>
 <% data = log_data(log.ip_address) %>
 <%= partial "log", data.merge(date: log.created_at)%>
 <%end%>
+</div>
