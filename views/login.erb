@@ -22,6 +22,9 @@
         <span class="toggle-text">Mostrar contraseña</span>
       </label>
     <button type="button" id="login">Iniciar sesión</button>
+    <% if @error %>
+     <div class ="mensaje"> <%= @error%> </div>
+     <%end%>
     <p> ¿Es tu primera vez? <a href="/register">Regístrate</a> ahora</p>
 </form>
 

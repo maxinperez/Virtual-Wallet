@@ -39,8 +39,9 @@ class AuthRoutes < Sinatra::Base
       redirect '/index'
     else 
       session[:error] = 'Datos inválidos'
+      @error = "Contraseña o correo electronico invalido"
       puts 'Invalid data'
-      redirect '/login'
+      erb :login, layout: :'partial/header'
     end
   end
 
