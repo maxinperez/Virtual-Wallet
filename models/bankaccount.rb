@@ -37,7 +37,7 @@ class BankAccount < ActiveRecord::Base
 
   def generate_unique_cvu
     loop do
-    random_cvu = Array.new(22) { rand(0..9) }.join
+    random_cvu = "0600" + Array.new(18) { rand(0..9) }.join 
     break random_cvu unless BankAccount.exists?(cvu: random_cvu)
     end
   end
@@ -51,11 +51,11 @@ class BankAccount < ActiveRecord::Base
   
 
   def revenue
-    all_transactions.where(transaction_type:0, state: 0).sum(:amount)
+    all_transactions.where(transaction_type:[0,2], state: 0, target_account_id: self.id).sum(:amount)
   end
   
   def spends
-    all_transactions.where(state: 0, transaction_type: [1, 2]).sum(:amount)
+    all_transactions.where(state: 0, transaction_type: [1, 2], source_account_id: self.id).sum(:amount)
   end
 
   def frequent_recipients(limit = 3)

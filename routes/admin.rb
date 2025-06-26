@@ -11,6 +11,7 @@ class AdminRoutes < Sinatra::Base
 
   #    renderiza página de gestión administrativa
   get '/management' do
+    halt(403, "Acceso denegado") unless admin? && current_user.account.admin == "superadmin" || current_user.account.admin == "cashier"
     erb :"admin/management", layout: :'partial/admins'
   end
 
