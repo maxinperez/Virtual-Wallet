@@ -36,6 +36,8 @@ class AuthRoutes < Sinatra::Base
 
     if existing_user && existing_user.authenticate(password)
       session[:user_id] = existing_user.id
+      AccessLog.create(
+        account: existing_user, ip_address: real_ip)
       redirect '/index'
     else 
       session[:error] = 'Datos inválidos'

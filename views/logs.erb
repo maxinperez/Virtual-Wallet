@@ -1,2 +1,5 @@
-<% data = log_data %>
-<%= partial "log", data%>
+<h1> Logs de acceso </h1>
+<% current_user.account.access_logs.each do |log| %>
+<% data = log_data(log.ip_address) %>
+<%= partial "log", data.merge(date: log.created_at)%>
+<%end%>

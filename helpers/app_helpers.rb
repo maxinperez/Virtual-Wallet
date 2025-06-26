@@ -90,22 +90,24 @@ end
   }
 end
 
-def log_data
+def real_ip
   ip_uri = URI("https://api.ipify.org?format=json")
   ip_response = Net::HTTP.get(ip_uri)
   ip_data = JSON.parse(ip_response)
-  ip = ip_data["ip"]
+  ip_data["ip"]
+end
 
-  # Paso 2: geolocalizar esa IP
+def log_data(ip)
   geo_uri = URI("https://ipapi.co/#{ip}/json")
   geo_response = Net::HTTP.get(geo_uri)
   geo_data = JSON.parse(geo_response)
 {
     ip: ip,
     location: "#{geo_data['city']}, #{geo_data['region']}", 
-    date: Time.now.strftime("%Y-%m-%d %H:%M:%S"),
     country_name: geo_data['country_code']      
   }
 end
+
+
 
 end
